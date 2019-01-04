@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+	<!--  
+		<typeAlias type="logic.Item" alias="Item" />
+		<typeAlias type="logic.ItemSet" alias="ItemSet" />
+		<typeAlias type="logic.User" alias="User" />
+		<typeAlias type="logic.Sale" alias="Sale" />
+		<typeAlias type="logic.SaleItem" alias="SaleItem" />
+		<typeAlias type="logic.Board" alias="Board" />
+		
+		
+		<typeAlias type="logic.Cart" alias="Cart" />
+		<typeAlias type="logic.Mail" alias="Mail" />
+	-->	
+		<typeAlias type="logic.Station" alias="Station" />
+	</typeAliases>
+	<mappers>
+	<!--  
+		<mapper resource="dao/mapper/Item.xml" />
+		<mapper resource="dao/mapper/User.xml" />
+		<mapper resource="dao/mapper/Sale.xml" />
+		<mapper resource="dao/mapper/Board.xml" />
+	-->
+		<mapper resource="dao/mapper/Station.xml" />
+	</mappers>
+</configuration>
