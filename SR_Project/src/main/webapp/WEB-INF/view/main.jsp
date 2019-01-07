@@ -49,12 +49,15 @@
 }
 #map_search{
 	width: 600px;
-	height: 50px;
+	height: 45px;
 	font-family: "Roboto", sans-serif;
 }
 #map{
 	width: 600px;
-	height: 500px;
+	height: 505px;
+}
+#map_search select{
+	border-right-width:0px;
 }
 
 #login_div{
@@ -335,11 +338,11 @@ $(document).ready(function(){
 
 <div id="map_div">
 	<div id="map_search">
-		<select style="height: 50px;width: 180px; box-sizing: border-box;float: left;">
+		<select style="height: 45px;width: 180px; box-sizing: border-box;float: left;">
 			<option>대여소 이름</option>
 			<option>대여소 번호</option>
 		</select>
-		<input type="text" name="find" style="height: 50px;width: 420px; box-sizing: border-box; padding-left:10px; float: left;">
+		<input type="text" name="find" style="height: 45px;width: 420px; box-sizing: border-box; padding-left:10px; float: left;">
 	</div>
 
 	<div id="map"></div>

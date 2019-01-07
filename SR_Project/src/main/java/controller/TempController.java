@@ -24,7 +24,7 @@ public class TempController {
 		return mav;
 	}
 	
-	@RequestMapping("/*")
+	@RequestMapping("/main*")
 	public ModelAndView temp2() {
 		ModelAndView mav = new ModelAndView();
 		List<Station> stationList = service.stationList();
