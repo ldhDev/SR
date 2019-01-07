@@ -113,7 +113,7 @@ li{
 <body>
 <div id="deco_gnb_bar">
 	<div id="deco_gnb_sub_gnb">
-	<a href="${path }/model2/index.jsp"><img src="${path }/img/logo_all.png" id="deco_logo"></a>
+	<a href="${path }/main.bike"><img src="${path }/img/logo_all.png" id="deco_logo"></a>
 		<c:if test="${empty sessionScope.loginUser }">
 			<a href="${path }/user/loginForm.bike">로그인</a>
 		</c:if>
@@ -125,7 +125,7 @@ li{
 	<div id="deco_gnb">
 		<ul>
 			<li><a href="#">소개</a></li>
-			<li><a href="#">대여소 정보</a></li>
+			<li><a href="${path }/info/station_info.jsp">대여소 정보</a></li>
 			<li><a href="#">커뮤니티 게시판</a></li>
 			<li><a href="#">마이 페이지</a></li>
 			<li><a href="#">공지사항</a></li>
