@@ -13,6 +13,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +71,7 @@
 	width: 300px;
 	height: 65px;
 	line-height: 65px;
-	font-size:26px;
+	font-size:24px;
 	font-weight:800;
 	font-family: "Nanum Gothic";
 	border-bottom: 5px solid #0E7518;
@@ -85,7 +86,7 @@
 	margin-bottom: 10px;
 }
 
-#login_btn{
+#login_btn{ /* 현재 사용 안함*/
 	margin: 0 auto;
 	margin-top:30px;
 	margin-left:35px;
@@ -98,6 +99,20 @@
 	background-color: #f3f3f3;
 	font-family: "Roboto", sans-serif;
 	cursor: pointer;
+}
+#login_need{
+	width: 350px;
+	height: 40px;
+	text-align:center;
+	font-size: 14px;
+	font-weight: bold;
+	margin-top: 130px;
+}
+
+#N_login_btn{ /* 현재 사용 안함*/
+	margin: 0 auto;
+	width: 278px;
+	height: 55px;
 }
 
 #etc{
@@ -237,7 +252,7 @@
 
 </style>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 <script type="text/javascript">
 $(document).ready(function(){ 
 	lat = null;
@@ -341,7 +356,47 @@ $(document).ready(function(){
 	
 	//마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 
-	
+	function makeOverListener2(map, marker, infowindow) {
+	    return function() {
+	    	var today=new Date();
+	    	var sos=true;
+	    	$.ajax({
+	    		url: "http://openapi.seoul.go.kr:8088/744c44676964646f3832527170746b/json/bikeList/1/1000",
+	    		dataType: "json",
+	    		type: "GET",
+		        async: "false",
+				success: function(data){
+					for(var i=0;i<data.rentBikeStatus.row.length;i++){
+						
+						if(data.rentBikeStatus.row[i].stationId==infowindow.getContent()){
+							infowindow.setContent("자전거 남은 수: "+data.rentBikeStatus.row[i].parkingBikeTotCnt+"<br> 조회 시간 : "+today.toTimeString());
+							sos=false;
+							
+						}
+					}
+				}
+			})
+			if(sos==true){
+				$.ajax({
+					url: "http://openapi.seoul.go.kr:8088/744c44676964646f3832527170746b/json/bikeList/1001/2000",
+					dataType: "json",
+					type: "GET",
+			        async: "false",
+					success: function(data){
+						for(var j=0;j<data.rentBikeStatus.row.length;j++){
+							
+							if(data.rentBikeStatus.row[j].stationId==infowindow.getContent()){
+								infowindow.setContent("자전거 남은 수: "+data.rentBikeStatus.row[j].parkingBikeTotCnt+"<br> 조회 시간 : "+today.toTimeString());
+								sos=false;
+								
+							}
+						}
+					}
+				})
+			}
+	        infowindow.open(map, marker);
+	    };
+	}
 	// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
 	function makeOverListener(map, marker, infowindow) {
 	    return function() {
@@ -349,13 +404,13 @@ $(document).ready(function(){
 	    };
 	}
 	
+	
 	// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
 	function makeOutListener(infowindow) {
 	    return function() {
 	        infowindow.close();
 	    };
 	}
-	
 	var positions = new Array();
 	
 	window.onload = function() {
@@ -363,19 +418,26 @@ $(document).ready(function(){
 		    // 마커를 생성합니다
 		    var marker = new daum.maps.Marker({
 		        map: map, // 마커를 표시할 지도
-		        position: positions[i].latlng // 마커의 위치
+		        position: positions[i].latlng, // 마커의 위치
+		        clickable: true
 		    });
 		
 		    // 마커에 표시할 인포윈도우를 생성합니다 
 		    var infowindow = new daum.maps.InfoWindow({
 		        content: positions[i].content // 인포윈도우에 표시할 내용
 		    });
+		    var infowindow2 = new daum.maps.InfoWindow({
+		        content: positions[i].id, // 인포윈도우에 표시할 내용
+		        removable: true
+		    });
+	    	
 		
 		    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 		    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
 		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
 		    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 		    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+		    daum.maps.event.addListener(marker, 'click', makeOverListener2(map, marker, infowindow2));
 		}
 	};
 	
@@ -387,7 +449,8 @@ $(document).ready(function(){
 		<script type="text/javascript">
 			var content = {
 					content: '<div>${station.name}</div>', 
-			        latlng: new daum.maps.LatLng("${station.latitude}", "${station.longtitude}")
+			        latlng: new daum.maps.LatLng("${station.latitude}", "${station.longtitude}"),
+			        id: "${station.station_id}"
 			}
 			positions.push(content);
 		</script>
@@ -396,7 +459,7 @@ $(document).ready(function(){
 <!-- 비로그인시 로그인창 표시 , 로그인시 즐겨찾기 정보가 표시 -->
 <div id="login_div">
 	<div id="con2_title">
-		로그인
+		즐겨찾는 대여소
 	</div>
 	
   <%
@@ -410,7 +473,12 @@ $(document).ready(function(){
     apiURL += "&state=" + state;
     session.setAttribute("state", state);
  %>
-  <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+  <div id="login_need">
+ 		로그인이 필요한 서비스입니다
+  </div>
+  <div id="N_login_btn">
+  	<a href="<%=apiURL%>"><img height="55" src="${path }/img/NIL_white.PNG"/></a>
+  </div>
 	
 <!-- 	 ........... ㅇ /  /  /  /  /  /  /  /  / 
 	<input type="text" name="id" class="login_input" placeholder="ID를 입력해주세요">

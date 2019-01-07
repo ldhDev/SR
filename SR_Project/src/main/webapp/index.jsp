@@ -2,6 +2,6 @@
     pageEncoding="EUC-KR"%>
 <html>
 <body>
-<h2>Hello World! d</h2>
+<h2>Hello World!</h2>
 </body>
 </html>

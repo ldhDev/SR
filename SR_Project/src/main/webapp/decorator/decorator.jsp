@@ -39,6 +39,15 @@ li{
 	font-size: 14px;
 	color: black;
 	text-align: right;
+	position: relative;
+}
+
+#deco_logo{
+	position: absolute;
+	top: 10px;
+	left: 0px;
+	width: 216px;
+	height: 78px;
 }
 #deco_gnb{
 	height: 80px;
@@ -64,10 +73,16 @@ li{
 	width: 150px;
 	float:left;
 	text-align: center;
-	font-weight:bold;
+	font-weight:800;
 	font-family: "Nanum Gothic";
 }
-
+#deco_gnb li a{
+	display:block;
+}
+#deco_gnb li a:hover{
+	display:block;
+	color: #2c9b32;
+}
 
 #deco_footer_bar{
 	height: 135px;
@@ -76,10 +91,21 @@ li{
 }
 #deco_footer{
 	height: 135px;
-	line-height: 135px;
 	width: 1020px;
-	font-size: 28px;
-	text-align: center;
+	font-size: 12px;
+	text-align: left;
+}
+#deco_footer_tos{
+	height: 60px;
+	line-height: 60px;
+	width: 1020px;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+#deco_footer_desc{
+	line-height: 18px;
 }
 
 </style>
@@ -87,6 +113,7 @@ li{
 <body>
 <div id="deco_gnb_bar">
 	<div id="deco_gnb_sub_gnb">
+	<a href="${path }/model2/index.jsp"><img src="${path }/img/logo_all.png" id="deco_logo"></a>
 		<c:if test="${empty sessionScope.loginUser }">
 			<a href="${path }/user/loginForm.bike">로그인</a>
 		</c:if>
@@ -96,23 +123,27 @@ li{
 		</c:if>
 	</div>
 	<div id="deco_gnb">
-		<a href="${path }/model2/index.jsp"><img src="${path }/img/logo.png" id="deco_logo" style="height: 80px;width: 100px;"></a>
 		<ul>
-			<li>소개</li>
-			<li>대여소 정보</li>
-			<li>커뮤니티 게시판</li>
-			<li>마이 페이지</li>
-			<li>공지사항</li>
+			<li><a href="#">소개</a></li>
+			<li><a href="#">대여소 정보</a></li>
+			<li><a href="#">커뮤니티 게시판</a></li>
+			<li><a href="#">마이 페이지</a></li>
+			<li><a href="#">공지사항</a></li>
 		</ul>
 	</div>
 </div>
 
 <decorator:body />
 
-
 <div id="deco_footer_bar">
 	<div id="deco_footer">
-		푸터 영역
+		<div id="deco_footer_tos">이용약관&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;개인정보처리방침</div>
+		<div id="deco_footer_desc">
+			상호명 : Seoul Rider&nbsp;&nbsp;주소 : 08505 서울시 금천구 가산디지털2로 115, 509호, 811호(가산동, 대륭테크노타운3차)
+			&nbsp;&nbsp;전화 : 02-2108-5900&nbsp;&nbsp;팩스 : 02-2108-5999<br>
+			프로젝트 팀원 : 이동훈,이원석,노윤한,이상원&nbsp;&nbsp;사업자등록번호 : 457-85-00300&nbsp;&nbsp;개인정보책임자 : 주승재 / jsj@goodee.co.kr&nbsp;&nbsp;대표자 : 이승엽
+		</div>
+		
 	</div>
 </div>
 
