@@ -13,6 +13,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +71,7 @@
 	width: 300px;
 	height: 65px;
 	line-height: 65px;
-	font-size:26px;
+	font-size:24px;
 	font-weight:800;
 	font-family: "Nanum Gothic";
 	border-bottom: 5px solid #0E7518;
@@ -85,7 +86,7 @@
 	margin-bottom: 10px;
 }
 
-#login_btn{
+#login_btn{ /* 현재 사용 안함*/
 	margin: 0 auto;
 	margin-top:30px;
 	margin-left:35px;
@@ -98,6 +99,20 @@
 	background-color: #f3f3f3;
 	font-family: "Roboto", sans-serif;
 	cursor: pointer;
+}
+#login_need{
+	width: 350px;
+	height: 40px;
+	text-align:center;
+	font-size: 14px;
+	font-weight: bold;
+	margin-top: 130px;
+}
+
+#N_login_btn{ /* 현재 사용 안함*/
+	margin: 0 auto;
+	width: 278px;
+	height: 55px;
 }
 
 #etc{
@@ -396,7 +411,7 @@ $(document).ready(function(){
 <!-- 비로그인시 로그인창 표시 , 로그인시 즐겨찾기 정보가 표시 -->
 <div id="login_div">
 	<div id="con2_title">
-		로그인
+		즐겨찾는 대여소
 	</div>
 	
   <%
@@ -410,7 +425,12 @@ $(document).ready(function(){
     apiURL += "&state=" + state;
     session.setAttribute("state", state);
  %>
-  <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+  <div id="login_need">
+ 		로그인이 필요한 서비스입니다
+  </div>
+  <div id="N_login_btn">
+  	<a href="<%=apiURL%>"><img height="55" src="${path }/img/NIL_white.PNG"/></a>
+  </div>
 	
 <!-- 	 ........... ㅇ /  /  /  /  /  /  /  /  / 
 	<input type="text" name="id" class="login_input" placeholder="ID를 입력해주세요">
