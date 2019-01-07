@@ -117,8 +117,6 @@ body{
 	margin-left: 30px;
 }
 
-
-
 #info_R{
 	height: 261px;
 	width: 508px;
