@@ -89,7 +89,7 @@ body{
 	box-sizing: border-box;
 	border: 1px solid #d6d6d6;
 	border-top: 0px;
-	margin-bottom: 20px;
+	margin-bottom: 50px;
 }
 
 #info_L{

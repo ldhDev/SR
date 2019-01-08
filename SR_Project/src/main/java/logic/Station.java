@@ -1,21 +1,22 @@
 package logic;
 
 public class Station {
-	private int Station_no;
+	private int call_no;
 	private int number;
 	private String station_id;
 	private String name;
 	private String gu;
 	private String address;
-	private int rackTotCnt;
+	private int rack_totCnt;
 	private String latitude;
-	private String longtitude;
+	private String longitude;
 	
-	public int getStation_no() {
-		return Station_no;
+	
+	public int getCall_no() {
+		return call_no;
 	}
-	public void setStation_no(int station_no) {
-		Station_no = station_no;
+	public void setCall_no(int call_no) {
+		this.call_no = call_no;
 	}
 	public int getNumber() {
 		return number;
@@ -47,11 +48,11 @@ public class Station {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getRackTotCnt() {
-		return rackTotCnt;
+	public int getRack_totCnt() {
+		return rack_totCnt;
 	}
-	public void setRackTotCnt(int rackTotCnt) {
-		this.rackTotCnt = rackTotCnt;
+	public void setRack_totCnt(int rack_totCnt) {
+		this.rack_totCnt = rack_totCnt;
 	}
 	public String getLatitude() {
 		return latitude;
@@ -59,17 +60,20 @@ public class Station {
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-	public String getLongtitude() {
-		return longtitude;
+	public String getLongitude() {
+		return longitude;
 	}
-	public void setLongtitude(String longtitude) {
-		this.longtitude = longtitude;
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 	@Override
 	public String toString() {
-		return "Station [Station_no=" + Station_no + ", number=" + number + ", station_id=" + station_id + ", name="
-				+ name + ", gu=" + gu + ", address=" + address + ", rackTotCnt=" + rackTotCnt + ", latitude=" + latitude
-				+ ", longtitude=" + longtitude + "]";
+		return "Station [call_no=" + call_no + ", number=" + number + ", station_id=" + station_id + ", name=" + name
+				+ ", gu=" + gu + ", address=" + address + ", rack_totCnt=" + rack_totCnt + ", latitude=" + latitude
+				+ ", longitude=" + longitude + "]";
 	}
+	
+	
+	
 	
 }

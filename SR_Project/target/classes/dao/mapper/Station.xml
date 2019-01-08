@@ -4,8 +4,8 @@
 <mapper namespace="dao.mapper.StationMapper">
 	<select id="list" resultType="Station" parameterType="map">
 		select * from station
-		<if test="station_no != null">
-			where station_no=#{station_no}
+		<if test="call_no != null">
+			where call_no=#{call_no}
 		</if>
 	</select>
 </mapper>

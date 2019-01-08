@@ -141,7 +141,7 @@ li{
 		<div id="deco_footer_desc">
 			상호명 : Seoul Rider&nbsp;&nbsp;주소 : 08505 서울시 금천구 가산디지털2로 115, 509호, 811호(가산동, 대륭테크노타운3차)
 			&nbsp;&nbsp;전화 : 02-2108-5900&nbsp;&nbsp;팩스 : 02-2108-5999<br>
-			프로젝트 팀원 : 이동훈,이원석,노윤한,이상원&nbsp;&nbsp;사업자등록번호 : 457-85-00300&nbsp;&nbsp;개인정보책임자 : 주승재 / jsj@goodee.co.kr&nbsp;&nbsp;대표자 : 이승엽
+			프로젝트 팀원 : 이동훈,최원석,노윤한,이상원&nbsp;&nbsp;사업자등록번호 : 457-85-00300&nbsp;&nbsp;개인정보책임자 : 주승재 / jsj@goodee.co.kr&nbsp;&nbsp;대표자 : 이승엽
 		</div>
 		
 	</div>

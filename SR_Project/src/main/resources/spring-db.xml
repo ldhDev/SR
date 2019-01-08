@@ -18,9 +18,9 @@
  -->
 <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 	<property name="driverClass"><value>org.mariadb.jdbc.Driver</value></property>
-	<property name="jdbcUrl"><value>jdbc:mariadb://localhost:3306/bigdb</value></property>
-	<property name="user"><value>scott</value> </property>
-	<property name="password"><value>tiger</value> </property>
+	<property name="jdbcUrl"><value>jdbc:mariadb://localhost:3306/sr_db</value></property>
+	<property name="user"><value>root</value> </property>
+	<property name="password"><value>1234</value> </property>
 	
 	<property name="maxPoolSize"><value>20</value></property> <!-- maxPoolSize : 최대 Connection객체 갯수 -->	
 	<property name="minPoolSize"><value>3</value></property>	<!-- minPoolSize : 최소 Connection객체 갯수 -->	
