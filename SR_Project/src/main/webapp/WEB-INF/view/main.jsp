@@ -405,7 +405,7 @@ $(document).ready(function(){
 		<script type="text/javascript">
 			var content = {
 					content: '<div>${station.name}</div>', 
-			        latlng: new daum.maps.LatLng("${station.latitude}", "${station.longtitude}")
+			        latlng: new daum.maps.LatLng("${station.latitude}", "${station.longitude}")
 			}
 			positions.push(content);
 		</script>
