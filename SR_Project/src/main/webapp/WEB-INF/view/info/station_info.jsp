@@ -51,21 +51,34 @@ body{
 }
 #station_name{
 	width: 960px;
-	height: 40px;
-	line-height: 40px;
+	height: 35px;
+	line-height: 35px;
 	float:left;
-	font-size:30px;
+	font-size:28px;
 	font-weight:800;
 	font-family: "Nanum Gothic";
 	letter-spacing: -1px;
 }
+#heart{
+	color: #cd292a;
+	font-size: 30px;
+}
+#bookmark{
+	color: #cd292a;
+	font-size: 20px;
+}
+
 #station_etc{
 	width: 960px;
-	height: 20px;
-	line-height:20px;
+	height: 25px;
+	line-height:25px;
+	font-size:16px;
+	font-family: "Nanum Gothic";
 	float:left;
 }
 #station_etc span{
+	font-family: "돋움";
+	font-size:12px;
 	float:right;
 }
 
@@ -88,6 +101,61 @@ body{
 	width: 254px;
 	float: left;
 }
+#rest_title{
+	margin-top:25px;
+	margin-bottom:10px;
+	height: 25px;
+	line-height: 25px;
+	width: 254px;
+	font-size: 20px;
+	font-family: "Nanum Gothic";
+	font-weight: 800;
+	text-align: center;
+}
+#rest_cnt{
+	height: 45px;
+	line-height: 45px;
+	width: 254px;
+	font-size: 22px;
+	font-family: "Nanum Gothic";
+	font-weight: 800;
+	text-align: center;
+	
+	box-sizing: border-box;
+	padding-left: 40px;
+}
+#rest_cnt span{
+	font-size: 56px;
+	color: #ff0000;
+}
+
+#score_title{
+	margin-top:25px;
+	margin-bottom:5px;
+	height: 25px;
+	line-height: 25px;
+	width: 250px;
+	font-size: 20px;
+	font-family: "Nanum Gothic";
+	font-weight: 800;
+	text-align: left;
+	box-sizing: border-box;
+	padding-left: 15px;
+}
+#score_star{
+	height: 45px;
+	line-height: 45px;
+	width: 250px;
+	font-size: 28px;
+	font-family: "Nanum Gothic";
+	font-weight: 800;
+	color: #189d0e;
+	text-align: center;
+}
+#score_star span{
+	font-size: 24px;
+}
+
 #score{
 	height: 130px;
 	width: 254px;
@@ -98,10 +166,49 @@ body{
 	width: 254px;
 	float: left;
 }
+#board_icon{
+	margin-top: 15px;
+	margin-left: 94px;
+	height: 66px;
+	width: 70px;
+}
+#board_title{
+	height: 40px;
+	line-height: 40px;
+	width: 254px;
+	text-align: center;
+	font-size: 16px;
+	font-family: "Nanum Gothic";
+	font-weight: 800;
+}
+
 #local_weather{
 	height: 130px;
 	width: 254px;
 	float: left;
+}
+#w_wrap{
+	margin-top : 23px;
+	width: 254px;
+	height: 80px;
+	box-sizing: border-box;
+	padding-left: 35px;
+}
+
+#w_img{
+	width: 80px;
+	height : 80px;
+	float: left;
+}
+#w_temp{
+	width: 115px;
+	height : 80px;
+	line-height : 80px;
+	font-size: 50px;
+	font-family: "Nanum Gothic";
+	font-weight: 800;
+	float: left;
+	
 }
 .line_vertical{
 	height: 105px;
@@ -116,6 +223,8 @@ body{
 	float: left;
 	margin-left: 30px;
 }
+
+
 
 #info_R{
 	height: 261px;
@@ -142,6 +251,36 @@ body{
 
 
 </style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<script type="text/javascript">
+$(document).ready(function(){ 
+	lat = null;	//값 받아올것 메뉴클릭시에는 메인에서 있는 위치정보로 , 이 링크로 들어오면 가산으로 
+	lon = null;
+	
+	if(lat == null || lon == null){
+		lat = "37.477885";
+		lon = "126.878985";
+	}
+		
+		var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=c0ebe0d171c3c649371ea1781fb397ce";
+		//var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=37.477885&lon=126.878985&appid=c0ebe0d171c3c649371ea1781fb397ce";
+
+	    $.ajax({
+	        url: apiURI,
+	        dataType: "json",
+	        type: "GET",
+	        async: "false",
+	        success: function(resp) {
+	        	$("#w_temp").html(Math.floor((resp.main.temp- 273.15))+"℃" );
+	            var imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
+	            $("#w_img").html("<img src='"+imgURL+"' style='height:80px;width:80px;'>");	            
+	        } //석세스
+	    })//에이잭스
+	//////////////////////////////////////////////////////////AJAX
+
+});
+</script>
 
 <meta charset="EUC-KR">
 <title>SR 대여소 상세정보 안내</title>
@@ -224,7 +363,7 @@ body{
 </c:forEach>
 
 <div id="station_title">
-	<div id="station_name">1834. 월드 메르디앙 벤처센터 2차 ♥ (즐찾숫자)</div>
+	<div id="station_name">1834. 월드 메르디앙 벤처센터 2차 <span id="heart">♥</span><span id="bookmark">(즐찾숫자)</span></div>
 	<div id="station_etc">주소주소주소주소주소주소주소  <span>조회시간 2018.12.12 15:11:11</span></div>
 
 </div><!-- station_title 닫음 -->
@@ -233,16 +372,27 @@ body{
 <div id="station_info">
 	<div id="info_L">
 		<div id="rest_bike">
+			<div id="rest_title">대여가능 자전거</div>
+			<div id="rest_cnt"><span>5</span> / 13</div>
 		</div>
 			<div class="line_vertical" style="margin-top: 25px;"></div>
 		<div id="score">
-		asfasfasfafasf
+			<div id="score_title">대여소 평점</div>
+			<div id="score_star">★★★★☆ <span>4/5</span></div>
 		</div>
 			<div class="line_hor"></div>
 		<div id="board">
+			<div id="board_icon">
+				<a href="${path }/main.bike"><img src="${path }/img/board_icon.png"></a>
+			</div>
+			<div id="board_title">대여소별 게시판</div>
 		</div>
 			<div class="line_vertical"></div>
 		<div id="local_weather">
+			<div id="w_wrap">
+				<div id="w_img"></div>
+				<div id="w_temp"></div>
+			</div>
 		</div>
 	</div><!-- info_L 닫음 -->
 	
