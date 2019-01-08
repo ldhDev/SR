@@ -16,6 +16,7 @@ body{
 	width: 1020px;
 	margin: 0 auto;
 	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 #map_div{
@@ -245,10 +246,95 @@ body{
 
 #comment_title{
 	height: 50px;
+	line-height: 50px;
 	width: 1020px;
-	background-color: gray;
+	font-size:20px;
+	font-weight:900;
+	font-family: "Nanum Gothic";
+	box-sizing: border-box;
+}
+#comment{
+	height: 200px;
+	width: 960px;
+	border: 1px solid #d6d6d6;
+	box-sizing: border-box;
+}
+#comment_star{
+	height: 55px;
+	line-height: 54px;
+	width: 958px;
+	padding-left:25px;
+	box-sizing:border-box;
+	font-size: 24px;
+	font-weight:800;
+	font-family: "Nanum Gothic";
+	border-bottom: 1px dotted #d6d6d6;
+}
+.stars{
+	color:gray;	
+	font-size:28px;
+	font-weight:900;
+	font-family: "Nanum Gothic";
+	letter-spacing:-3px;
+	margin-right: 10px;
+}
+#write{
+	height: 105px;
+	width: 958px;
+}
+#write textarea{
+	width: 958px;
+	height: 104px;
+	border: 0px;
+	padding: 15px;
+	padding-left:20px;
+	padding-right:20px;
+	box-sizing: border-box;
+	background-color: #fafafa;
+	resize: none;
 }
 
+#submit_line{
+	height: 40px;
+	line-height: 39px;
+	width: 958px;
+	border-top: 1px solid #d6d6d6;
+	box-sizing: border-box;
+	font-size: 14px;
+	font-family: "돋움";
+	font-weight:bold;
+	text-align: right;
+	color: gray
+	
+}
+
+#sub_btn{
+	margin-left:20px;
+	height: 39px;
+	width: 80px;
+	color: white;
+	font-size:18px;
+	font-weight:800;
+	font-family: "Nanum Gothic";
+	float: right;
+	text-align:center;
+	background-color: green;
+}
+
+#comment_line{
+	width:780px;
+	height:2px;
+	background-color:#85d179;
+	margin-bottom: 35px;
+	margin-top: 35px;
+}
+
+.review{
+	width: 960px;
+	height: 500px;
+	margin: 0 auto;
+	background-color: gray;
+}
 
 </style>
 
@@ -406,8 +492,32 @@ $(document).ready(function(){
 </div>
 
 <div id="comment_title">
-	대여소 한줄평 및 평가
+	대여소 한마디 및 평가
 </div>
+
+<div id="comment">
+	<div id="comment_star">
+		<span class="stars">
+			<span id="star1" >★</span>
+			<span id="star2" >★</span>
+			<span id="star3" >★</span>
+			<span id="star4" >★</span>
+			<span id="star5" >★</span>
+		</span> 
+		<span id="sel_star">0</span> / 5&nbsp;&nbsp;&nbsp;<span style="font-size: 12px;font-family: '돋움';color:gray;font-weight:normal;">- 이 대여소는 어떤가요?</span>
+	</div><!-- comment_star 라인  -->
+	<div id="write">
+		<textarea placeholder="내용을 입력해주세요"></textarea>
+	</div><!-- write 라인  -->
+	<div id="submit_line">
+		<span id="limit">0</span> / 200
+		<div id="sub_btn">등록</div>
+	</div><!-- submit_line 라인  -->
+</div><!-- comment 라인  -->
+
+<div id="comment_line"></div>
+
+<div class="review">여따가 이렇게 하면 돼고 이제 DB 재작업 하자</div>
 
 </div></body>
 </html>
