@@ -32,16 +32,5 @@ public class TempController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/testLogin")
-	public String isComplete(HttpSession session) {
-		return "/naver/naverlogin";
-
-	}
-	
-	@RequestMapping(value = "/callback")
-	public String navLogin(HttpServletRequest request) throws Exception {	
-		return "naver/callback";
-	}	
-
 }
 
