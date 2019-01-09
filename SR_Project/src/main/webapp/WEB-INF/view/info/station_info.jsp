@@ -305,16 +305,16 @@ body{
 	font-weight:bold;
 	text-align: right;
 	color: gray
-	
 }
 
 #sub_btn{
 	margin-left:20px;
 	height: 39px;
+	line-height:39px;
 	width: 80px;
 	color: white;
-	font-size:18px;
-	font-weight:800;
+	font-size:16px;
+	font-weight:700;
 	font-family: "Nanum Gothic";
 	float: right;
 	text-align:center;
@@ -325,16 +325,69 @@ body{
 	width:780px;
 	height:2px;
 	background-color:#85d179;
-	margin-bottom: 35px;
+	margin-bottom: 25px;
 	margin-top: 35px;
 }
 
-.review{
+#comment_list{
 	width: 960px;
-	height: 500px;
 	margin: 0 auto;
-	background-color: gray;
 }
+
+.list_panel{
+	width: 960px;
+	height: 139px;
+	margin: 0 auto;
+	border-bottom: 1px dashed #99bf93;
+	margin-bottom: 20px;
+}
+.user_star{
+	width: 960px;
+	height: 40px;
+	line-height:40px;
+	text-align: left;
+	color: #189d0e;
+	font-size:26px;
+	font-weight:900;
+	font-family: "Nanum Gothic";
+}
+.user_star span{
+	color: black;
+	font-size: 22px;
+}
+.user_comment{
+	width: 960px;
+	height: 60px;
+	line-height:24px;
+	font-size:16px;
+	font-family: "Nanum Gothic";
+	box-sizing: border-box;
+	padding: 5px 40px;
+	word-break:break-all;
+}
+
+.comment_info{
+	width: 960px;
+	height: 29px;
+	line-height:29px;
+	text-align: right;
+	font-size:12px;
+	font-family: "돋움";
+	color:gray;
+}
+
+
+/*
+	
+	<div class="list_form">
+		<div class="user_star">
+		</div>
+		<div class="user_comment">
+		</div>
+		<div class="comment_info">
+		</div>
+	</div>
+*/
 
 </style>
 
@@ -373,7 +426,7 @@ $(document).ready(function(){
 </head>
 <body><div id="wrap">
 
-<div id="map"></div>
+<div id="map">
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8f692a5cbdd7deb058db63ec9f3045a3"></script>
 	<script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -557,7 +610,45 @@ $(document).ready(function(){
 
 <div id="comment_line"></div>
 
-<div class="review">여따가 이렇게 하면 돼고 이제 DB 재작업 하자</div>
+<div id="comment_list">
+	<!-- JSTL로 반복 넣을것 -->
+	
+	<div class="list_panel">
+		<div class="user_star">
+			★★★★☆ <span>&nbsp;5</span>
+		</div>
+		<div class="user_comment">
+			아 됐다 걍 이렇게 가`~!---
+		</div>
+		<div class="comment_info">
+			김개발좌  |  2019-01-09
+		</div>
+	</div>
+	
+	<div class="list_panel">
+		<div class="user_star">
+			★★★★☆ <span>&nbsp;4</span>
+		</div>
+		<div class="user_comment">
+			백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기
+			백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기
+		</div>
+		<div class="comment_info">
+			김개발좌  |  2019-01-09
+		</div>
+	</div>
+	<div class="list_panel">
+		<div class="user_star">
+			★★★★☆ <span>&nbsp;3</span>
+		</div>
+		<div class="user_comment">
+		</div>
+		<div class="comment_info">
+			김개발좌  |  2019-01-09
+		</div>
+	</div>
+	
+</div><!-- review 끝 -->
 
 </div></body>
 </html>
