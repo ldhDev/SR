@@ -373,16 +373,7 @@ $(document).ready(function(){
 </head>
 <body><div id="wrap">
 
-<div id="map_div">
-	<div id="map_search">
-		<select style="height: 45px;width: 200px; box-sizing: border-box;float: left;">
-			<option>대여소 이름</option>
-			<option>대여소 번호</option>
-		</select>
-		<input type="text" name="find" style="height: 45px;width: 820px; box-sizing: border-box; padding-left:10px; float: left;">
-	</div>
-
-	<div id="map"></div>
+<div id="map"></div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8f692a5cbdd7deb058db63ec9f3045a3"></script>
 	<script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -396,6 +387,47 @@ $(document).ready(function(){
 	
 	//마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 
+	function makeOverListener2(map, marker,id, infowindow) {
+	    return function() {
+	    	var today=new Date();
+	    	var sos=true;
+	    	$.ajax({
+	    		url: "http://openapi.seoul.go.kr:8088/744c44676964646f3832527170746b/json/bikeList/1/1000",
+	    		dataType: "json",
+	    		type: "GET",
+		        async: "false",
+				success: function(data){
+					for(var i=0;i<data.rentBikeStatus.row.length;i++){
+						
+						if(data.rentBikeStatus.row[i].stationId==id){
+							infowindow.setContent("자전거 남은 수: "+data.rentBikeStatus.row[i].parkingBikeTotCnt+"<br> 조회 시간 : "+today.toTimeString());
+							sos=false;
+							
+						}
+					}
+				}
+			})
+			if(sos==true){
+				$.ajax({
+					url: "http://openapi.seoul.go.kr:8088/744c44676964646f3832527170746b/json/bikeList/1001/2000",
+					dataType: "json",
+					type: "GET",
+			        async: "false",
+					success: function(data){
+						for(var j=0;j<data.rentBikeStatus.row.length;j++){
+							
+							if(data.rentBikeStatus.row[j].stationId==id){
+								infowindow.setContent("자전거 남은 수: "+data.rentBikeStatus.row[j].parkingBikeTotCnt+"<br> 조회 시간 : "+today.toTimeString());
+								sos=false;
+								
+							}
+						}
+					}
+				})
+			}
+	        infowindow.open(map, marker);
+	    };
+	}
 	
 	// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
 	function makeOverListener(map, marker, infowindow) {
@@ -418,12 +450,18 @@ $(document).ready(function(){
 		    // 마커를 생성합니다
 		    var marker = new daum.maps.Marker({
 		        map: map, // 마커를 표시할 지도
-		        position: positions[i].latlng // 마커의 위치
+		        position: positions[i].latlng, // 마커의 위치
+		        clickable: true
 		    });
 		
 		    // 마커에 표시할 인포윈도우를 생성합니다 
 		    var infowindow = new daum.maps.InfoWindow({
 		        content: positions[i].content // 인포윈도우에 표시할 내용
+		    });
+		    var id=positions[i].id
+		    var infowindow2 = new daum.maps.InfoWindow({
+		        content: "조회중입니다.", // 인포윈도우에 표시할 내용
+		        removable: true
 		    });
 		
 		    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
@@ -431,6 +469,7 @@ $(document).ready(function(){
 		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
 		    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 		    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+		    daum.maps.event.addListener(marker, 'click', makeOverListener2(map, marker,id, infowindow2));
 		}
 	};
 	
@@ -442,7 +481,8 @@ $(document).ready(function(){
 		<script type="text/javascript">
 			var content = {
 					content: '<div>${station.name}</div>', 
-			        latlng: new daum.maps.LatLng("${station.latitude}", "${station.longitude}")
+			        latlng: new daum.maps.LatLng("${station.latitude}", "${station.longitude}"),
+					id: "${station.station_id}"
 			}
 			positions.push(content);
 		</script>

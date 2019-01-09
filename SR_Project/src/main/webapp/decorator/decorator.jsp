@@ -126,7 +126,7 @@ li{
 		<ul>
 			<li><a href="#">소개</a></li>
 			<li><a href="${path }/info/station_info.bike">대여소 정보</a></li>
-			<li><a href="#">커뮤니티 게시판</a></li>
+			<li><a href="${path }/board/list.bike">커뮤니티 게시판</a></li>
 			<li><a href="#">마이 페이지</a></li>
 			<li><a href="#">공지사항</a></li>
 		</ul>

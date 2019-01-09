@@ -3,27 +3,17 @@
    "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-	<!--  
-		<typeAlias type="logic.Item" alias="Item" />
-		<typeAlias type="logic.ItemSet" alias="ItemSet" />
-		<typeAlias type="logic.User" alias="User" />
-		<typeAlias type="logic.Sale" alias="Sale" />
-		<typeAlias type="logic.SaleItem" alias="SaleItem" />
+
+		<typeAlias type="logic.Member" alias="Member" />
+		<typeAlias type="logic.Station" alias="Station" />
 		<typeAlias type="logic.Board" alias="Board" />
 		
-		
-		<typeAlias type="logic.Cart" alias="Cart" />
-		<typeAlias type="logic.Mail" alias="Mail" />
-	-->	
-		<typeAlias type="logic.Station" alias="Station" />
 	</typeAliases>
 	<mappers>
-	<!--  
-		<mapper resource="dao/mapper/Item.xml" />
-		<mapper resource="dao/mapper/User.xml" />
-		<mapper resource="dao/mapper/Sale.xml" />
-		<mapper resource="dao/mapper/Board.xml" />
-	-->
+
+		<mapper resource="dao/mapper/Member.xml" />
 		<mapper resource="dao/mapper/Station.xml" />
+		<mapper resource="dao/mapper/Board.xml" />
+		
 	</mappers>
 </configuration>
