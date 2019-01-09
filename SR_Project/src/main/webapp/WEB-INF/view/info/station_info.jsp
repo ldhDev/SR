@@ -23,7 +23,6 @@ body{
 	width: 1020px;
 	height: 450px;
 	box-sizing:border-box;
-	margin-bottom: 40px;
 }
 #map_search{
 	width: 1020px;
@@ -426,7 +425,8 @@ $(document).ready(function(){
 </head>
 <body><div id="wrap">
 
-<div id="map">
+<div id="map_div">
+<div id="map"></div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8f692a5cbdd7deb058db63ec9f3045a3"></script>
 	<script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -541,6 +541,9 @@ $(document).ready(function(){
 		</script>
 </c:forEach>
 
+
+<c:if test="${info_open == 1 }">
+
 <div id="station_title">
 	<div id="station_name">1834. 월드 메르디앙 벤처센터 2차 <span id="heart">♥</span><span id="bookmark">(즐찾숫자)</span></div>
 	<div id="station_etc">주소주소주소주소주소주소주소  <span>조회시간 2018.12.12 15:11:11</span></div>
@@ -649,6 +652,8 @@ $(document).ready(function(){
 	</div>
 	
 </div><!-- review 끝 -->
+
+</c:if> <!-- c:if info_open == 1 의 끝  -->
 
 </div></body>
 </html>

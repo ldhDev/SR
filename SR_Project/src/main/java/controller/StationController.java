@@ -16,10 +16,14 @@ public class StationController {
 	BikeService service;
 	
 	@RequestMapping("info/*") /* 정보입력 미작성 , 대여소 정보 받아올것? */
-	public ModelAndView info() {
+	public ModelAndView info(Integer number) {
 		ModelAndView mav = new ModelAndView();
 		List<Station> stationList = service.stationList();
 		mav.addObject("stationList",stationList);
+		
+		if(number == null) {
+			mav.addObject("info_open",0);
+		}
 		return mav;
 	}
 
