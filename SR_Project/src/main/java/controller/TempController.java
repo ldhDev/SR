@@ -31,6 +31,6 @@ public class TempController {
 		mav.addObject("stationList",stationList);
 		return mav;
 	}
-	
+	 
 }
 
