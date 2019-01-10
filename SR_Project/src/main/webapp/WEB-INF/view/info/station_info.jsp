@@ -395,7 +395,7 @@ body{
 	height: 280px;
 	line-height:280px;
 	font-weight:700;
-	font-size:22px;
+	font-size:20px;
 	font-family: "Nanum Gothic";
 	border-top: 5px solid #85d179;
 	border-bottom: 5px solid #85d179;
