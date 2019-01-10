@@ -41,6 +41,11 @@ public class BikeService {
 	public Double station_score(Integer number) {
 		return commentDao.station_score(number);
 	}
+	
+	//해당 대여소 평가,한줄평
+	public List<Comment> commList(Integer number) {
+		return commentDao.comment_List(number);
+	}
 	////////////////////////////////////////////
 	
 	
@@ -72,6 +77,8 @@ public class BikeService {
 	public int boardcount() {
 		return boardDao.count();
 	}
+
+	
 
 	
 

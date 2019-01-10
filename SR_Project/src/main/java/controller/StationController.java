@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import logic.BikeService;
+import logic.Comment;
 import logic.Station;
 
 @Controller
@@ -32,12 +33,13 @@ public class StationController {
 				Date call_time = new Date();
 				int score_cnt = service.score_cnt(number);
 				Double station_score = service.station_score(number);
-				
+				List<Comment> commentList = service.commList(number);
 				
 				mav.addObject("info",info_one);
 				mav.addObject("info_time",call_time);
 				mav.addObject("score_cnt",score_cnt);
 				mav.addObject("station_score",station_score);
+				mav.addObject("comment",commentList);
 				mav.addObject("info_open",1);
 			}
 			catch(Exception e) {
