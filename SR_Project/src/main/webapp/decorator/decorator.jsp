@@ -1,3 +1,6 @@
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
@@ -115,11 +118,26 @@ li{
 	<div id="deco_gnb_sub_gnb">
 	<a href="${path }/main.bike"><img src="${path }/img/logo_all.png" id="deco_logo"></a>
 		<c:if test="${empty sessionScope.member }">
-			<a href="${path }/user/loginForm.bike">로그인</a>
+			  <%/*
+			    String clientId = "SXBfAVH8cGbb5AJWQWbQ";//애플리케이션 클라이언트 아이디값";
+			    String redirectURI = URLEncoder.encode("http://localhost:8080/SR_Project/main2.bike", "UTF-8");
+			    SecureRandom random = new SecureRandom();
+			    String state = new BigInteger(130, random).toString();
+			    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+			    apiURL += "&client_id=" + clientId;
+			    apiURL += "&redirect_uri=" + redirectURI;
+			    apiURL += "&state=" + state;
+			    session.setAttribute("state", state);
+			    < % = apiURL % >    
+			    
+			    //오류있음 , 사이트메시에서 선언하면 메인것을 못씀
+			    */
+			 %>
+			<a href="">로그인</a>
 		</c:if>
 		<c:if test="${!empty sessionScope.member }">
-			${sessionScope.loginUser.member }님
-			<a href="${path }/user/logout.bike">로그아웃</a>
+			${sessionScope.member.name }님 안녕하세요! &nbsp;&nbsp;
+			<a href="logout.bike">로그아웃</a>
 		</c:if>
 	</div>
 	<div id="deco_gnb">

@@ -512,8 +512,31 @@ $(document).ready(function(){
 
 <!-- 비로그인시 로그인창 표시 , 로그인시 즐겨찾기 정보가 표시 -->
 <div id="login_div">
+ 
+	<div id="con2_title">
+		즐겨찾는 대여소
+	</div>
 	
+<c:if test="${sessionScope.member==null}">	
+  <%
+    String clientId = "SXBfAVH8cGbb5AJWQWbQ";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://localhost:8080/SR_Project/main2.bike", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+    apiURL += "&client_id=" + clientId;
+    apiURL += "&redirect_uri=" + redirectURI;
+    apiURL += "&state=" + state;
+    session.setAttribute("state", state);
+ %>
+  <div id="login_need">
+ 		로그인이 필요한 서비스입니다
+  </div>
+  <div id="N_login_btn">
+  	<a href="<%=apiURL%>"><img height="55" src="${path }/img/NIL_white.PNG"/></a>
+  </div>
 
+ </c:if>	<!-- sessionScope.member==null 닫음 -->
 </div><!-- login_div 닫음 -->
 
 <div id="notice_list">

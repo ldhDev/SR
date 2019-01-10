@@ -512,11 +512,12 @@ $(document).ready(function(){
 
 <!-- 비로그인시 로그인창 표시 , 로그인시 즐겨찾기 정보가 표시 -->
 <div id="login_div">
- <c:if test="${sessionScope.member==null}">
+ 
 	<div id="con2_title">
 		즐겨찾는 대여소
 	</div>
 	
+<c:if test="${sessionScope.member==null}">	
   <%
     String clientId = "SXBfAVH8cGbb5AJWQWbQ";//애플리케이션 클라이언트 아이디값";
     String redirectURI = URLEncoder.encode("http://localhost:8080/SR_Project/main2.bike", "UTF-8");
@@ -534,15 +535,8 @@ $(document).ready(function(){
   <div id="N_login_btn">
   	<a href="<%=apiURL%>"><img height="55" src="${path }/img/NIL_white.PNG"/></a>
   </div>
-	
-<!-- 	 ........... ㅇ /  /  /  /  /  /  /  /  / 
-	<input type="text" name="id" class="login_input" placeholder="ID를 입력해주세요">
-	<input type="text" name="pass" class="login_input" placeholder="비밀번호를 입력해주세요">
-	
-	<div id="login_btn" class="btns" onmouseover="this.style.backgroundColor='#add89a'" onmouseleave="this.style.backgroundColor='#F0F5ED'" style="background-color:#F0F5ED; ">로그인하기</div>
-	<div id="etc">ID 찾기&nbsp;&nbsp;|&nbsp;&nbsp;비밀번호 찾기&nbsp;&nbsp;|&nbsp;&nbsp;회원가입</div>
- -->
- </c:if>
+
+ </c:if>	<!-- sessionScope.member==null 닫음 -->
 </div><!-- login_div 닫음 -->
 
 <div id="notice_list">

@@ -163,4 +163,17 @@ public class LoginController {
 		return mav;
 	}
 	
+	
+	
+	/////////////////////////로그아웃 추가 1/10
+	@RequestMapping("logout")
+	public ModelAndView logout(HttpServletRequest request) {
+		request.getSession().invalidate();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("alert"); 
+		mav.addObject("message","안전하게 로그아웃 되셨습니다.");
+		mav.addObject("url","main.bike");
+		return mav;
+	}
+	
 }
