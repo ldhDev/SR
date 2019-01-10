@@ -114,11 +114,11 @@ li{
 <div id="deco_gnb_bar">
 	<div id="deco_gnb_sub_gnb">
 	<a href="${path }/main.bike"><img src="${path }/img/logo_all.png" id="deco_logo"></a>
-		<c:if test="${empty sessionScope.loginUser }">
+		<c:if test="${empty sessionScope.member }">
 			<a href="${path }/user/loginForm.bike">·Î±×ÀÎ</a>
 		</c:if>
-		<c:if test="${!empty sessionScope.loginUser }">
-			${sessionScope.loginUser.userName }´Ô
+		<c:if test="${!empty sessionScope.member }">
+			${sessionScope.loginUser.member }´Ô
 			<a href="${path }/user/logout.bike">·Î±×¾Æ¿ô</a>
 		</c:if>
 	</div>

@@ -13,12 +13,17 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
+<c:import url="/WEB-INF/view/jspHeader.jsp"/>
+
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
+
 <html>
+
 <head>
 <meta charset="EUC-KR">
 <title>나따릉이 메인화면</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <style type="text/css">
 #wrap{
 	width: 1020px;
@@ -253,6 +258,47 @@
 	font-family: "Nanum Gothic";
 }
 
+.fa-bicycle
+{
+	color:#2aa034;
+	font-size: 25px;
+}
+.ff
+{
+	color : black;
+	font-size:15px;
+}
+
+.bt1
+{
+	width:100px;
+    background-color: #2aa034;
+	color:black;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius:10px;
+    margin-left: 40px;
+}
+
+.bt1:hover
+{
+    background-color: white;
+	color:#2aa034;
+    border-radius:10px;
+}
+
+.fa-clock
+{
+	color:#2aa034;
+	font-size: 25px;
+}
+.ba
+{
+	background-color: #6df37d26;
+}
 </style>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
@@ -359,7 +405,7 @@ $(document).ready(function(){
 	
 	//마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 
-	function makeOverListener2(map, marker,id, infowindow) {
+	function makeOverListener2(map, marker,id,number, infowindow) {
 	    return function() {
 	    	var today=new Date();
 	    	var sos=true;
@@ -372,7 +418,8 @@ $(document).ready(function(){
 					for(var i=0;i<data.rentBikeStatus.row.length;i++){
 						
 						if(data.rentBikeStatus.row[i].stationId==id){
-							infowindow.setContent("자전거 남은 수: "+data.rentBikeStatus.row[i].parkingBikeTotCnt+"<br> 조회 시간 : "+today.toTimeString());
+							infowindow.setContent("<div class=\"ba\"><br><i class=\"fas fa-bicycle\">&nbsp</i><t class=\"ff\">대여가능 대수 : <t>"+data.rentBikeStatus.row[i].parkingBikeTotCnt+" 대<br><br><i class=\"far fa-clock\">&nbsp</i> 조회 시간 : "+today.toTimeString().substr(0,8)+"<br>"+
+									"<div><a href='${path}/info/station_info.bike?number="+number+"'><input class=\"bt1\" type='button' value='상세보기'></a><br></div>");
 							sos=false;
 							
 						}
@@ -389,7 +436,8 @@ $(document).ready(function(){
 						for(var j=0;j<data.rentBikeStatus.row.length;j++){
 							
 							if(data.rentBikeStatus.row[j].stationId==id){
-								infowindow.setContent("자전거 남은 수: "+data.rentBikeStatus.row[j].parkingBikeTotCnt+"<br> 조회 시간 : "+today.toTimeString());
+								infowindow.setContent("<div class=\"ba\"><br><i class=\"fas fa-bicycle\">&nbsp</i><t class=\"ff\">대여가능 대수 : <t>"+data.rentBikeStatus.row[j].parkingBikeTotCnt+" 대<br><br><i class=\"far fa-clock\">&nbsp</i> 조회 시간 : "+today.toTimeString().substr(0,8)+"<br>"+
+										"<br><div><a href='${path}/info/station_info.bike?number="+number+"'><input class=\"bt1\" type='button' value='상세보기'></a><br></div>");
 								sos=false;
 								
 							}
@@ -431,6 +479,7 @@ $(document).ready(function(){
 		        content: positions[i].content // 인포윈도우에 표시할 내용
 		    });
 		    var id=positions[i].id
+		    var number=positions[i].number
 		    var infowindow2 = new daum.maps.InfoWindow({
 		        content: "조회중입니다.", // 인포윈도우에 표시할 내용
 		        removable: true
@@ -441,7 +490,7 @@ $(document).ready(function(){
 		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
 		    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 		    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-		    daum.maps.event.addListener(marker, 'click', makeOverListener2(map, marker,id, infowindow2));
+		    daum.maps.event.addListener(marker, 'click', makeOverListener2(map, marker,id,number, infowindow2));
 		}
 	};
 	
@@ -454,7 +503,8 @@ $(document).ready(function(){
 			var content = {
 					content: '<div>${station.name}</div>', 
 			        latlng: new daum.maps.LatLng("${station.latitude}", "${station.longitude}"),
-					id: "${station.station_id}"
+					id: "${station.station_id}",
+					number: "${station.number}"
 			}
 			positions.push(content);
 		</script>
@@ -462,6 +512,7 @@ $(document).ready(function(){
 
 <!-- 비로그인시 로그인창 표시 , 로그인시 즐겨찾기 정보가 표시 -->
 <div id="login_div">
+ <c:if test="${sessionScope.member==null}">
 	<div id="con2_title">
 		즐겨찾는 대여소
 	</div>
@@ -491,6 +542,7 @@ $(document).ready(function(){
 	<div id="login_btn" class="btns" onmouseover="this.style.backgroundColor='#add89a'" onmouseleave="this.style.backgroundColor='#F0F5ED'" style="background-color:#F0F5ED; ">로그인하기</div>
 	<div id="etc">ID 찾기&nbsp;&nbsp;|&nbsp;&nbsp;비밀번호 찾기&nbsp;&nbsp;|&nbsp;&nbsp;회원가입</div>
  -->
+ </c:if>
 </div><!-- login_div 닫음 -->
 
 <div id="notice_list">

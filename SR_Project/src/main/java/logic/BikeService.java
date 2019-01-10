@@ -49,13 +49,7 @@ public class BikeService {
 	////////////////////////////////////////////
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	public void boardadd(Board board) {
 		int max = boardDao.maxNum();
@@ -79,7 +73,17 @@ public class BikeService {
 	}
 
 	
+///////////////////////////회원관련
+	public boolean memberexist(Member member) {
+		return memberDao.exist(member);
+	}
 
+	public Member imformation(Member member) {
+		return memberDao.imformation(member);
+	}
+	public void memberinsert(Member member) {
+		memberDao.meminsert(member);
+	}
 	
 
 

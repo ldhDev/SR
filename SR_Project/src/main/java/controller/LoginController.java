@@ -2,6 +2,7 @@ package controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -31,6 +32,8 @@ public class LoginController {
 	public ModelAndView personalInfo(HttpServletRequest request) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
+		List<Station> stationList = service.stationList();
+		if(request.getSession().getAttribute("member")==null) {
 		if(request.getParameter("code")==null||request.getParameter("state")==null) {
 			mav.setViewName("/main");
 			return mav;
@@ -41,7 +44,7 @@ public class LoginController {
 			mav.addObject("url", "main.bike");
 			return mav;
 		}
-		List<Station> stationList = service.stationList();
+		
 		/////////////
 		
 		String atkey = "";
@@ -122,20 +125,42 @@ public class LoginController {
 	            br.close();
 	            JSONObject json= new JSONObject(response.toString());
 	            json= (JSONObject)json.get("response");
-	            System.out.println(json.get("gender"));
-	            System.out.println(json.get("email"));
-	            System.out.println(json.get("birthday"));
 	            Member member=new Member();
 	            member.setUser_id((String)json.get("id"));
-	            member.setAge(Integer.parseInt(((String)json.get("age"))));
-	            
-
-	            
-	            
+	            member.setAge(Integer.parseInt(((String)json.get("age")).substring(0, 2)));
+	            member.setGender((String)json.get("gender"));
+	            member.setEmail((String)json.get("email"));
+	            if(service.memberexist(member)) {
+	            	member=service.imformation(member);
+	            	request.getSession().setAttribute("member", member);
+	            	mav.addObject("stationList",stationList);
+	            	mav.addObject("my_member",member);
+	            	System.out.println("정보 있음");
+	            	mav.setViewName("main2");
+	    			return mav;// 데이터베이스에서 회원정보가 있다면 가져와서 main2.bike뿌려준다.
+	            }else {
+	            	System.out.println("정보 없음");
+	            	mav.addObject("my_member",member);
+	            	mav.setViewName("userNameInput");
+	            	// 데이터 베이스에 회원정보가 없다면 닉네임을 설정(회원가입)을 하는 페이지(결정하지 않았지만 닉네임을 설정한다는 의미로 이름은 nick_decision.jsp)로 이동
+	            }
 	        } catch (Exception e) {
 	            System.out.println(e);
 	        }
+		}
 	        mav.addObject("stationList",stationList);
 			return mav;
 	}
+	
+	@RequestMapping("main3")
+	public ModelAndView main3(HttpServletRequest req,Member member) {
+		List<Station> stationList = service.stationList();
+		req.getSession().setAttribute("member", member);
+		service.memberinsert(member);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main2");
+		mav.addObject("stationList",stationList);
+		return mav;
+	}
+	
 }
