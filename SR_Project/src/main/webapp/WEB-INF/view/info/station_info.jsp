@@ -402,6 +402,19 @@ body{
 	margin-bottom: 40px;
 }
 
+#comment_not_exist{
+	width:780px;
+	height:180px;
+	line-height:160px;
+	text-align:center;
+	font-weight:700;
+	font-size:16px;
+	color:gray;
+	font-family: "Nanum Gothic";
+	border-bottom:2px solid #85d179;
+	margin-bottom: 45px;
+}
+
 </style>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
@@ -535,14 +548,14 @@ function comment_submit(){
 <div id="map_div">
 <div id="map"></div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8f692a5cbdd7deb058db63ec9f3045a3"></script>
-	<script>
+	<script> 
 
 	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = { 
 			
 			center: new daum.maps.LatLng(${!empty info.latitude?info.latitude:37.477885}, ${!empty info.longitude?info.longitude:126.878985}),  // 지도의 중심좌표 (학원)
-	        level: 4 // 지도의 확대 레벨  
+	        level: 4 // 지도의 확대 레벨 
 	    };
 	
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
@@ -753,7 +766,7 @@ function comment_submit(){
 			★★★★☆ <span>&nbsp;5</span>
 		</div>
 		<div class="user_comment">
-			아 됐다 걍 이렇게 가`~!---
+			예시1
 		</div>
 		<div class="comment_info">
 			김개발좌  |  2019-01-09
@@ -762,11 +775,11 @@ function comment_submit(){
 	
 	<div class="list_panel">
 		<div class="user_star">
-			★★★★☆ <span>&nbsp;4</span>
+			★★★★☆ <span>&nbsp;4</span> 
 		</div>
 		<div class="user_comment">
-			백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기
-			백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기
+			예시예시 글자 채우기백바이트 글자 채우기백바이트 글자 채우기예시예시 글자 채우기백바이트 글자 채우기
+			백바이트 글자 채우기예시예시 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기
 		</div>
 		<div class="comment_info">
 			김개발좌  |  2019-01-09
@@ -786,6 +799,14 @@ function comment_submit(){
 </div><!-- review 끝 -->
 
 </c:if><!-- ${!empty comment } 의 끝 -->
+
+<c:if test="${empty comment }">
+<div id="comment_not_exist">
+아직 등록된 대여소 한마디가 없습니다, 가장 먼저 대여소 한마디를 남겨보세요!
+</div>
+</c:if><!-- ${empty comment } 의 끝 -->
+
+
 
 </c:if> <!-- c:if info_open == 1 의 끝  -->
 
