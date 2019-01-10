@@ -131,7 +131,6 @@ body{
 
 #score_title{
 	margin-top:25px;
-	margin-bottom:5px;
 	height: 25px;
 	line-height: 25px;
 	width: 250px;
@@ -161,6 +160,18 @@ body{
 	width: 254px;
 	float: left;
 }
+
+#score_cnt{
+	height:10px;
+	line-height:5px;
+	width:250px;
+	font-size: 12px;
+	font-weight: bold;
+	color: black;
+	text-align: center;
+}
+
+
 #board{
 	height: 130px;
 	width: 254px;
@@ -199,6 +210,7 @@ body{
 	width: 80px;
 	height : 80px;
 	float: left;
+	margin-right: 5px;
 }
 #w_temp{
 	width: 115px;
@@ -240,7 +252,7 @@ body{
 	font-family: "Nanum Gothic";
 	box-sizing: border-box;
 	padding-left: 15px;
-	background-color: gray;
+
 }
 
 #comment_title{
@@ -276,6 +288,7 @@ body{
 	font-family: "Nanum Gothic";
 	letter-spacing:-3px;
 	margin-right: 10px;
+	cursor: pointer;
 }
 #write{
 	height: 105px;
@@ -317,6 +330,7 @@ body{
 	font-family: "Nanum Gothic";
 	float: right;
 	text-align:center;
+	cursor : pointer; 
 	background-color: green;
 }
 
@@ -375,34 +389,39 @@ body{
 	color:gray;
 }
 
+#not_exist{
+	width: 880px;
+	height: 280px;
+	line-height:280px;
+	font-weight:700;
+	font-size:22px;
+	font-family: "Nanum Gothic";
+	border-top: 5px solid #85d179;
+	border-bottom: 5px solid #85d179;
+	text-align: center;
+	margin-bottom: 40px;
+}
 
-/*
-	
-	<div class="list_form">
-		<div class="user_star">
-		</div>
-		<div class="user_comment">
-		</div>
-		<div class="comment_info">
-		</div>
-	</div>
-*/
+#comment_not_exist{
+	width:780px;
+	height:180px;
+	line-height:160px;
+	text-align:center;
+	font-weight:700;
+	font-size:16px;
+	color:gray;
+	font-family: "Nanum Gothic";
+	border-bottom:2px solid #85d179;
+	margin-bottom: 45px;
+}
 
 </style>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 <script type="text/javascript">
 $(document).ready(function(){ 
-	lat = null;	//값 받아올것 메뉴클릭시에는 메인에서 있는 위치정보로 , 이 링크로 들어오면 가산으로 
-	lon = null;
-	
-	if(lat == null || lon == null){
-		lat = "37.477885";
-		lon = "126.878985";
-	}
 		
-		var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=c0ebe0d171c3c649371ea1781fb397ce";
-		//var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=37.477885&lon=126.878985&appid=c0ebe0d171c3c649371ea1781fb397ce";
+		var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=${!empty info.latitude?info.latitude:37.477885}&lon=${!empty info.longitude?info.longitude:126.878985}&appid=c0ebe0d171c3c649371ea1781fb397ce";
 
 	    $.ajax({
 	        url: apiURI,
@@ -415,24 +434,128 @@ $(document).ready(function(){
 	            $("#w_img").html("<img src='"+imgURL+"' style='height:80px;width:80px;'>");	            
 	        } //석세스
 	    })//에이잭스
+	//////////////////////////////////////////////////////////AJAX  
+	
+	$.ajax({
+	    		url: "http://openapi.seoul.go.kr:8088/744c44676964646f3832527170746b/json/bikeList/${info.call_no-5}/${info.call_no+5}",
+	    		dataType: "json",
+	    		type: "GET",
+		        async: "false",
+				success: function(data){
+					for(var i=0;i<data.rentBikeStatus.row.length;i++){
+						
+						if(data.rentBikeStatus.row[i].stationId=='${info.station_id}'){
+							$("#rest").html(data.rentBikeStatus.row[i].parkingBikeTotCnt);
+						}
+					}
+				}
+			})
 	//////////////////////////////////////////////////////////AJAX
 
 });
+
+function hover_star(num){
+	var star = ""
+	for(i=1;i<=5;i++){
+			star = "#star"+i;
+			$(star).css('color', 'gray');
+		}
+	
+	for(i=1;i<=num;i++){
+		star = "#star"+i;
+		$(star).css('color', '#189d0e');
+	}
+	
+}
+
+function out_star(){
+	var num = $('#choice_star').val();
+	for(i=1;i<=5;i++){
+		star = "#star"+i;
+		$(star).css('color', 'gray');
+	}
+
+	for(i=1;i<=num;i++){
+	star = "#star"+i;
+	$(star).css('color', '#189d0e');
+	}
+}
+
+function select_star(num){
+	$('#choice_star').val(num);
+	$('#sel_star').html(num);
+}
+
+var ck_byte = 0;
+////////한줄평 글자수 제한
+function byte_ck(obj) {
+    var maxByte = 200; //최대 입력 바이트 수
+    var str = obj.value;
+    var str_len = str.length;
+ 
+    var input_byte = 0;
+    var one_char = "";
+ 
+    for (var i = 0; i < str_len; i++) {
+        one_char = str.charAt(i);
+ 
+        if (escape(one_char).length > 4) {
+        	input_byte += 2; //한글2Byte
+        } else {
+        	input_byte++; //영문 등 나머지 1Byte
+        }
+    }
+ 
+    if (input_byte > maxByte) {
+        $("#limit").html(input_byte);;
+        $("#limit").css('color', 'red');
+        ck_byte = input_byte;
+    } else {
+        $("#limit").html(input_byte);
+        $("#limit").css('color', 'gray');
+        ck_byte = input_byte;
+    }
+}
+
+
+////// 한줄평 입력
+function comment_submit(){
+	if($('#choice_star').val() == 0){
+		alert("별점을 선택해주세요");
+		return false;
+	}
+	if(ck_byte == 0){
+		alert("내용을 입력해주세요");
+		return false;
+	}
+	if(ck_byte > 200){
+		alert("내용은 200byte를 넘길 수 없습니다.")
+		return false;
+	}
+	
+	document.comment_form.submit();
+	
+}
+
+
 </script>
 
 <meta charset="EUC-KR">
 <title>SR 대여소 상세정보 안내</title>
 </head>
 <body><div id="wrap">
-
+ 
 <div id="map_div">
 <div id="map"></div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8f692a5cbdd7deb058db63ec9f3045a3"></script>
 	<script>
+
+	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = { 
-	        center: new daum.maps.LatLng(37.477885, 126.878985), // 지도의 중심좌표 (학원)
-	        level: 4 // 지도의 확대 레벨
+			
+			center: new daum.maps.LatLng(${!empty info.latitude?info.latitude:37.477885}, ${!empty info.longitude?info.longitude:126.878985}),  // 지도의 중심좌표 (학원)
+	        level: 4 // 지도의 확대 레벨 
 	    };
 	
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
@@ -542,25 +665,36 @@ $(document).ready(function(){
 </c:forEach>
 
 
+<!-- 대여소 지정 있고 페이지 입장 -->
 <c:if test="${info_open == 1 }">
 
 <div id="station_title">
-	<div id="station_name">1834. 월드 메르디앙 벤처센터 2차 <span id="heart">♥</span><span id="bookmark">(즐찾숫자)</span></div>
-	<div id="station_etc">주소주소주소주소주소주소주소  <span>조회시간 2018.12.12 15:11:11</span></div>
+	<div id="station_name">${info.number} . ${info.name}&nbsp;&nbsp;<span id="heart">♥</span><span id="bookmark">(즐찾숫자)</span></div>
+	<div id="station_etc">${info.address}  <span>조회시간 <fmt:formatDate value="${info_time}" pattern="yyyy.MM.dd HH:mm:ss"/></span></div>
 
 </div><!-- station_title 닫음 -->
-
 
 <div id="station_info">
 	<div id="info_L">
 		<div id="rest_bike">
 			<div id="rest_title">대여가능 자전거</div>
-			<div id="rest_cnt"><span>5</span> / 13</div>
+			<div id="rest_cnt"><span id="rest">5</span> / ${info.rack_totCnt}</div>
 		</div>
 			<div class="line_vertical" style="margin-top: 25px;"></div>
 		<div id="score">
 			<div id="score_title">대여소 평점</div>
-			<div id="score_star">★★★★☆ <span>4/5</span></div>
+			<div id="score_star">
+				<% String star = ""; %>
+				<c:forEach begin="1" end="5" var="i">
+					<c:choose>
+						<c:when test="${station_score >= i }"><% star = star+"★"; %></c:when>
+						<c:otherwise><% star = star+"☆"; %></c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<%=star %>
+				<span style="font-size: 20px;">${!empty station_score?station_score!=0.0?station_score:0:0}<span style="font-size: 22px;">/</span>5</span>
+			</div>
+			<div id="score_cnt">( ${score_cnt } )</div>
 		</div>
 			<div class="line_hor"></div>
 		<div id="board">
@@ -588,31 +722,42 @@ $(document).ready(function(){
 </div>
 
 <div id="comment_title">
-	대여소 한마디 및 평가
+	대여소 한마디 및 평가 
 </div>
 
 <div id="comment">
 	<div id="comment_star">
-		<span class="stars">
-			<span id="star1" >★</span>
-			<span id="star2" >★</span>
-			<span id="star3" >★</span>
-			<span id="star4" >★</span>
-			<span id="star5" >★</span>
+		<span class="stars" onmouseleave="out_star()">
+			<span id="star1" onmouseover="hover_star(1)" onclick="select_star(1)">★</span>
+			<span id="star2" onmouseover="hover_star(2)" onclick="select_star(2)">★</span>
+			<span id="star3" onmouseover="hover_star(3)" onclick="select_star(3)">★</span>
+			<span id="star4" onmouseover="hover_star(4)" onclick="select_star(4)">★</span>
+			<span id="star5" onmouseover="hover_star(5)" onclick="select_star(5)">★</span>
 		</span> 
 		<span id="sel_star">0</span> / 5&nbsp;&nbsp;&nbsp;<span style="font-size: 12px;font-family: '돋움';color:gray;font-weight:normal;">- 이 대여소는 어떤가요?</span>
 	</div><!-- comment_star 라인  -->
-	<div id="write">
-		<textarea placeholder="내용을 입력해주세요"></textarea>
-	</div><!-- write 라인  -->
-	<div id="submit_line">
-		<span id="limit">0</span> / 200
-		<div id="sub_btn">등록</div>
-	</div><!-- submit_line 라인  -->
+	
+<form action="" name="comment_form">
+
+	<input type="hidden" name="choice_star" id="choice_star" value="0">
+	<input type="hidden" name="number" value="${info.number }">
+	<input type="hidden" name="user_id" value="유저 아이디 넣을것">
+	
+		<div id="write">
+			<textarea name="content" id="content" placeholder="내용을 입력해주세요" onkeyup="byte_ck(this)"></textarea>
+		</div><!-- write 라인  -->
+		<div id="submit_line">
+			<span id="limit">0</span> / 200 byte
+			<div id="sub_btn" onclick="comment_submit()">등록</div>
+		</div><!-- submit_line 라인  -->
+	
+</form><!-- form 끝  -->
+
 </div><!-- comment 라인  -->
 
 <div id="comment_line"></div>
 
+<c:if test="${!empty comment }">
 <div id="comment_list">
 	<!-- JSTL로 반복 넣을것 -->
 	
@@ -621,7 +766,7 @@ $(document).ready(function(){
 			★★★★☆ <span>&nbsp;5</span>
 		</div>
 		<div class="user_comment">
-			아 됐다 걍 이렇게 가`~!---
+			예시1
 		</div>
 		<div class="comment_info">
 			김개발좌  |  2019-01-09
@@ -630,11 +775,11 @@ $(document).ready(function(){
 	
 	<div class="list_panel">
 		<div class="user_star">
-			★★★★☆ <span>&nbsp;4</span>
+			★★★★☆ <span>&nbsp;4</span> 
 		</div>
 		<div class="user_comment">
-			백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기
-			백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기
+			예시예시 글자 채우기백바이트 글자 채우기백바이트 글자 채우기예시예시 글자 채우기백바이트 글자 채우기
+			백바이트 글자 채우기예시예시 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기
 		</div>
 		<div class="comment_info">
 			김개발좌  |  2019-01-09
@@ -653,7 +798,25 @@ $(document).ready(function(){
 	
 </div><!-- review 끝 -->
 
+</c:if><!-- ${!empty comment } 의 끝 -->
+
+<c:if test="${empty comment }">
+<div id="comment_not_exist">
+아직 등록된 대여소 한마디가 없습니다, 가장 먼저 대여소 한마디를 남겨보세요!
+</div>
+</c:if><!-- ${empty comment } 의 끝 -->
+
+
+
 </c:if> <!-- c:if info_open == 1 의 끝  -->
+
+
+<!-- 대여소 지정 없이 페이지 입장 -->
+<c:if test="${info_open == 0 }">
+<div id="not_exist">
+확인하실 대여소를 선택해주세요
+</div>
+</c:if><!-- c:if info_open == 1 의 끝  -->
 
 </div></body>
 </html>
