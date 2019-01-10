@@ -24,7 +24,7 @@
 	border-bottom: 3px solid #A9F5BC;
 	border-top: 3px solid #A9F5BC;
 	padding: 20px;
-	font-size: 20px;
+	font-size: 16px;
 	color: #2E2E2E
 }
 #content{
@@ -36,10 +36,33 @@
 	text-align: center;
   	font-size: 16px;
   	padding: 4px;
-  	width: 80px;
-  	height: 28px;
-  	background-color: #A9F5BC;
-  	color: #585858;
+  	width: 70px;
+  	height: 30px;
+  	background-color: #4CAF50;
+}
+#list:hover{
+	background-color: #0E7518;
+}
+.top{
+	width: 1020px;
+	height: 55px;
+}
+
+.btn-group .button {
+  background-color: #4CAF50; 
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  float: right;
+  margin-top: 10px;
+}
+.btn-group .button:hover {
+  background-color: #0E7518;
 }
 </style>
 </head>
@@ -52,18 +75,32 @@
 
 <div id="board">
 	<c:set value="${board}" var="b"/>
-	<h3>${b.number } : 대여소 게시판 번호 게시판 이름</h3>
 	<br>
+	<div class="top">
+		<div style="float: left">
+			<h3>${b.number }.${station.name } ♡(즐찾여부)</h3>
+			<p>${station.address }</p>
+		</div>
+		<c:if test="${member.name == b.user_name}">
+			<div class="btn-group">
+			 	 <button class="button" onclick="location.href='delete.bike?num=${b.board_no}'">삭제</button>
+			 	 <button class="button" onclick="location.href='update.bike?num=${b.board_no}'">수정</button>
+			</div>
+		</c:if>
+	</div>
 	<div id="get_board">
-		글타입:${b.type}&nbsp;&nbsp;제목:${b.title}<br>
-		닉네임:${b.user_name}&nbsp;&nbsp;
-		날자:<fmt:formatDate value="${b.regdate }" pattern="yyyy-MM-dd"/>&nbsp;&nbsp;
+		<c:if test="${b.type == 1}">잡담.</c:if>
+		<c:if test="${b.type == 2}">정보.</c:if>
+		<c:if test="${b.type == 3}">질문.</c:if>
+		&nbsp;&nbsp; ${b.title}<br>
+		작성자. ${b.user_name}&nbsp;&nbsp;&nbsp;
+		<fmt:formatDate value="${b.regdate }" pattern="yyyy-MM-dd"/>&nbsp;&nbsp;
 	</div>
 	<br>
 	
-	<div id="content">내용:${b.content }</div>
+	<div id="content">${b.content }</div>
 	
-	<div id="list"><a href="list.bike">목록</a></div>
+	<div id="list"><a href="list.bike" style="color: white;">목록</a></div>
 	<br><br><br>
 </div>
 </body>

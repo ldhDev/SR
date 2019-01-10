@@ -19,6 +19,7 @@
 }
 #board{
 	width: 1020px;
+	padding-bottom: 50px;
 }
 
 .table {
@@ -30,7 +31,8 @@
 .caption {
   display: table-caption;
   caption-side: top;
-  height : 30px;
+  text-align: left;
+  height : 60px;
 }
 .thead{
   display: table-header-group;
@@ -40,6 +42,12 @@
 }
 .tr {
   display: table-row;
+}
+.tr_nohover {
+  display: table-row;
+}
+.tr:hover {
+  background-color: #E0F8F1;
 }
 .th {
   height : 45px;
@@ -56,7 +64,13 @@
   vertical-align: middle;
 }
 .page{
-	text-align: center;	
+	width:200px;
+	padding-right: 20px;
+	margin-top : 5px;
+	margin-right: 250px;
+	margin-left: 360px;
+	text-align: center;
+	float: left;	
 }
 
 .button {
@@ -71,7 +85,7 @@
   transition: all 0.5s;
   cursor: pointer;
   height: 28px;
-  margin: 15px 89%;
+  margin: 7px 87%;
 }
 
 .button span {
@@ -114,11 +128,18 @@
 </div>
 
 <div id="board">
-	<br>
 	<div class="table">
-		<div class="caption">상세로 들어온 station.name값 받아서 표시 / 상단bar로 들어오면 전체표시 </div>
+		<c:if test="${station.name == null}">
+			<div class="caption"><h3 style="margin-top: 30px;">전체 게시판</h3></div>
+		</c:if>
+		<c:if test="${station.name != null }">
+			<div class="caption">
+				<h3 style="margin-top: 30px;">${station.number }.${station.name } <a href="#">♡</a></h3>
+				<p>${staion.address}</p>
+			</div>
+		</c:if>
 		<div class="thead">
-	    	<div class="tr">
+	    	<div class="tr_nohover">
 			    <div class="th" style="width:7%">No.</div>
 			    <div class="th" style="width:7%">글타입</div>
 			    <div class="th" style="width:60%">제목</div>
@@ -131,7 +152,11 @@
 			<c:forEach items="${boardlist }" var="board">
 		    	<div class="tr">
 		      		<div class="td">${board.board_no }</div>
-		      		<div class="td">${board.type}</div>
+		      		<div class="td">
+		      			<c:if test="${board.type == 1}">잡담</c:if>
+		      			<c:if test="${board.type == 2}">정보</c:if>
+		      			<c:if test="${board.type == 3}">질문</c:if>
+		      		</div>
 		      		<div class="td"><a href="detail.bike?num=${board.board_no }">${board.title }</a></div>
 		      		<div class="td">${board.user_name }</div>
 		      		<div class="td"><fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"/></div>
@@ -158,10 +183,11 @@
 			<c:if test="${pageNum < maxpage}"><a href="javascript:list(${pageNum +1 })">[다음]</a></c:if>
 			<c:if test="${pageNum >= maxpage }">[다음]</c:if>
 		</div>
-		
-		<div class="button">
-			<span style="font-weight: bold;"><a href="writeForm.bike">글쓰기</a></span>
-		</div>
+		<c:if test="${member.name != null}">
+			<div class="button">
+					<span style="font-weight: bold;"><a href="writeForm.bike">글쓰기</a></span>
+			</div>
+		</c:if>
 	</div>
 </div>
 

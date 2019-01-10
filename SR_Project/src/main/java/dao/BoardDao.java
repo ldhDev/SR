@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import dao.mapper.BoardMapper;
 import logic.Board;
+import logic.Station;
 
 @Repository
 public class BoardDao {
@@ -52,5 +53,21 @@ public class BoardDao {
 		Map<String, String> param = new HashMap<String, String>();
 		Integer ret = sqlSession.selectOne(NS+"count", param);
 		return ret;
+	}
+	//0109
+	public void update(Board board) {
+		sqlSession.getMapper(BoardMapper.class).update(board);
+	}
+
+	public void delete(Integer num) {
+		Map<String,Integer> param = new HashMap<String,Integer>();
+		param.put("board_no", num);
+		sqlSession.getMapper(BoardMapper.class).delete(param);
+	}
+
+	public Station selectStation(int num) {
+		Map<String,Integer> param = new HashMap<String,Integer>();
+		param.put("number", num);
+		return sqlSession.selectOne("dao.mapper.StationMapper.list",param);
 	}
 }

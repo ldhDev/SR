@@ -71,7 +71,19 @@ public class BikeService {
 	public int boardcount() {
 		return boardDao.count();
 	}
+	//0109
+	public void boardupdate(Board board) {
+		boardDao.update(board);
+	}
+	public void boarddelete(Integer num) {
+		boardDao.delete(num);
+	}
+	public Station getStation(int num) {
+		return boardDao.selectStation(num);
+	}
+	
 
+	
 	
 ///////////////////////////회원관련
 	public boolean memberexist(Member member) {
