@@ -96,6 +96,11 @@ public class BikeService {
 	public void memberinsert(Member member) {
 		memberDao.meminsert(member);
 	}
+
+	//메인화면 북마크 가져오기 1/10  *******************이부분 해야함***********************
+	//public List<Station> bookmarkList(String user_id) {
+	//	return null;
+	//}
 	
 
 

@@ -718,7 +718,7 @@ function comment_submit(){
 <c:if test="${info_open == 1 }">
 
 <div id="station_title">
-	<div id="station_name">${info.number} . ${info.name}&nbsp;&nbsp;<span id="heart">♥</span><span id="bookmark">(즐찾숫자)</span></div>
+	<div id="station_name">${info.number} . ${info.name}&nbsp;&nbsp;<span id="heart">♥</span><span id="bookmark">(0)</span></div>
 	<div id="station_etc">${info.address}  <span>조회시간 <fmt:formatDate value="${info_time}" pattern="yyyy.MM.dd HH:mm:ss"/></span></div>
 
 </div><!-- station_title 닫음 -->

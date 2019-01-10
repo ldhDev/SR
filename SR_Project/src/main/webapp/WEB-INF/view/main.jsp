@@ -121,7 +121,36 @@
 	margin: 0 auto;
 	width: 278px;
 	height: 55px;
+	font-weight:800;
+	font-size:18px;
+	font-family: "Roboto", sans-serif;
 }
+
+#bm_hello{
+	margin-top: 40px;
+	width: 340px;
+	height: 30px;
+	line-height: 30px;
+	font-weight:700;
+	font-size:14px;
+	font-family: "Roboto", sans-serif;
+}
+#bookmark{
+	margin-top: 15px;
+	margin:0 auto;
+	width: 340px;
+	height: 212px;
+	border: 1px solid #cdcdcd;
+}
+
+.bm_list{
+	width: 340px;
+	height: 70px;
+	border-bottom: 1px dotted gray;
+}
+
+
+
 
 #etc{
 	margin-top:10px;
@@ -537,6 +566,21 @@ $(document).ready(function(){
   </div>
 
  </c:if>	<!-- sessionScope.member==null ´ÝÀ½ -->
+ 
+ <c:if test="${sessionScope.member!=null}">	
+ <div id="bm_hello">${sessionScope.member.name }´Ô È¯¿µÇÕ´Ï´Ù</div>
+ <div id="bookmark">
+ 	<div class="bm_list">
+ 	</div>
+ 	<div class="bm_list">
+ 	</div>
+ 	<div class="bm_list">
+ 	</div>
+ </div><!--  ºÏ¸¶Å© ´ÝÀ½ -->
+ 
+ </c:if><!-- !sessionScope.member==null ´ÝÀ½ -->
+ 
+ 
 </div><!-- login_div ´ÝÀ½ -->
 
 <div id="notice_list">
