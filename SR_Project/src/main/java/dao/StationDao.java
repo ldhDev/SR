@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dao.mapper.StationMapper;
 import logic.Station;
 
 
@@ -27,4 +28,23 @@ public class StationDao {
 		Map<String,String> map = new HashMap<String,String>();
 		return sqlSession.selectList(NS + "list",map);
 	}
+
+	public Station info_one(int number) {
+
+		Map<String,Integer> param = new HashMap<String, Integer>();
+		param.put("number", number);
+		return sqlSession.getMapper(StationMapper.class).info_one(param);
+
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

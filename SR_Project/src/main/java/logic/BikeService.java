@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.BoardDao;
+import dao.CommentDao;
 import dao.MemberDao;
 import dao.StationDao;
 
@@ -19,10 +20,38 @@ public class BikeService {
 	private MemberDao memberDao;
 	@Autowired
 	private BoardDao boardDao;
+	@Autowired
+	private CommentDao commentDao;
 
 	public List<Station> stationList() {
 		return stationDao.list();
 	}
+	
+	////////////////////////////////////////////대여소 조회 1.10 추가
+	public Station stationOne(int number) {
+		return stationDao.info_one(number);
+	}
+	
+	//해당 대여소 코멘트(평가) 총 갯수
+	public int score_cnt(Integer number) {
+		return commentDao.score_cnt(number);
+	}
+	
+	//해당 대여소 점수
+	public Double station_score(Integer number) {
+		return commentDao.station_score(number);
+	}
+	////////////////////////////////////////////
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void boardadd(Board board) {
 		int max = boardDao.maxNum();
 		board.setBoard_no(++max);
@@ -43,5 +72,10 @@ public class BikeService {
 	public int boardcount() {
 		return boardDao.count();
 	}
+
+	
+
+
+
 
 }
