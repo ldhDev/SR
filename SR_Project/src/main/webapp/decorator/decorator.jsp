@@ -137,7 +137,7 @@ li{
 		</c:if>
 		<c:if test="${!empty sessionScope.member }">
 			${sessionScope.member.name }´Ô ¾È³çÇÏ¼¼¿ä! &nbsp;&nbsp;
-			<a href="logout.bike">·Î±×¾Æ¿ô</a>
+			<a href="${path }/logout.bike">·Î±×¾Æ¿ô</a>
 		</c:if>
 	</div>
 	<div id="deco_gnb">

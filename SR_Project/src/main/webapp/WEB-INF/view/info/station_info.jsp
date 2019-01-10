@@ -727,7 +727,7 @@ function comment_submit(){
 	<div id="info_L">
 		<div id="rest_bike">
 			<div id="rest_title">대여가능 자전거</div>
-			<div id="rest_cnt"><span id="rest">5</span> / ${info.rack_totCnt}</div>
+			<div id="rest_cnt"><span id="rest"> </span> / ${info.rack_totCnt}</div>
 		</div>
 			<div class="line_vertical" style="margin-top: 25px;"></div>
 		<div id="score">

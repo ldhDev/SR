@@ -7,5 +7,8 @@
 		<if test="call_no != null">
 			where call_no=#{call_no}
 		</if>
+		<if test="number != null">
+			where number=#{number}
+		</if>
 	</select>
 </mapper>

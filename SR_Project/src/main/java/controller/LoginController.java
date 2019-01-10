@@ -166,7 +166,7 @@ public class LoginController {
 	
 	
 	/////////////////////////로그아웃 추가 1/10
-	@RequestMapping("logout")
+	@RequestMapping("/logout*")
 	public ModelAndView logout(HttpServletRequest request) {
 		request.getSession().invalidate();
 		ModelAndView mav = new ModelAndView();
