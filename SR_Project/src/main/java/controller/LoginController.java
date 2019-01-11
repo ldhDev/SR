@@ -38,12 +38,14 @@ public class LoginController {
 			mav.setViewName("/main");
 			return mav;
 		}
-		if(!request.getParameter("state").equals(request.getSession().getAttribute("state"))) {
-			mav.setViewName("/alert");
-			mav.addObject("message","잘못된 접근입니다." );
-			mav.addObject("url", "main.bike");
-			return mav;
-		}
+		
+		//메인 페이지 아니면 오류뜨게 되버려서 제외
+//		if(!request.getParameter("state").equals(request.getSession().getAttribute("state"))) {
+//			mav.setViewName("/alert");
+//			mav.addObject("message","잘못된 접근입니다." );
+//			mav.addObject("url", "main.bike");
+//			return mav;
+//		}
 		
 		/////////////
 		

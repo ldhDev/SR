@@ -1,3 +1,6 @@
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
@@ -8,7 +11,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <style type="text/css">
 body{ 
-	/*안돼면 삭제할것*/
+	/*안되면 삭제할것*/
 	-webkit-text-size-adjust: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-smoothing: antialiased;
@@ -63,6 +66,7 @@ body{
 #heart{
 	color: #cd292a;
 	font-size: 30px;
+	cursor: pointer;
 }
 #bookmark{
 	color: #cd292a;
@@ -585,13 +589,52 @@ function comment_submit(){
 }
 
 
+//비로그인 사용자가 즐겨찾기 클릭
+function need_login(){
+	if(confirm("로그인이 필요한 서비스입니다, 로그인 하시겠습니까?")){
+		<%
+		    String clientId = "SXBfAVH8cGbb5AJWQWbQ";//애플리케이션 클라이언트 아이디값";
+		    String redirectURI = URLEncoder.encode("http://localhost:8080/SR_Project/main2.bike", "UTF-8");
+		    SecureRandom random = new SecureRandom();
+		    String state = new BigInteger(130, random).toString();
+		    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+		    apiURL += "&client_id=" + clientId;
+		    apiURL += "&redirect_uri=" + redirectURI;
+		    apiURL += "&state=" + state;
+		    session.setAttribute("state", state);
+	 	%>
+
+	 	location.href = "<%=apiURL%>";
+		
+	}
+	
+}
+
+//즐겨찾기 관련
+
+function bookmark_in(s_num){
+	alert(s_num)
+	$.ajax({
+		url : "bookmark_in.bike",
+		type : "POST",
+		data : {			
+			number:s_num,
+			},		//JSON 형태
+		success : function(data){
+			alert("성공했쓰");
+		}
+	})
+}
+
+
+
 </script>
 
 <meta charset="EUC-KR">
 <title>SR 대여소 상세정보 안내</title>
 </head>
 <body><div id="wrap">
- 
+  
 <div id="map_div">
 <div id="map"></div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8f692a5cbdd7deb058db63ec9f3045a3"></script>
@@ -718,7 +761,15 @@ function comment_submit(){
 <c:if test="${info_open == 1 }">
 
 <div id="station_title">
-	<div id="station_name">${info.number} . ${info.name}&nbsp;&nbsp;<span id="heart">♥</span><span id="bookmark">(0)</span></div>
+	<div id="station_name">
+		${info.number} . ${info.name}&nbsp;&nbsp;
+		<c:if test="${empty sessionScope.member }"><span id="heart" onclick="need_login()">♡</span></c:if>
+		<c:if test="${!empty sessionScope.member }">
+			<c:if test="${!empty bookmark }"><span id="heart">♥</span></c:if>
+			<c:if test="${empty bookmark }"><span id="heart" onclick="bookmark_in(${info.number})">♡</span></c:if>
+		</c:if>
+		<span id="bookmark">(0)</span>
+	</div>
 	<div id="station_etc">${info.address}  <span>조회시간 <fmt:formatDate value="${info_time}" pattern="yyyy.MM.dd HH:mm:ss"/></span></div>
 
 </div><!-- station_title 닫음 -->

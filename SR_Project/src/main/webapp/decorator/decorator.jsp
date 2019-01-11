@@ -118,7 +118,7 @@ li{
 	<div id="deco_gnb_sub_gnb">
 	<a href="${path }/main.bike"><img src="${path }/img/logo_all.png" id="deco_logo"></a>
 		<c:if test="${empty sessionScope.member }">
-			  <%/*
+			  <%
 			    String clientId = "SXBfAVH8cGbb5AJWQWbQ";//애플리케이션 클라이언트 아이디값";
 			    String redirectURI = URLEncoder.encode("http://localhost:8080/SR_Project/main2.bike", "UTF-8");
 			    SecureRandom random = new SecureRandom();
@@ -128,15 +128,12 @@ li{
 			    apiURL += "&redirect_uri=" + redirectURI;
 			    apiURL += "&state=" + state;
 			    session.setAttribute("state", state);
-			    < % = apiURL % >    
-			    
-			    //오류있음 , 사이트메시에서 선언하면 메인것을 못씀
-			    */
 			 %>
-			<a href="">로그인</a>
+			<a href="<%=apiURL%>">로그인</a>
 		</c:if>
 		<c:if test="${!empty sessionScope.member }">
 			${sessionScope.member.name }님 안녕하세요! &nbsp;&nbsp;
+			${sessionScope.member.bookmark1 }${sessionScope.member.bookmark2 }${sessionScope.member.bookmark3 }
 			<a href="${path }/logout.bike">로그아웃</a>
 		</c:if>
 	</div>
