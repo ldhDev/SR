@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dao.mapper.MemberMapper;
 import dao.mapper.StationMapper;
 import logic.Station;
 
@@ -35,6 +36,14 @@ public class StationDao {
 		param.put("number", number);
 		return sqlSession.getMapper(StationMapper.class).info_one(param);
 
+	}
+
+	public void bookmark_in(int number, String user_id, String order) {
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("number", number);
+		param.put("user_id", user_id);
+		param.put("order", order);
+		sqlSession.getMapper(MemberMapper.class).bookmark_in(param);
 	}
 	
 

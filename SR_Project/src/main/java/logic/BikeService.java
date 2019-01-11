@@ -46,6 +46,11 @@ public class BikeService {
 	public List<Comment> commList(Integer number) {
 		return commentDao.comment_List(number);
 	}
+	
+	//대여소 즐겨찾기 등록
+	public void bookmark_in(int number, String user_id, String order) {
+		stationDao.bookmark_in(number,user_id,order);
+	}
 	////////////////////////////////////////////
 	
 	

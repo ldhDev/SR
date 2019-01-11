@@ -20,6 +20,7 @@ public class StationController {
 	@Autowired
 	BikeService service;
 	
+	
 	@RequestMapping("info/*") /* 정보입력 미작성 , 대여소 정보 받아올것? */
 	public ModelAndView info(Integer number,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -27,15 +28,24 @@ public class StationController {
 		mav.addObject("stationList",stationList);
 		
 		//즐겨찾기 유무 확인
-		Member member = (Member)session.getAttribute("member");
-	
-		if(member != null) {
+		Member session_member = (Member)session.getAttribute("member");
+		
+		mav.addObject("bookmark_limit",0); //즐겨찾기 제한 해제상태 (0) <- 비로그인 + 자리여유
+
+		if(session_member != null) {
+			Member member = service.imformation(session_member);
+			
 			Integer bk1 = member.getBookmark1();
 			Integer bk2 = member.getBookmark2();
 			Integer bk3 = member.getBookmark3();
-
+			
 			if(bk1.equals(number) || bk2.equals(number) || bk3.equals(number)) {
 				mav.addObject("bookmark",1);
+			}
+			
+			//즐겨찾기 3번에 값이 있다면 (== 꽉 차 있다면)
+			if(!bk3.equals(0)) {
+				mav.addObject("bookmark_limit",1); //즐겨찾기 제한 (1)
 			}
 		}
 		
@@ -63,6 +73,33 @@ public class StationController {
 			}
 			
 		}
+		return mav;
+	}
+	
+	
+	//즐겨찾기 등록
+	@RequestMapping("/bookmark_in*")
+	public ModelAndView bk_in(int number,HttpSession session) {
+		
+		Member member = service.imformation((Member)session.getAttribute("member")); 
+		ModelAndView mav = new ModelAndView(); 
+		
+		String order = "";
+		if(member.getBookmark1() == 0) {
+			order = "Bookmark1";
+		}
+		else if(member.getBookmark2() == 0) {
+			order = "Bookmark2";
+		}
+		else if(member.getBookmark3() == 0) {
+			order = "Bookmark3";
+		}
+
+		
+		//등록
+		service.bookmark_in(number,member.getUser_id(),order);
+		
+		
 		return mav;
 	}
 

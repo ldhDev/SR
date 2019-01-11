@@ -613,17 +613,28 @@ function need_login(){
 //즐겨찾기 관련
 
 function bookmark_in(s_num){
-	alert(s_num)
-	$.ajax({
-		url : "bookmark_in.bike",
-		type : "POST",
-		data : {			
-			number:s_num,
-			},		//JSON 형태
-		success : function(data){
-			alert("성공했쓰");
-		}
-	})
+	
+	if(${bookmark_limit}==1){
+		alert("즐겨찾기는 최대 3개까지 가능합니다.");
+	} 
+	else{
+		alert(s_num)
+		$.ajax({
+			url : "bookmark_in.bike",
+			type : "POST",
+			data : {			
+				number:s_num,
+				},		//JSON 형태
+			success : function(data){
+				alert("성공했쓰");
+			},
+			error : function(error) {
+		        alert("실패했쓰!!");
+		    }
+
+		})
+	}
+
 }
 
 
