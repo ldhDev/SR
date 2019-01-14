@@ -128,13 +128,14 @@
 </div>
 
 <div id="board">
+	
 	<div class="table">
 		<c:if test="${station.name == null}">
 			<div class="caption"><h3 style="margin-top: 30px;">전체 게시판</h3></div>
 		</c:if>
 		<c:if test="${station.name != null }">
 			<div class="caption">
-				<h3 style="margin-top: 30px;">${station.number }.${station.name } <a href="#">♡</a></h3>
+				<h3 style="margin-top: 30px;">${station.number }.${station.name }</h3>
 				<p>${staion.address}</p>
 			</div>
 		</c:if>
@@ -151,16 +152,32 @@
 		<div class="tbody">
 			<c:forEach items="${boardlist }" var="board">
 		    	<div class="tr">
-		      		<div class="td">${board.board_no }</div>
-		      		<div class="td">
-		      			<c:if test="${board.type == 1}">잡담</c:if>
-		      			<c:if test="${board.type == 2}">정보</c:if>
-		      			<c:if test="${board.type == 3}">질문</c:if>
-		      		</div>
-		      		<div class="td"><a href="detail.bike?num=${board.board_no }">${board.title }</a></div>
-		      		<div class="td">${board.user_name }</div>
-		      		<div class="td"><fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"/></div>
-		      		<div class="td">${board.readcnt }</div>
+		    		<c:if test="${station.number != 0}">
+			    		<c:if test="${station.number == board.number }">
+				      		<div class="td">${board.board_no }</div>
+				      		<div class="td">
+				      			<c:if test="${board.type == 1}">잡담</c:if>
+				      			<c:if test="${board.type == 2}">정보</c:if>
+				      			<c:if test="${board.type == 3}">질문</c:if>
+				      		</div>
+				      		<div class="td"><a href="detail.bike?num=${board.board_no }">${board.title }</a></div>
+				      		<div class="td">${board.user_name }</div>
+				      		<div class="td"><fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"/></div>
+				      		<div class="td">${board.readcnt }</div>
+			      		</c:if>
+		      		</c:if>
+		      		<c:if test="${station.number == 0}">
+		      			<div class="td">${board.board_no }</div>
+				      	<div class="td">
+				      		<c:if test="${board.type == 1}">잡담</c:if>
+				      		<c:if test="${board.type == 2}">정보</c:if>
+				      		<c:if test="${board.type == 3}">질문</c:if>
+				      	</div>
+				      	<div class="td"><a href="detail.bike?num=${board.board_no }">${board.title }</a></div>
+				      	<div class="td">${board.user_name }</div>
+				      	<div class="td"><fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"/></div>
+				      	<div class="td">${board.readcnt }</div>
+		      		</c:if>
 		    	</div>
 	    	</c:forEach>
 		</div>
@@ -185,7 +202,10 @@
 		</div>
 		<c:if test="${member.name != null}">
 			<div class="button">
-					<span style="font-weight: bold;"><a href="writeForm.bike">글쓰기</a></span>
+				<form:form modelAttribute="station" action="writeForm.bike" name="f">
+					<form:hidden path="number"/>
+					<span style="font-weight: bold;"><a href="javascript:document.f.submit()">글쓰기</a></span>
+				</form:form>
 			</div>
 		</c:if>
 	</div>

@@ -832,7 +832,7 @@ function bookmark_out(s_num){
 			<div class="line_hor"></div>
 		<div id="board">
 			<div id="board_icon">
-				<a href="${path }/main.bike"><img src="${path }/img/board_icon.png"></a>
+				<a href="${path }/board/list.bike?num='${param.number}'"><img src="${path }/img/board_icon.png"></a>
 			</div>
 			<div id="board_title">대여소별 게시판</div>
 		</div>

@@ -29,7 +29,8 @@
 }
 #content{
 	color: #585858;
-	padding-bottom: 50px;
+	padding-bottom: 30px;
+	width: 900px;
 }
 #list{
 	margin: 0 auto;
@@ -65,6 +66,16 @@
   background-color: #0E7518;
 }
 </style>
+<script type="text/javascript">
+	function reply_disp(id){
+	var disp = document.getElementById(id);
+	if(disp.style.display == 'block'){
+		disp.style.display = "none";
+	}else{
+		disp.style.display = "block"
+	}
+}
+</script>
 </head>
 <body>
 <div id="main_img_bar">
@@ -78,7 +89,7 @@
 	<br>
 	<div class="top">
 		<div style="float: left">
-			<h3>${b.number }.${station.name } ♡(즐찾여부)</h3>
+			<h3>${b.number }.${station.name }</h3>
 			<p>${station.address }</p>
 		</div>
 		<c:if test="${member.name == b.user_name}">
@@ -100,8 +111,36 @@
 	
 	<div id="content">${b.content }</div>
 	
-	<div id="list"><a href="list.bike" style="color: white;">목록</a></div>
+	<div id="list">
+		<a href="list.bike" style="color: white;">목록</a>
+	</div>
 	<br><br><br>
+	
+	<div style="background-color: #FAFAFA">
+		<div>
+			<div>
+				<form:form modelAttribute="reply" action="addreply.bike" name="ref">
+					<form:hidden path="board_no"/>
+					<c:forEach items="${replylist }" var="list" varStatus="stat">
+						<div style="float: left; padding-right: 10px; font-weight: bold;">${list.user_name }</div><div style="float: left; color: #A4A4A4; font-size: small; padding-right: 10px;"><fmt:formatDate value="${list.regdate }" pattern="yyyy-MM-dd"/></div><div><a href="javascript:reply_disp('replylist${stat.index }')">답글</a></div>
+						<div style="border-bottom: 1px dotted #D8D8D8; padding-bottom: 20px;">${list.content }</div>
+						<div id="replylist${stat.index }" style="display:none; height: 60px; padding-bottom: 20px; padding-top: 20px" >
+							<div style="float: left;">&nbsp;└<form:input path="content"/></div>
+							<div style="padding-top: 18px; "><a href="javascript:document.ref.submit()" style="margin-left:20px; padding:13px; border: 1px solid #BDBDBD; background-color: white;">등록</a></div>
+						</div>
+					</c:forEach>
+				</form:form>
+			</div>
+		</div>
+		<div style="padding-bottom: 25px; margin-bottom: 50px;">
+			<br>
+			<form:form modelAttribute="reply" action="addreply.bike" name="f">
+			<form:hidden path="board_no"/>
+				<div style="float: left;"><form:input path="content"/></div>
+				<div style="height: 50px; padding: 10px; padding-top: 15px;"><a href="javascript:document.f.submit()" style="margin-left:20px; padding:13px; border: 1px solid #BDBDBD; background-color: white;">등록</a></div>
+			</form:form>
+		</div>
+	</div>
 </div>
 </body>
 </html>

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import logic.BikeService;
 import logic.Board;
 import logic.Member;
+import logic.Reply;
 import logic.Station;
 
 @Controller
@@ -28,10 +29,19 @@ public class BoardController {
 	}
 	
 	@RequestMapping("board/list")
-	public ModelAndView board(Integer pageNum, Station station, HttpSession session) {
+	public ModelAndView board(Integer pageNum, Station station, HttpSession session, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		Member member = (Member)session.getAttribute("member");
 		mav.addObject("member",member);
+		
+		if(request.getParameter("num") != null) {
+			String num = request.getParameter("num");
+			num = num.replace("'", "");
+			int number = Integer.parseInt(num);
+			station = service.stationOne(number);
+			mav.addObject("station", station);
+			
+		}
 		
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
@@ -53,10 +63,6 @@ public class BoardController {
 		mav.addObject("listcount",listcount);
 		mav.addObject("boardlist",boardlist);
 		mav.addObject("boardcnt",boardcnt);
-		
-		if(station.getName() != null){
-			mav.addObject(station);
-		}
 		
 		return mav;
 	}
@@ -80,14 +86,13 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping(value="board/writeForm", method=RequestMethod.GET)
-	public ModelAndView writeForm(HttpSession session) {
+	@RequestMapping("board/writeForm")
+	public ModelAndView writeForm(HttpSession session, Station station) {
 		ModelAndView mav = new ModelAndView();
 		Board board = new Board();
 		Member member = (Member)session.getAttribute("member");
 		
-//		대여소별 게시판에서 number값을 가져올 시 입력해야함
-		
+		board.setNumber(station.getNumber());
 		board.setUser_id(member.getUser_id());
 		board.setUser_name(member.getName());
 		
@@ -132,4 +137,47 @@ public class BoardController {
 		mav.setViewName("redirect:list.bike");
 		return mav;
 	}
+	
+	@RequestMapping(value="board/detail", method=RequestMethod.GET)
+	public ModelAndView detail(Integer num, HttpServletRequest request, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Board board = new Board();
+		Reply reply = new Reply();
+		
+		Member member = (Member)session.getAttribute("member");
+		mav.addObject("member",member);
+		
+		board = service.getBoard(num, request);
+		Station station = service.getStation(board.getNumber());
+		List<Reply> replylist = service.replyList(board.getBoard_no());
+		
+		reply.setBoard_no(num);
+		
+		mav.addObject("station", station);
+		mav.addObject("member",member);
+		mav.addObject("board",board);
+		mav.addObject("reply",reply);
+		mav.addObject("replylist", replylist);
+		return mav;
+	}
+	
+	@RequestMapping("board/addreply")
+	public ModelAndView addreply(Reply reply, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Member member = (Member)session.getAttribute("member");
+		reply.setUser_id(member.getUser_id());
+		reply.setUser_name(member.getName());
+		reply.setContent(reply.getContent().replace(",",""));
+		System.out.println(reply.getRef());
+//		if(reply.getRef() ==)
+//		reply.setRef(reply.getRef() +1);
+		try{
+			service.replyadd(reply);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		mav.setViewName("redirect:detail.bike?num="+reply.getBoard_no());
+		return mav;
+	}
+	
 }

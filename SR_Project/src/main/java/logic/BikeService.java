@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import dao.BoardDao;
 import dao.CommentDao;
 import dao.MemberDao;
+import dao.ReplyDao;
 import dao.StationDao;
 
 @Service
@@ -22,6 +23,8 @@ public class BikeService {
 	private BoardDao boardDao;
 	@Autowired
 	private CommentDao commentDao;
+	@Autowired
+	private ReplyDao replyDao;
 
 	public List<Station> stationList() {
 		return stationDao.list();
@@ -102,6 +105,17 @@ public class BikeService {
 		return boardDao.selectStation(num);
 	}
 	
+	///////게시물 덧글관련
+	public List<Reply> replyList(Integer board_no) {
+		return replyDao.list(board_no);
+	}
+
+	public void replyadd(Reply reply) {
+		int max = replyDao.maxNum();
+		reply.setReply_no(++max);
+		reply.setRef(++max);
+		replyDao.insert(reply);
+	}
 
 	
 	
@@ -116,17 +130,6 @@ public class BikeService {
 	public void memberinsert(Member member) {
 		memberDao.meminsert(member);
 	}
-
-	
-
-
-
-	//메인화면 북마크 가져오기 1/10  *******************이부분 해야함***********************
-	//public List<Station> bookmarkList(String user_id) {
-	//	return null;
-	//}
-	
-
 
 
 
