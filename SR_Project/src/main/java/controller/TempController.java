@@ -39,7 +39,7 @@ public class TempController {
 			int bk1 = member.getBookmark1();
 			int bk2 = member.getBookmark2();
 			int bk3 = member.getBookmark3();
-			System.out.println(bk1+" "+bk2+" "+bk3);
+	
 			String bookmarks = "('"+bk1+"','"+bk2+"','"+bk3+"')";
 			
 			//즐겨찾기 목록 조회

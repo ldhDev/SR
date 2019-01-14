@@ -3,9 +3,9 @@
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
 <%@page import="java.io.IOException"%>
-<%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.security.SecureRandom" %>
-<%@ page import="java.math.BigInteger" %>
+<%@page import="java.net.URLEncoder" %>
+<%@page import="java.security.SecureRandom" %>
+<%@page import="java.math.BigInteger" %>
 <%@page import="org.jsoup.nodes.Element"%>
 <%@page import="org.jsoup.select.Elements"%>
 <%@page import="org.jsoup.Jsoup"%>
@@ -56,6 +56,7 @@
 	width: 600px;
 	height: 45px;
 	font-family: "Roboto", sans-serif;
+	background-color: #f6f6f3;
 }
 #map{
 	width: 600px;
@@ -121,33 +122,111 @@
 	margin: 0 auto;
 	width: 278px;
 	height: 55px;
+	font-weight:800;
+	font-size:18px;
+	font-family: "Roboto", sans-serif;
 }
 
 #bm_hello{
-	margin-top: 40px;
-	width: 340px;
+	margin-top: 25px;
+	margin-bottom: 15px;
+	width: 420px;
 	height: 30px;
 	line-height: 30px;
 	font-weight:700;
 	font-size:14px;
+	box-sizing:border-box;
+	padding-left:10px;
 	font-family: "Roboto", sans-serif;
 }
+
 #bookmark{
 	margin-top: 15px;
 	margin:0 auto;
-	width: 340px;
+	width: 360px;
 	height: 212px;
 	border: 1px solid #cdcdcd;
 }
 
 .bm_list{
-	width: 340px;
-	height: 70px;
-	border-bottom: 1px dotted gray;
+	margin: 0 auto;
+	margin-bottom: 20px;
+    width: 390px;
+    height: 75px;
+    padding-left: 10px;
+    padding-top: 5px;
+    border: 1px dotted #bccfc3;
+    cursor: pointer;
 }
 
+.bm_none{
+	width: 390px;
+    height: 75px;
+    line-height: 75px;
+    text-align: center;
+    color:#1d6b17;
+    font-weight:700;
+	font-size:20px;
+	font-family: "Roboto", sans-serif;
+}
 
+.bm_L{
+	width:320px;
+	height: 70px;
+	padding-top:3px;
+	float: left;
+}
+.bm_number{
+	width: 320px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: "Nanum Gothic";
+}
+.bm_name{
+	width:320px;
+	height: 45px;
+    line-height: 45px;
+    font-size: 24px;
+    font-weight: 800;
+    font-family: "Nanum Gothic";
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    
+}
 
+.bm_R{
+	position:relative;
+	width: 60px;
+	height: 70px;
+	float: left;
+}
+.bm_R_title{
+	position: absolute;
+    top: 0px;
+    right: -11px;
+    width: 90px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    font-family: "Nanum Gothic";
+}
+.bm_rest{
+	width: 60px;
+    height: 70px;
+    line-height: 90px;
+    color: red;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    font-family: "Nanum Gothic";
+    box-sizing: border-box;
+    padding-right: 20px;
+    float: left;
+}
 
 #etc{
 	margin-top:10px;
@@ -288,25 +367,26 @@
 {
 	color:#2aa034;
 	font-size: 25px;
+	padding-left: 50px;
 }
 .ff
 {
 	color : black;
-	font-size:15px;
+	font-size:25px;
 }
 
 .bt1
 {
 	width:100px;
     background-color: #2aa034;
-	color:black;
+	color:white;
     text-align: center;
     text-decoration: none;
     font-size: 15px;
     margin: 4px;
     cursor: pointer;
     border-radius:10px;
-    margin-left: 40px;
+    margin-left: 150px;
 }
 
 .bt1:hover
@@ -320,10 +400,39 @@
 {
 	color:#2aa034;
 	font-size: 25px;
+	padding-left: 55px;
+}
+.fa-map-signs
+{
+	color:#2aa034;
+	font-size: 25px;
+	padding-left: 55px;
 }
 .ba
 {
 	background-color: #6df37d26;
+	height: 200px;
+}
+
+
+.setmain
+{
+	width:400px;
+	height:200px;
+}
+
+.nn
+{
+	color : black;
+	font-size:18px;
+}
+
+.fa-search
+{
+	font-size:45px;
+	color:green;
+	background-color: #f6f6f3;
+	
 }
 </style>
 
@@ -334,14 +443,12 @@ $(document).ready(function(){
 	lon = null;
 	
 	navigator.geolocation.getCurrentPosition(function(position) {
-		  //do_something(position.coords.latitude, position.coords.longitude);
 		  lat = position.coords.latitude;
 		  lon = position.coords.longitude;
 		  
 		// de,lo고척근린공원 고척도서관 앞','구로구','서울특별시 구로구 고척로45길 31구로구 고척동 산 9-14',10,'37.505135','126.852760');
 
 			var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=c0ebe0d171c3c649371ea1781fb397ce";
-			//var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=37.477885&lon=126.878985&appid=c0ebe0d171c3c649371ea1781fb397ce";
 
 		    $.ajax({
 
@@ -351,8 +458,6 @@ $(document).ready(function(){
 		        async: "false",
 		        success: function(resp) {
 		        	$("#w_temp").html(Math.floor((resp.main.temp- 273.15))+"℃" );
-		            //$("#desc").append("날씨 : "+ resp.weather[0].main );
-		            //$("#asd").append("상세날씨설명 : "+ resp.weather[0].description  );
 		            $("#w_wind").html("바람   : "+ resp.wind.speed +"m/s");
 	            	$("#w_hu").html ("습도 : "+ resp.main.humidity+"%");
 		            var imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
@@ -373,7 +478,6 @@ $(document).ready(function(){
 		// de,lo고척근린공원 고척도서관 앞','구로구','서울특별시 구로구 고척로45길 31구로구 고척동 산 9-14',10,'37.505135','126.852760');
 
 		var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=c0ebe0d171c3c649371ea1781fb397ce";
-		//var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=37.477885&lon=126.878985&appid=c0ebe0d171c3c649371ea1781fb397ce";
 
 	    $.ajax({
 
@@ -383,8 +487,6 @@ $(document).ready(function(){
 	        async: "false",
 	        success: function(resp) {
 	        	$("#w_temp").html(Math.floor((resp.main.temp- 273.15))+"℃" );
-	            //$("#desc").append("날씨 : "+ resp.weather[0].main );
-	            //$("#asd").append("상세날씨설명 : "+ resp.weather[0].description  );
 	            $("#w_wind").html("바람   : "+ resp.wind.speed +"m/s");
 	            $("#w_hu").html ("습도 : "+ resp.main.humidity+"%");
 	            var imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
@@ -410,11 +512,12 @@ $(document).ready(function(){
 
 <div id="map_div">
 	<div id="map_search">
-		<select style="height: 50px;width: 180px; box-sizing: border-box;float: left;">
+		<select id="menu_such" style="height: 45px; width: 180px; box-sizing: border-box; float: left;">
 			<option>대여소 이름</option>
 			<option>대여소 번호</option>
 		</select>
-		<input type="text" name="find" style="height: 50px;width: 420px; box-sizing: border-box; padding-left:10px; float: left;">
+		<input type="text" id="find" name="find" style="background-color:white;height: 45px;width: 375px; box-sizing: border-box;float: left; background-color:#f6f6f3 ">
+		<t id="btn1"><i class="fas fa-search"></i></t>
 	</div>
 
 <div id="map"></div>
@@ -429,9 +532,127 @@ $(document).ready(function(){
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 	var map = new daum.maps.Map(mapContainer, mapOption); 
 	
+
+	
+	//수정 0114 (2)
+	
+	
+		window.onload = function() {
+		
+		
+		//수정 시작
+
+		for (var i = 0; i < positions.length; i++) {
+			// 마커를 생성합니다
+			
+				//수정 01/14
+	
+	
+	var imageSrc = 'https://cdn.icon-icons.com/icons2/677/PNG/512/bicycle_icon-icons.com_60878.png', // 마커이미지의 주소입니다    
+    imageSize = new daum.maps.Size(45, 45), // 마커이미지의 크기입니다
+    imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+      
+// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+    markerPosition = new daum.maps.LatLng(positions[i].latitude, positions[i].longitude); // 마커가 표시될 위치입니다
+
+// 마커를 생성합니다
+var marker = new daum.maps.Marker({
+    position: markerPosition, 
+    image: markerImage // 마커이미지 설정 
+});
+var infowindow = new daum.maps.InfoWindow({
+	content : positions[i].content
+// 인포윈도우에 표시할 내용
+});
+var id = positions[i].id
+var name = positions[i].name
+var number = positions[i].number
+var my_name=positions[i].content_split
+
+var infowindow2 = new daum.maps.InfoWindow({
+	content : "조회중입니다.", // 인포윈도우에 표시할 내용
+	removable : true
+});
+
+var marker_target_info= {
+		marker_target: marker,
+		address: positions[i].address,
+		name: my_name,
+		number: number
+}
+marker_on_off.push(marker_target_info);
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);  
+	
+	
+	//수정 완료 
+
+
+				// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+				// 이벤트 리스너로는 클로저를 만들어 등록합니다 
+				// for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+				
+				daum.maps.event.addListener(marker, 'mouseover',
+						makeOverListener(map, marker, infowindow));
+				daum.maps.event.addListener(marker, 'mouseout',
+						makeOutListener(infowindow));
+				daum.maps.event.addListener(marker, 'click', makeOverListener2(
+						map, marker, id, name, number, infowindow2));
+			}
+		$("#btn1").click(function(){
+			var menu_such=$("#menu_such option:selected").val();
+			var find_value=$("#find").val();
+			var such_zero= true;
+			if(menu_such=="대여소 이름"){
+				for(var i=0;i<marker_on_off.length;i++){
+					if(find_value==null||find_value==""){break;}
+					var marker_such=marker_on_off[i].marker_target;
+					var address_such=marker_on_off[i].name;
+					if(address_such.includes(find_value)){// 본격 비교 문자열이 포함된다면 true
+						marker_such.setMap(map); // 지도에 올린다.
+						if(such_zero){
+							map.setCenter(marker_such.getPosition());
+						}
+						such_zero=false;
+					}else{// 문자열이 포함이 안된다면 false
+						marker_such.setMap(null); // 지도에서 제거한다.
+					}
+				}	
+			}else if(menu_such=="대여소 주소"){
+				for(var i=0;i<marker_on_off.length;i++){
+					if(find_value==null||find_value==""){break;}
+					var marker_such=marker_on_off[i].marker_target;
+					var address_such=marker_on_off[i].address;
+					if(address_such.includes(find_value)){// 본격 비교 문자열이 포함된다면 true
+						marker_such.setMap(map); // 지도에 올린다.
+						if(such_zero){
+							map.setCenter(marker_such.getPosition());
+						}
+						such_zero=false;
+					}else{// 문자열이 포함이 안된다면 false
+						marker_such.setMap(null); // 지도에서 제거한다.
+					}
+				}	
+			}
+			
+			if(such_zero){
+				alert("조회 정보가 없습니다.");
+				for(var i=0;i<marker_on_off.length;i++){
+					var marker_such=marker_on_off[i].marker_target;
+					marker_such.setMap(map);
+					$("#find").val("");
+				}
+			}
+		})
+		};
+	
+	
+	//끝
+	
 	//마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 
-	function makeOverListener2(map, marker,id,number, infowindow) {
+	function makeOverListener2(map, marker,id,name,number, infowindow) {
 	    return function() {
 	    	var today=new Date();
 	    	var sos=true;
@@ -441,11 +662,29 @@ $(document).ready(function(){
 	    		type: "GET",
 		        async: "false",
 				success: function(data){
-					for(var i=0;i<data.rentBikeStatus.row.length;i++){
+						
+						for(var i=0;i<data.rentBikeStatus.row.length;i++){
+						var name = data.rentBikeStatus.row[i].stationName;
+						var cnt = data.rentBikeStatus.row[i].parkingBikeTotCnt;
+						if(cnt<4)
+						{
+							cnt="<t class=\"yellow\" style=\"color:red; font-size:25px;\"><b>"+cnt+"</b></t>";
+						}
+						else if(cnt<8)
+						{
+							cnt="<t class=\"yellow\" style=\"color:orange; font-size:25px;\"><b>"+cnt+"</b></t>";
+						}
+						else
+						{
+							cnt="<t class=\"ff\"><b>"+cnt+"</b></t>";
+						}
+						var time = today.toTimeString().substr(0,8);
 						
 						if(data.rentBikeStatus.row[i].stationId==id){
-							infowindow.setContent("<div class=\"ba\"><br><i class=\"fas fa-bicycle\">&nbsp</i><t class=\"ff\">대여가능 대수 : <t>"+data.rentBikeStatus.row[i].parkingBikeTotCnt+" 대<br><br><i class=\"far fa-clock\">&nbsp</i> 조회 시간 : "+today.toTimeString().substr(0,8)+"<br>"+
-									"<div><a href='${path}/info/station_info.bike?number="+number+"'><input class=\"bt1\" type='button' value='상세보기'></a><br></div>");
+							infowindow.setContent("<div class=\"setmain\"><div class=\"ba\"><br><i class=\"fas fa-map-signs\">&nbsp</i>"
+									+"<t class=\"nn\">"+name+"</t><br><br><i class=\"fas fa-bicycle\">&nbsp</i>"
+									+"대여가능 대수 : "+cnt+" 대<br><br><i class=\"far fa-clock\">&nbsp</i> 조회 시간 : "+time+"<br>"
+									+"<div><a href='${path}/info/station_info.bike?number="+number+"'><br><input class=\"bt1\" type='button' value='상세정보'></a><br></div></div>");
 							sos=false;
 							
 						}
@@ -460,10 +699,27 @@ $(document).ready(function(){
 			        async: "false",
 					success: function(data){
 						for(var j=0;j<data.rentBikeStatus.row.length;j++){
+							var name = data.rentBikeStatus.row[j].stationName;
+							var cnt = data.rentBikeStatus.row[j].parkingBikeTotCnt;
+							if(cnt<4)
+							{
+								cnt="<t class=\"yellow\" style=\"color:red; font-size:25px;\"><b>"+cnt+"</b></t>";
+							}
+							else if(cnt<8)
+							{
+								cnt="<t class=\"yellow\" style=\"color:orange; font-size:25px;\"><b>"+cnt+"</b></t>";
+							}
+							else
+							{
+								cnt="<t class=\"ff\"><b>"+cnt+"</b></t>";
+							}
+							var time = today.toTimeString().substr(0,8);
 							
 							if(data.rentBikeStatus.row[j].stationId==id){
-								infowindow.setContent("<div class=\"ba\"><br><i class=\"fas fa-bicycle\">&nbsp</i><t class=\"ff\">대여가능 대수 : <t>"+data.rentBikeStatus.row[j].parkingBikeTotCnt+" 대<br><br><i class=\"far fa-clock\">&nbsp</i> 조회 시간 : "+today.toTimeString().substr(0,8)+"<br>"+
-										"<br><div><a href='${path}/info/station_info.bike?number="+number+"'><input class=\"bt1\" type='button' value='상세보기'></a><br></div>");
+								infowindow.setContent("<div class=\"setmain\"><div class=\"ba\"><br><i class=\"fas fa-map-signs\">&nbsp</i>"
+										+"<t class=\"nn\">"+name+"</t><br><br><i class=\"fas fa-bicycle\">&nbsp</i>"
+										+"대여가능 대수 : "+cnt+" 대<br><br><i class=\"far fa-clock\">&nbsp</i> 조회 시간 : "+time+"<br>"
+										+"<div><a href='${path}/info/station_info.bike?number="+number+"'><br><input class=\"bt1\" type='button' value='상세정보'></a><br></div></div>");
 								sos=false;
 								
 							}
@@ -488,49 +744,26 @@ $(document).ready(function(){
 	        infowindow.close();
 	    };
 	}
-	
+	 
 	var positions = new Array();
+	var marker_on_off=new Array();
 	
-	window.onload = function() {
-		for (var i = 0; i < positions.length; i ++) {
-		    // 마커를 생성합니다
-		    var marker = new daum.maps.Marker({
-		        map: map, // 마커를 표시할 지도
-		        position: positions[i].latlng, // 마커의 위치
-		        clickable: true
-		    });
-		
-		    // 마커에 표시할 인포윈도우를 생성합니다 
-		    var infowindow = new daum.maps.InfoWindow({
-		        content: positions[i].content // 인포윈도우에 표시할 내용
-		    });
-		    var id=positions[i].id
-		    var number=positions[i].number
-		    var infowindow2 = new daum.maps.InfoWindow({
-		        content: "조회중입니다.", // 인포윈도우에 표시할 내용
-		        removable: true
-		    });
-		
-		    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-		    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-		    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-		    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-		    daum.maps.event.addListener(marker, 'click', makeOverListener2(map, marker,id,number, infowindow2));
-		}
-	};
-	
+
 	</script>
 
 </div><!-- map_div 닫음 -->
 
-<c:forEach items="${stationList}" var="station">
+<c:forEach items="${stationList }" var="station">
 		<script type="text/javascript">
 			var content = {
-					content: '<div>${station.name}</div>', 
-			        latlng: new daum.maps.LatLng("${station.latitude}", "${station.longitude}"),
+					content: '<div>${station.name}</div>',
+					content_split: "${station.name}",
+			        //latlng: new daum.maps.LatLng("${station.latitude}", "${station.longitude}"),
 					id: "${station.station_id}",
-					number: "${station.number}"
+					number: "${station.number}",
+					latitude: "${station.latitude}",
+					longitude: "${station.longitude}",
+					address:"${station.address}"
 			}
 			positions.push(content);
 		</script>
@@ -564,18 +797,57 @@ $(document).ready(function(){
 
  </c:if>	<!-- sessionScope.member==null 닫음 -->
  
-  <c:if test="${sessionScope.member!=null}">	
+ <c:if test="${sessionScope.member!=null}">	
  <div id="bm_hello">${sessionScope.member.name }님 환영합니다</div>
- <div id="bookmark">
- 	<div class="bm_list">
- 	</div>
- 	<div class="bm_list">
- 	</div>
- 	<div class="bm_list">
- 	</div>
- </div><!--  북마크 닫음 -->
  
+ 
+ 
+<c:forEach var="bookmark" items="${bookmark}" begin="0" end="2" step="1" varStatus="status">
+
+	<c:if test="${!empty bookmark }">
+		<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" 
+									onmouseout="this.style.borderColor='#bccfc3';this.style.borderStyle = 'dotted';"
+									onclick="location.href='${path}/info/station_info.bike?number=${bookmark.number}'">
+	 		<div class="bm_L">
+	 			<div class="bm_number">${bookmark.number}.</div>
+	 			<div class="bm_name">${bookmark.name}</div>
+	 		</div>
+	 		<div class="bm_R">
+	 			<div class="bm_R_title">대여가능 자전거</div>
+	 			<div class="bm_rest ${status.count}"></div>
+	 			
+	 			<script>
+	 			
+	 			$.ajax({
+		    		url: "http://openapi.seoul.go.kr:8088/744c44676964646f3832527170746b/json/bikeList/${bookmark.call_no-8}/${bookmark.call_no+8}",
+		    		dataType: "json",
+		    		type: "GET",
+			        async: "false",
+					success: function(data){
+						for(var i=0;i<data.rentBikeStatus.row.length;i++){
+							if(data.rentBikeStatus.row[i].stationId=='${bookmark.station_id}'){
+								$(".${status.count}").html(data.rentBikeStatus.row[i].parkingBikeTotCnt);
+							}
+						}
+					}
+				})
+	 			
+	 			</script>
+	 			
+	 			
+	 		</div>
+	 	</div>
+	</c:if>
+	<c:if test="${empty bookmark }"> <!-- 여기 안되고 있음  -->
+		<div class="bm_list" style="padding: 0px;cursor: default;">
+			<div class="bm_none">등 록 가 능</div>
+		</div>
+	</c:if>
+	
+</c:forEach>
+
  </c:if><!-- !sessionScope.member==null 닫음 -->
+ 
  
 </div><!-- login_div 닫음 -->
 

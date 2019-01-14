@@ -846,50 +846,6 @@ marker.setMap(map);
 	
 </c:forEach>
  
- 
- 
- 
- 
- 
- <!-- <a href="${path}/info/station_info.bike?number=1834"> <!-- onclick="location"으로 하자 신경쓰임 -->
-<!-- 
- 
- 	<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" onmouseout="this.style.borderColor='#bccfc3';this.style.borderStyle = 'dotted';">
- 		<div class="bm_L">
- 			<div class="bm_number">1834.</div>
- 			<div class="bm_name">월드메르디앙 벤처센터 2차</div>
- 		</div>
- 		<div class="bm_R">
- 			<div class="bm_R_title">대여가능 자전거</div>
- 			<div class="bm_rest">11</div>
- 		</div>
- 	</div>
- </a>
- 
- 	<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" onmouseout="this.style.borderColor='#bccfc3';this.style.borderStyle = 'dotted';">
- 		<div class="bm_L">
- 			<div class="bm_number">1834.</div>
- 			<div class="bm_name">영등포전화국사거리 (서강어린이공원)</div>
- 		</div>
- 		<div class="bm_R">
- 			<div class="bm_R_title">대여가능 자전거</div>
- 			<div class="bm_rest">8</div>
- 		</div>
- 	</div>
- 	
- 	<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" onmouseout="this.style.borderColor='#bccfc3';this.style.borderStyle = 'dotted';">
- 		<div class="bm_L">
- 			<div class="bm_number">1834.</div>
- 			<div class="bm_name">디지털미디어 시티역 4번출구</div>
- 		</div>
- 		<div class="bm_R">
- 			<div class="bm_R_title">대여가능 자전거</div>
- 			<div class="bm_rest">15</div>
- 		</div>
- 	</div>
- 	
- -->  	
- 	
  </c:if><!-- !sessionScope.member==null 닫음 -->
  
  
