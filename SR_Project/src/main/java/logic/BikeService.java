@@ -61,6 +61,11 @@ public class BikeService {
 	public int bookmark_count(int number) {
 		return stationDao.bookmark_count(number);
 	}
+	
+	//대여소 회원 즐겨찾기 목록
+	public List<Station> bookmark_List(String bookmarks) {
+		return stationDao.bookmark_List(bookmarks);
+	}
 	////////////////////////////////////////////
 	
 	
@@ -111,6 +116,8 @@ public class BikeService {
 	public void memberinsert(Member member) {
 		memberDao.meminsert(member);
 	}
+
+	
 
 
 

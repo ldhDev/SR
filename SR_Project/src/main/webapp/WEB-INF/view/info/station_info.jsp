@@ -488,7 +488,7 @@ $(document).ready(function(){
 	//////////////////////////////////////////////////////////AJAX  
 	
 	$.ajax({
-	    		url: "http://openapi.seoul.go.kr:8088/744c44676964646f3832527170746b/json/bikeList/${info.call_no-5}/${info.call_no+5}",
+	    		url: "http://openapi.seoul.go.kr:8088/744c44676964646f3832527170746b/json/bikeList/${info.call_no-8}/${info.call_no+8}",
 	    		dataType: "json",
 	    		type: "GET",
 		        async: "false",

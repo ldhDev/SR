@@ -15,4 +15,7 @@ public interface StationMapper {
 	@Select("Select count(*) from member where #{number} in (bookmark1,bookmark2,bookmark3)")
 	int bookmark_count(Map<String, Integer> param);
 
+	@Select("Select * from station where number in ${bookmarks}")
+	List<Station> bookmark_List(Map<String, String> param);
+
 }

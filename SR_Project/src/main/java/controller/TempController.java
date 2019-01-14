@@ -29,10 +29,24 @@ public class TempController {
 	public ModelAndView temp2(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<Station> stationList = service.stationList();
-		//Member member = (Member)session.getAttribute("member");
-		//북마크부분 - 해야함********************************************************
-		//List<Station> bookmark = service.bookmarkList(member.getUser_id());
 		
+		//즐겨찾기 유무 확인
+		Member session_member = (Member)session.getAttribute("member");
+				
+		if(session_member != null) {
+			Member member = service.imformation(session_member);
+					
+			int bk1 = member.getBookmark1();
+			int bk2 = member.getBookmark2();
+			int bk3 = member.getBookmark3();
+			System.out.println(bk1+" "+bk2+" "+bk3);
+			String bookmarks = "('"+bk1+"','"+bk2+"','"+bk3+"')";
+			
+			//즐겨찾기 목록 조회
+			List<Station> bookmark = service.bookmark_List(bookmarks);
+			mav.addObject("bookmark",bookmark);
+		}
+			
 		mav.addObject("stationList",stationList);
 		return mav;
 	}

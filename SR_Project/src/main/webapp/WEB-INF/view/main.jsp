@@ -158,6 +158,17 @@
     cursor: pointer;
 }
 
+.bm_none{
+	width: 390px;
+    height: 75px;
+    line-height: 75px;
+    text-align: center;
+    color:#1d6b17;
+    font-weight:700;
+	font-size:20px;
+	font-family: "Roboto", sans-serif;
+}
+
 .bm_L{
 	width:320px;
 	height: 70px;
@@ -401,14 +412,12 @@ $(document).ready(function(){
 	lon = null;
 	
 	navigator.geolocation.getCurrentPosition(function(position) {
-		  //do_something(position.coords.latitude, position.coords.longitude);
 		  lat = position.coords.latitude;
 		  lon = position.coords.longitude;
 		  
 		// de,lo고척근린공원 고척도서관 앞','구로구','서울특별시 구로구 고척로45길 31구로구 고척동 산 9-14',10,'37.505135','126.852760');
 
 			var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=c0ebe0d171c3c649371ea1781fb397ce";
-			//var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=37.477885&lon=126.878985&appid=c0ebe0d171c3c649371ea1781fb397ce";
 
 		    $.ajax({
 
@@ -418,8 +427,6 @@ $(document).ready(function(){
 		        async: "false",
 		        success: function(resp) {
 		        	$("#w_temp").html(Math.floor((resp.main.temp- 273.15))+"℃" );
-		            //$("#desc").append("날씨 : "+ resp.weather[0].main );
-		            //$("#asd").append("상세날씨설명 : "+ resp.weather[0].description  );
 		            $("#w_wind").html("바람   : "+ resp.wind.speed +"m/s");
 	            	$("#w_hu").html ("습도 : "+ resp.main.humidity+"%");
 		            var imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
@@ -440,7 +447,6 @@ $(document).ready(function(){
 		// de,lo고척근린공원 고척도서관 앞','구로구','서울특별시 구로구 고척로45길 31구로구 고척동 산 9-14',10,'37.505135','126.852760');
 
 		var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=c0ebe0d171c3c649371ea1781fb397ce";
-		//var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=37.477885&lon=126.878985&appid=c0ebe0d171c3c649371ea1781fb397ce";
 
 	    $.ajax({
 
@@ -450,8 +456,6 @@ $(document).ready(function(){
 	        async: "false",
 	        success: function(resp) {
 	        	$("#w_temp").html(Math.floor((resp.main.temp- 273.15))+"℃" );
-	            //$("#desc").append("날씨 : "+ resp.weather[0].main );
-	            //$("#asd").append("상세날씨설명 : "+ resp.weather[0].description  );
 	            $("#w_wind").html("바람   : "+ resp.wind.speed +"m/s");
 	            $("#w_hu").html ("습도 : "+ resp.main.humidity+"%");
 	            var imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
@@ -634,7 +638,60 @@ $(document).ready(function(){
  <c:if test="${sessionScope.member!=null}">	
  <div id="bm_hello">${sessionScope.member.name }님 환영합니다</div>
  
- <a href="${path}/info/station_info.bike?number=1834"> <!-- onclick="location"으로 하자 신경쓰임 -->
+ 
+ 
+<c:forEach var="bookmark" items="${bookmark}" begin="0" end="2" step="1" varStatus="status">
+
+	<c:if test="${!empty bookmark }">
+		<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" 
+									onmouseout="this.style.borderColor='#bccfc3';this.style.borderStyle = 'dotted';"
+									onclick="location.href='${path}/info/station_info.bike?number=${bookmark.number}'">
+	 		<div class="bm_L">
+	 			<div class="bm_number">${bookmark.number}.</div>
+	 			<div class="bm_name">${bookmark.name}</div>
+	 		</div>
+	 		<div class="bm_R">
+	 			<div class="bm_R_title">대여가능 자전거</div>
+	 			<div class="bm_rest ${status.count}"></div>
+	 			
+	 			<script>
+	 			
+	 			$.ajax({
+		    		url: "http://openapi.seoul.go.kr:8088/744c44676964646f3832527170746b/json/bikeList/${bookmark.call_no-8}/${bookmark.call_no+8}",
+		    		dataType: "json",
+		    		type: "GET",
+			        async: "false",
+					success: function(data){
+						for(var i=0;i<data.rentBikeStatus.row.length;i++){
+							if(data.rentBikeStatus.row[i].stationId=='${bookmark.station_id}'){
+								$(".${status.count}").html(data.rentBikeStatus.row[i].parkingBikeTotCnt);
+							}
+						}
+					}
+				})
+	 			
+	 			</script>
+	 			
+	 			
+	 		</div>
+	 	</div>
+	</c:if>
+	<c:if test="${empty bookmark }"> <!-- 여기 안되고 있음  -->
+		<div class="bm_list" style="padding: 0px;cursor: default;">
+			<div class="bm_none">등 록 가 능</div>
+		</div>
+	</c:if>
+	
+</c:forEach>
+ 
+ 
+ 
+ 
+ 
+ 
+ <!-- <a href="${path}/info/station_info.bike?number=1834"> <!-- onclick="location"으로 하자 신경쓰임 -->
+<!-- 
+ 
  	<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" onmouseout="this.style.borderColor='#bccfc3';this.style.borderStyle = 'dotted';">
  		<div class="bm_L">
  			<div class="bm_number">1834.</div>
@@ -668,6 +725,8 @@ $(document).ready(function(){
  			<div class="bm_rest">15</div>
  		</div>
  	</div>
+ 	
+ -->  	
  	
  </c:if><!-- !sessionScope.member==null 닫음 -->
  

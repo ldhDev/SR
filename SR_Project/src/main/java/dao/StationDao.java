@@ -56,6 +56,12 @@ public class StationDao {
 		param.put("number", number);
 		return sqlSession.getMapper(StationMapper.class).bookmark_count(param);
 	}
+
+	public List<Station> bookmark_List(String bookmarks) {
+		Map<String,String> param = new HashMap<String, String>();
+		param.put("bookmarks", bookmarks);
+		return sqlSession.getMapper(StationMapper.class).bookmark_List(param);
+	}
 	
 
 	
