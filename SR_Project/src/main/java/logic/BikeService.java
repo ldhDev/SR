@@ -51,6 +51,16 @@ public class BikeService {
 	public void bookmark_in(int number, String user_id, String order) {
 		stationDao.bookmark_in(number,user_id,order);
 	}
+	
+	//대여소 즐겨찾기 취소
+	public void bookmark_out(String user_id, int way) {
+		stationDao.bookmark_out(user_id,way);
+	}
+	
+	//대여소 즐겨찾기 등록숫자
+	public int bookmark_count(int number) {
+		return stationDao.bookmark_count(number);
+	}
 	////////////////////////////////////////////
 	
 	
@@ -101,6 +111,8 @@ public class BikeService {
 	public void memberinsert(Member member) {
 		memberDao.meminsert(member);
 	}
+
+
 
 	//메인화면 북마크 가져오기 1/10  *******************이부분 해야함***********************
 	//public List<Station> bookmarkList(String user_id) {

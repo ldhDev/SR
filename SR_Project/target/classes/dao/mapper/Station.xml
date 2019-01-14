@@ -11,4 +11,20 @@
 			where number=#{number}
 		</if>
 	</select>
+	
+	<update id="bookmark" parameterType="map">
+		update member set
+		<if test="way == 1">
+			bookmark1 = bookmark2 , bookmark2 = bookmark3 , bookmark3 = null
+		</if>
+		<if test="way == 2">
+			bookmark2 = bookmark3 , bookmark3 = null
+		</if>
+		<if test="way == 3">
+			bookmark3 = null
+		</if>
+		where user_id = #{user_id}
+	</update>
+	
+	
 </mapper>

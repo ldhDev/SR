@@ -558,7 +558,7 @@ function byte_ck(obj) {
     }
  
     if (input_byte > maxByte) {
-        $("#limit").html(input_byte);;
+        $("#limit").html(input_byte);
         $("#limit").css('color', 'red');
         ck_byte = input_byte;
     } else {
@@ -612,28 +612,50 @@ function need_login(){
 
 //즐겨찾기 관련
 
+//즐겨찾기 등록
 function bookmark_in(s_num){
 	
 	if(${bookmark_limit}==1){
 		alert("즐겨찾기는 최대 3개까지 가능합니다.");
 	} 
 	else{
-		alert(s_num)
-		$.ajax({
+		$.ajax({ 
 			url : "bookmark_in.bike",
 			type : "POST",
 			data : {			
-				number:s_num,
-				},		//JSON 형태
+				number:s_num
+				},		
 			success : function(data){
-				alert("성공했쓰");
+				$("#heart").html('<span onclick="bookmark_out('+s_num+')">♥</span>');
+				$("#bookmark").html(data);
 			},
 			error : function(error) {
-		        alert("실패했쓰!!");
+				alert("오류가 발생했습니다.");
 		    }
 
 		})
 	}
+
+}
+
+//즐겨찾기 제거
+function bookmark_out(s_num){
+
+		$.ajax({ 
+			url : "bookmark_out.bike",
+			type : "POST",
+			data : {			
+				number:s_num
+				},		
+			success : function(data){
+				$("#heart").html('<span onclick="bookmark_in('+s_num+')">♡</span>');
+				$("#bookmark").html(data);
+			},
+			error : function(error) {
+				alert("오류가 발생했습니다.");
+		    }
+
+		})
 
 }
 
@@ -771,15 +793,15 @@ function bookmark_in(s_num){
 <!-- 대여소 지정 있고 페이지 입장 -->
 <c:if test="${info_open == 1 }">
 
-<div id="station_title">
+<div id="station_title"> 
 	<div id="station_name">
 		${info.number} . ${info.name}&nbsp;&nbsp;
 		<c:if test="${empty sessionScope.member }"><span id="heart" onclick="need_login()">♡</span></c:if>
 		<c:if test="${!empty sessionScope.member }">
-			<c:if test="${!empty bookmark }"><span id="heart">♥</span></c:if>
-			<c:if test="${empty bookmark }"><span id="heart" onclick="bookmark_in(${info.number})">♡</span></c:if>
+			<c:if test="${!empty bookmark }"><span id="heart"><span onclick="bookmark_out(${info.number})">♥</span></span></c:if>
+			<c:if test="${empty bookmark }"><span id="heart"><span onclick="bookmark_in(${info.number})">♡</span></span></c:if>
 		</c:if>
-		<span id="bookmark">(0)</span>
+		<span id="bookmark">(${count})</span>
 	</div>
 	<div id="station_etc">${info.address}  <span>조회시간 <fmt:formatDate value="${info_time}" pattern="yyyy.MM.dd HH:mm:ss"/></span></div>
 

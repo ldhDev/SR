@@ -4,5 +4,8 @@
 		<pattern>*.bike</pattern>
 		<pattern>*.jsp</pattern>
 	</decorator>
-	<excludes></excludes>
+	<excludes>
+		<pattern>*/bookmark_*</pattern>
+		<pattern>*Ajax.action*</pattern>
+	</excludes>
 </decorators>

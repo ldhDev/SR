@@ -138,18 +138,54 @@
 #bookmark{
 	margin-top: 15px;
 	margin:0 auto;
-	width: 340px;
+	width: 360px;
 	height: 212px;
 	border: 1px solid #cdcdcd;
 }
 
 .bm_list{
-	width: 340px;
+	width: 360px;
 	height: 70px;
 	border-bottom: 1px dotted gray;
 }
-
-
+.bm_name_addr{
+	width:300px;
+	height: 70px;
+	float: left;
+}
+.bm_name{
+	width:300px;
+	height: 45px;
+	line-height: 45px;
+	
+	font-size:24px;
+	font-weight:800;
+	font-family: "Nanum Gothic";
+	
+	overflow:hidden;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}
+.bm_addr{
+	width:300px;
+	height: 25px;
+	line-height: 25px;
+	font-size:10px;
+	font-family: "굴림";
+	overflow:hidden;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}
+.bm_rest{
+	width: 60px;
+	height: 70px;
+	line-height: 70px;
+	color:red;
+	font-size:28px;
+	font-weight:800;
+	font-family: "Nanum Gothic";
+	float: left;
+}
 
 
 #etc{
@@ -571,10 +607,25 @@ $(document).ready(function(){
  <div id="bm_hello">${sessionScope.member.name }님 환영합니다</div>
  <div id="bookmark">
  	<div class="bm_list">
+ 		<div class="bm_name_addr">
+	 		<div class="bm_name">1834.월드메르디앙 벤처센터 2차</div>
+	 		<div class="bm_addr">서울특별시 금천구 가산디지털2로 123가산동 450-2</div>
+ 		</div>
+ 		<div class="bm_rest">11</div>
  	</div>
  	<div class="bm_list">
+ 		<div class="bm_name_addr">
+	 		<div class="bm_name">1948.디지털미디어 시티역 4번출구 </div>
+	 		<div class="bm_addr">서울특별시 증산동 239디지털미디어 시티역 4번출구</div>
+ 		</div>
+ 		<div class="bm_rest">11</div>
  	</div>
  	<div class="bm_list">
+ 		<div class="bm_name_addr">
+	 		<div class="bm_name">1948.영등포전화국사거리 (서강어린이공원) </div>
+	 		<div class="bm_addr">서울특별시 영등포구 영중로 107영등포전화국사거리 (서강어린이공원)</div>
+ 		</div>
+ 		<div class="bm_rest">11</div>
  	</div>
  </div><!--  북마크 닫음 -->
  

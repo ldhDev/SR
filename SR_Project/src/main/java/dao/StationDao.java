@@ -31,11 +31,9 @@ public class StationDao {
 	}
 
 	public Station info_one(int number) {
-
 		Map<String,Integer> param = new HashMap<String, Integer>();
 		param.put("number", number);
 		return sqlSession.getMapper(StationMapper.class).info_one(param);
-
 	}
 
 	public void bookmark_in(int number, String user_id, String order) {
@@ -44,6 +42,19 @@ public class StationDao {
 		param.put("user_id", user_id);
 		param.put("order", order);
 		sqlSession.getMapper(MemberMapper.class).bookmark_in(param);
+	}
+
+	public void bookmark_out(String user_id, int way) {
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("user_id", user_id);
+		param.put("way", way);
+		sqlSession.update(NS+"bookmark", param);
+	}
+
+	public int bookmark_count(int number) {
+		Map<String,Integer> param = new HashMap<String, Integer>();
+		param.put("number", number);
+		return sqlSession.getMapper(StationMapper.class).bookmark_count(param);
 	}
 	
 
