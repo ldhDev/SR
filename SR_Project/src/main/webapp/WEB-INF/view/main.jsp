@@ -127,14 +127,18 @@
 }
 
 #bm_hello{
-	margin-top: 40px;
-	width: 340px;
+	margin-top: 25px;
+	margin-bottom: 15px;
+	width: 420px;
 	height: 30px;
 	line-height: 30px;
 	font-weight:700;
 	font-size:14px;
+	box-sizing:border-box;
+	padding-left:10px;
 	font-family: "Roboto", sans-serif;
 }
+
 #bookmark{
 	margin-top: 15px;
 	margin:0 auto;
@@ -144,49 +148,73 @@
 }
 
 .bm_list{
-	width: 360px;
-	height: 70px;
-	border-bottom: 1px dotted gray;
+	margin: 0 auto;
+	margin-bottom: 20px;
+    width: 390px;
+    height: 75px;
+    padding-left: 10px;
+    padding-top: 5px;
+    border: 1px dotted #bccfc3;
+    cursor: pointer;
 }
-.bm_name_addr{
-	width:300px;
+
+.bm_L{
+	width:320px;
+	height: 70px;
+	padding-top:3px;
+	float: left;
+}
+.bm_number{
+	width: 320px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: "Nanum Gothic";
+}
+.bm_name{
+	width:320px;
+	height: 45px;
+    line-height: 45px;
+    font-size: 24px;
+    font-weight: 800;
+    font-family: "Nanum Gothic";
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    
+}
+
+.bm_R{
+	position:relative;
+	width: 60px;
 	height: 70px;
 	float: left;
 }
-.bm_name{
-	width:300px;
-	height: 45px;
-	line-height: 45px;
-	
-	font-size:24px;
-	font-weight:800;
-	font-family: "Nanum Gothic";
-	
-	overflow:hidden;
-	white-space: nowrap;
-	text-overflow:ellipsis;
-}
-.bm_addr{
-	width:300px;
-	height: 25px;
-	line-height: 25px;
-	font-size:10px;
-	font-family: "굴림";
-	overflow:hidden;
-	white-space: nowrap;
-	text-overflow:ellipsis;
+.bm_R_title{
+	position: absolute;
+    top: 0px;
+    right: -11px;
+    width: 90px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    font-family: "Nanum Gothic";
 }
 .bm_rest{
 	width: 60px;
-	height: 70px;
-	line-height: 70px;
-	color:red;
-	font-size:28px;
-	font-weight:800;
-	font-family: "Nanum Gothic";
-	float: left;
+    height: 70px;
+    line-height: 90px;
+    color: red;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    font-family: "Nanum Gothic";
+    box-sizing: border-box;
+    padding-right: 20px;
+    float: left;
 }
-
 
 #etc{
 	margin-top:10px;
@@ -605,30 +633,42 @@ $(document).ready(function(){
  
  <c:if test="${sessionScope.member!=null}">	
  <div id="bm_hello">${sessionScope.member.name }님 환영합니다</div>
- <div id="bookmark">
- 	<div class="bm_list">
- 		<div class="bm_name_addr">
-	 		<div class="bm_name">1834.월드메르디앙 벤처센터 2차</div>
-	 		<div class="bm_addr">서울특별시 금천구 가산디지털2로 123가산동 450-2</div>
- 		</div>
- 		<div class="bm_rest">11</div>
- 	</div>
- 	<div class="bm_list">
- 		<div class="bm_name_addr">
-	 		<div class="bm_name">1948.디지털미디어 시티역 4번출구 </div>
-	 		<div class="bm_addr">서울특별시 증산동 239디지털미디어 시티역 4번출구</div>
- 		</div>
- 		<div class="bm_rest">11</div>
- 	</div>
- 	<div class="bm_list">
- 		<div class="bm_name_addr">
-	 		<div class="bm_name">1948.영등포전화국사거리 (서강어린이공원) </div>
-	 		<div class="bm_addr">서울특별시 영등포구 영중로 107영등포전화국사거리 (서강어린이공원)</div>
- 		</div>
- 		<div class="bm_rest">11</div>
- 	</div>
- </div><!--  북마크 닫음 -->
  
+ <a href="${path}/info/station_info.bike?number=1834"> <!-- onclick="location"으로 하자 신경쓰임 -->
+ 	<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" onmouseout="this.style.borderColor='#bccfc3';this.style.borderStyle = 'dotted';">
+ 		<div class="bm_L">
+ 			<div class="bm_number">1834.</div>
+ 			<div class="bm_name">월드메르디앙 벤처센터 2차</div>
+ 		</div>
+ 		<div class="bm_R">
+ 			<div class="bm_R_title">대여가능 자전거</div>
+ 			<div class="bm_rest">11</div>
+ 		</div>
+ 	</div>
+ </a>
+ 
+ 	<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" onmouseout="this.style.borderColor='#bccfc3';this.style.borderStyle = 'dotted';">
+ 		<div class="bm_L">
+ 			<div class="bm_number">1834.</div>
+ 			<div class="bm_name">영등포전화국사거리 (서강어린이공원)</div>
+ 		</div>
+ 		<div class="bm_R">
+ 			<div class="bm_R_title">대여가능 자전거</div>
+ 			<div class="bm_rest">8</div>
+ 		</div>
+ 	</div>
+ 	
+ 	<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" onmouseout="this.style.borderColor='#bccfc3';this.style.borderStyle = 'dotted';">
+ 		<div class="bm_L">
+ 			<div class="bm_number">1834.</div>
+ 			<div class="bm_name">디지털미디어 시티역 4번출구</div>
+ 		</div>
+ 		<div class="bm_R">
+ 			<div class="bm_R_title">대여가능 자전거</div>
+ 			<div class="bm_rest">15</div>
+ 		</div>
+ 	</div>
+ 	
  </c:if><!-- !sessionScope.member==null 닫음 -->
  
  
