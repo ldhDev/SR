@@ -66,7 +66,7 @@
 			<div class="tag">타입</div>
 			<div style="display: inline;">
 				<form:select path="type">
-					<option value="">선택하세요</option>
+					<option value="1">선택하세요</option>
 					<option value="1">잡담</option>
 					<option value="2">정보</option>
 					<option value="3">질문</option>

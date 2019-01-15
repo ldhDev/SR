@@ -270,11 +270,18 @@ body{
 	box-sizing: border-box;
 }
 #comment{
+	position:relative;
 	height: 200px;
 	width: 960px;
 	border: 1px solid #d6d6d6;
 	box-sizing: border-box;
 }
+#need_login{
+	position:absolute;
+	height: 200px;
+	width: 960px;
+}
+
 #comment_star{
 	height: 55px;
 	line-height: 54px;
@@ -1027,6 +1034,11 @@ marker.setMap(map);
 </div>
 
 <div id="comment">
+<!-- 비로그인 사용자가 클릭 시 -->
+<c:if test="${sessionScope.member==null}">
+	<div id="need_login" onclick="need_login()"></div>
+</c:if>
+
 	<div id="comment_star">
 		<span class="stars" onmouseleave="out_star()">
 			<span id="star1" onmouseover="hover_star(1)" onclick="select_star(1)">★</span>
@@ -1042,7 +1054,7 @@ marker.setMap(map);
 
 	<input type="hidden" name="choice_star" id="choice_star" value="0">
 	<input type="hidden" name="number" value="${info.number }">
-	<input type="hidden" name="user_id" value="유저 아이디 넣을것">
+	<input type="hidden" name="user_id" value="${sessionScope.member.user_id }">
 	
 		<div id="write">
 			<textarea name="content" id="content" placeholder="내용을 입력해주세요" onkeyup="byte_ck(this)"></textarea>
@@ -1081,6 +1093,27 @@ marker.setMap(map);
 		<div class="user_comment">
 			예시예시 글자 채우기백바이트 글자 채우기백바이트 글자 채우기예시예시 글자 채우기백바이트 글자 채우기
 			백바이트 글자 채우기예시예시 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기
+		</div>
+		<div class="comment_info">
+			김개발좌  |  2019-01-09
+		</div>
+	</div>
+	<div class="list_panel">
+		<div class="user_star">
+			★★★★☆ <span>&nbsp;3</span>
+		</div>
+		<div class="user_comment">
+		</div>
+		<div class="comment_info">
+			김개발좌  |  2019-01-09
+		</div>
+	</div>
+	
+	<div class="list_panel">
+		<div class="user_star">
+			★★★★☆ <span>&nbsp;3</span>
+		</div>
+		<div class="user_comment">
 		</div>
 		<div class="comment_info">
 			김개발좌  |  2019-01-09
