@@ -133,7 +133,6 @@ li{
 		</c:if>
 		<c:if test="${!empty sessionScope.member }">
 			${sessionScope.member.name }´Ô ¾È³çÇÏ¼¼¿ä! &nbsp;&nbsp;
-			${sessionScope.member.bookmark1 }${sessionScope.member.bookmark2 }${sessionScope.member.bookmark3 }
 			<a href="${path }/logout.bike">·Î±×¾Æ¿ô</a>
 		</c:if>
 	</div>

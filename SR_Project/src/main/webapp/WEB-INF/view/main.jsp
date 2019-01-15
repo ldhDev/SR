@@ -164,10 +164,10 @@
     height: 75px;
     line-height: 75px;
     text-align: center;
-    color:#1d6b17;
-    font-weight:700;
-	font-size:20px;
-	font-family: "Roboto", sans-serif;
+    color: rgba(49,117,43,0.35);
+    font-weight: 600;
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
 }
 
 .bm_L{
@@ -514,7 +514,7 @@ $(document).ready(function(){
 	<div id="map_search">
 		<select id="menu_such" style="height: 45px; width: 180px; box-sizing: border-box; float: left;">
 			<option>대여소 이름</option>
-			<option>대여소 번호</option>
+			<option>대여소 주소</option>
 		</select>
 		<input type="text" id="find" name="find" style="background-color:white;height: 45px;width: 375px; box-sizing: border-box;float: left; background-color:#f6f6f3 ">
 		<t id="btn1"><i class="fas fa-search"></i></t>
@@ -799,53 +799,51 @@ marker.setMap(map);
  
  <c:if test="${sessionScope.member!=null}">	
  <div id="bm_hello">${sessionScope.member.name }님 환영합니다</div>
- 
- 
- 
-<c:forEach var="bookmark" items="${bookmark}" begin="0" end="2" step="1" varStatus="status">
 
-	<c:if test="${!empty bookmark }">
-		<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" 
+<!-- 회원 즐겨찾기 목록 출력 -->
+<c:forEach var="num" begin="0" end="2" step="1" varStatus="status">
+	<c:choose>
+		<c:when test="${!empty bookmark[num]}">
+			<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" 
 									onmouseout="this.style.borderColor='#bccfc3';this.style.borderStyle = 'dotted';"
-									onclick="location.href='${path}/info/station_info.bike?number=${bookmark.number}'">
-	 		<div class="bm_L">
-	 			<div class="bm_number">${bookmark.number}.</div>
-	 			<div class="bm_name">${bookmark.name}</div>
-	 		</div>
-	 		<div class="bm_R">
-	 			<div class="bm_R_title">대여가능 자전거</div>
-	 			<div class="bm_rest ${status.count}"></div>
-	 			
-	 			<script>
-	 			
-	 			$.ajax({
-		    		url: "http://openapi.seoul.go.kr:8088/744c44676964646f3832527170746b/json/bikeList/${bookmark.call_no-8}/${bookmark.call_no+8}",
-		    		dataType: "json",
-		    		type: "GET",
-			        async: "false",
-					success: function(data){
-						for(var i=0;i<data.rentBikeStatus.row.length;i++){
-							if(data.rentBikeStatus.row[i].stationId=='${bookmark.station_id}'){
-								$(".${status.count}").html(data.rentBikeStatus.row[i].parkingBikeTotCnt);
+									onclick="location.href='${path}/info/station_info.bike?number=${bookmark[num].number}'">
+		 		<div class="bm_L">
+		 			<div class="bm_number">${bookmark[num].number}.</div>
+		 			<div class="bm_name">${bookmark[num].name}</div>
+		 		</div>
+		 		
+		 		<div class="bm_R">
+		 			<div class="bm_R_title">대여가능 자전거</div>
+		 			<div class="bm_rest ${status.count}"></div>
+		 			
+		 			<script>
+		 			
+		 			$.ajax({
+			    		url: "http://openapi.seoul.go.kr:8088/744c44676964646f3832527170746b/json/bikeList/${bookmark[num].call_no-8}/${bookmark[num].call_no+8}",
+			    		dataType: "json",
+			    		type: "GET",
+				        async: "false",
+						success: function(data){
+							for(var i=0;i<data.rentBikeStatus.row.length;i++){
+								if(data.rentBikeStatus.row[i].stationId=='${bookmark[num].station_id}'){
+									$(".${status.count}").html(data.rentBikeStatus.row[i].parkingBikeTotCnt);
+								}
 							}
 						}
-					}
-				})
-	 			
-	 			</script>
-	 			
-	 			
+					})
+		 			
+		 			</script>
+		 		</div>
 	 		</div>
-	 	</div>
-	</c:if>
-	<c:if test="${empty bookmark }"> <!-- 여기 안되고 있음  -->
-		<div class="bm_list" style="padding: 0px;cursor: default;">
-			<div class="bm_none">등 록 가 능</div>
-		</div>
-	</c:if>
-	
-</c:forEach>
- 
+		</c:when>
+		<c:otherwise>
+			<div class="bm_list" style="padding: 0px;cursor: default;">
+				<div class="bm_none">등 록&nbsp;&nbsp;가 능</div>
+			</div>
+		</c:otherwise>
+	</c:choose>
+</c:forEach> 
+
  </c:if><!-- !sessionScope.member==null 닫음 -->
  
  

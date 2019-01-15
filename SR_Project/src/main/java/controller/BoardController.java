@@ -87,7 +87,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("board/writeForm")
-	public ModelAndView writeForm(HttpSession session, Station station) {
+	public ModelAndView writeForm(HttpSession session, Station station, HttpServletRequest requset) {
 		ModelAndView mav = new ModelAndView();
 		Board board = new Board();
 		Member member = (Member)session.getAttribute("member");
@@ -103,9 +103,16 @@ public class BoardController {
 	@RequestMapping(value="board/write", method=RequestMethod.POST)
 	public ModelAndView write(Board board) {
 		ModelAndView mav = new ModelAndView();
+		Station station = new Station();
+		mav.addObject(station);
 		try {
 			service.boardadd(board);
-			mav.setViewName("redirect:list.bike");
+			System.out.println(board.getNumber());
+			if(board.getNumber() == 0) {
+				mav.setViewName("redirect:list.bike");
+			}else {
+				mav.setViewName("redirect:list.bike?num="+board.getNumber());
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -119,7 +126,7 @@ public class BoardController {
 		Board dbBoard = service.getBoard(board.getBoard_no(), request);
 		try {
 			service.boardupdate(board);
-			mav.setViewName("redirect:list.bike");
+			mav.setViewName("redirect:list.bike?");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

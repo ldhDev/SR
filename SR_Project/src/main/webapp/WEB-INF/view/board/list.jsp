@@ -160,7 +160,7 @@
 				      			<c:if test="${board.type == 2}">정보</c:if>
 				      			<c:if test="${board.type == 3}">질문</c:if>
 				      		</div>
-				      		<div class="td"><a href="detail.bike?num=${board.board_no }">${board.title }</a></div>
+				      		<div class="td"><a href="detail.bike?num=${board.board_no }&number='${param.num }'">${board.title }</a></div>
 				      		<div class="td">${board.user_name }</div>
 				      		<div class="td"><fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"/></div>
 				      		<div class="td">${board.readcnt }</div>

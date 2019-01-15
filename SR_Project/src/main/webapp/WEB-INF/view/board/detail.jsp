@@ -89,8 +89,13 @@
 	<br>
 	<div class="top">
 		<div style="float: left">
-			<h3>${b.number }.${station.name }</h3>
-			<p>${station.address }</p>
+			<c:if test="${station.name == null }">
+				<h3>전체 게시글</h3>
+			</c:if>
+			<c:if test="${station.name != null }">
+				<h3>${b.number }.${station.name }</h3>
+				<p>${station.address }</p>
+			</c:if>
 		</div>
 		<c:if test="${member.name == b.user_name}">
 			<div class="btn-group">
@@ -112,7 +117,12 @@
 	<div id="content">${b.content }</div>
 	
 	<div id="list">
-		<a href="list.bike" style="color: white;">목록</a>
+		<c:if test="${empty param.number }">
+			<a href="list.bike" style="color: white;">목록</a>
+		</c:if>
+		<c:if test="${!empty param.number }">
+			<a href="list.bike?num='${param.number }'" style="color: white;">목록</a>
+		</c:if>
 	</div>
 	<br><br><br>
 	
