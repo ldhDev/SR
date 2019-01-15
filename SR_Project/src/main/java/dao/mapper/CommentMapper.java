@@ -15,7 +15,7 @@ public interface CommentMapper {
 	@Select("Select round(avg(score), 1) from comment where number=#{number} group by number")
 	Double station_score(Map<String, Integer> param);
 
-	@Select("Select * from comment where number=#{number}")
+	@Select("Select * from comment where number=#{number} order by comment_no DESC limit #{startrow},#{limit}")
 	List<Comment> comment_list(Map<String, Integer> param);
 
 }

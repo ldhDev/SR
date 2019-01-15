@@ -33,8 +33,11 @@ public class CommentDao {
 	}
 
 
-	public List<Comment> comment_List(Integer number) {
+	public List<Comment> comment_List(Integer number,int pageNum,int limit) {
 		Map<String,Integer> param = new HashMap<String, Integer>();
+		int startrow = (pageNum -1) * limit;
+		param.put("startrow", startrow);
+		param.put("limit", limit);
 		param.put("number", number);
 		return sqlSession.getMapper(CommentMapper.class).comment_list(param);
 	}

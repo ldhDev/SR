@@ -46,8 +46,8 @@ public class BikeService {
 	}
 	
 	//해당 대여소 평가,한줄평
-	public List<Comment> commList(Integer number) {
-		return commentDao.comment_List(number);
+	public List<Comment> commList(Integer number,int pageNum,int limit) {
+		return commentDao.comment_List(number,pageNum,limit);
 	}
 	
 	//대여소 즐겨찾기 등록
@@ -69,6 +69,8 @@ public class BikeService {
 	public List<Station> bookmark_List(String bookmarks) {
 		return stationDao.bookmark_List(bookmarks);
 	}
+	
+	
 	////////////////////////////////////////////
 	
 	
@@ -130,6 +132,8 @@ public class BikeService {
 	public void memberinsert(Member member) {
 		memberDao.meminsert(member);
 	}
+
+
 
 
 

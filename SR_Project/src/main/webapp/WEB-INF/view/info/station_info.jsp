@@ -366,6 +366,10 @@ body{
 	border-bottom: 1px dashed #99bf93;
 	margin-bottom: 20px;
 }
+.list_panel:last-child{
+	border-bottom: 0px;
+}
+
 .user_star{
 	width: 960px;
 	height: 40px;
@@ -399,6 +403,15 @@ body{
 	font-size:12px;
 	font-family: "돋움";
 	color:gray;
+}
+
+.page{
+	background-color:gray;
+	width:960px;
+	height: 50px;
+	line-height: 50px;
+	margin-bottom: 50px;
+	text-align: center;
 }
 
 #not_exist{
@@ -494,6 +507,10 @@ body{
 	color : black;
 	font-size:18px;
 }
+
+
+
+
 
 
 
@@ -1002,7 +1019,7 @@ marker.setMap(map);
 				<%=star %>
 				<span style="font-size: 20px;">${!empty station_score?station_score!=0.0?station_score:0:0}<span style="font-size: 22px;">/</span>5</span>
 			</div>
-			<div id="score_cnt">( ${score_cnt } )</div>
+			<div id="score_cnt">( ${comment_cnt } )</div>
 		</div>
 			<div class="line_hor"></div>
 		<div id="board">
@@ -1072,65 +1089,33 @@ marker.setMap(map);
 
 <c:if test="${!empty comment }">
 <div id="comment_list">
-	<!-- JSTL로 반복 넣을것 -->
-	
+
+<c:forEach var="c_list" items="${comment }">
 	<div class="list_panel">
-		<div class="user_star">
-			★★★★☆ <span>&nbsp;5</span>
-		</div>
-		<div class="user_comment">
-			예시1
-		</div>
-		<div class="comment_info">
-			김개발좌  |  2019-01-09
-		</div>
+			<div class="user_star">
+				<c:forEach var="num" begin="1" end="5" step="1"><c:choose><c:when test="${num <= c_list.score }">★</c:when><c:otherwise>☆</c:otherwise></c:choose></c:forEach> <span>&nbsp;${c_list.score }</span>
+			</div>
+			<div class="user_comment">
+				${c_list.comment }
+			</div>
+			<div class="comment_info">
+				${c_list.user_name }  |  <fmt:formatDate value="${c_list.regdate }" pattern="yyyy-MM-dd"/>
+			</div>
 	</div>
-	
-	<div class="list_panel">
-		<div class="user_star">
-			★★★★☆ <span>&nbsp;4</span> 
-		</div>
-		<div class="user_comment">
-			예시예시 글자 채우기백바이트 글자 채우기백바이트 글자 채우기예시예시 글자 채우기백바이트 글자 채우기
-			백바이트 글자 채우기예시예시 글자 채우기백바이트 글자 채우기백바이트 글자 채우기백바이트 글자 채우기
-		</div>
-		<div class="comment_info">
-			김개발좌  |  2019-01-09
-		</div>
-	</div>
-	<div class="list_panel">
-		<div class="user_star">
-			★★★★☆ <span>&nbsp;3</span>
-		</div>
-		<div class="user_comment">
-		</div>
-		<div class="comment_info">
-			김개발좌  |  2019-01-09
-		</div>
-	</div>
-	
-	<div class="list_panel">
-		<div class="user_star">
-			★★★★☆ <span>&nbsp;3</span>
-		</div>
-		<div class="user_comment">
-		</div>
-		<div class="comment_info">
-			김개발좌  |  2019-01-09
-		</div>
-	</div>
-	<div class="list_panel">
-		<div class="user_star">
-			★★★★☆ <span>&nbsp;3</span>
-		</div>
-		<div class="user_comment">
-		</div>
-		<div class="comment_info">
-			김개발좌  |  2019-01-09
-		</div>
-	</div>
-	
-</div><!-- review 끝 -->
+</c:forEach>
+
+</div><!-- comment_list 끝 -->
+
+<div class="page">
+			<c:if test="${pageNum > 1}"><a href="javascript:list(${pageNum -1 })">[이전]</a></c:if>
+			<c:if test="${pageNum <= 1 }">[이전]</c:if>
+			<c:forEach var="a" begin="${startpage }" end="${endpage }">
+				<c:if test="${a==pageNum }">[${a }]</c:if>
+				<c:if test="${a!=pageNum }"><a href="javascript:list(${a })">[${a }]</a></c:if>
+			</c:forEach>
+			<c:if test="${pageNum < maxpage}"><a href="javascript:list(${pageNum +1 })">[다음]</a></c:if>
+			<c:if test="${pageNum >= maxpage }">[다음]</c:if>
+</div>
 
 </c:if><!-- ${!empty comment } 의 끝 -->
 

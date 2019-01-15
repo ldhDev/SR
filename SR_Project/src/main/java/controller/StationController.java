@@ -55,19 +55,40 @@ public class StationController {
 		}
 		else {
 			try {
-				Station info_one = service.stationOne(number);
-				Date call_time = new Date();
-				int score_cnt = service.score_cnt(number);
-				Double station_score = service.station_score(number);
-				List<Comment> commentList = service.commList(number);
+				
+				//한줄평 페이지 조회
+				int pageNum = 1;
+				int limit = 5;			
+				
+				int comment_cnt = service.score_cnt(number);	//평가(== 한줄평) 수
+				
+				if(comment_cnt != 0) {
+					List<Comment> commentList = service.commList(number,pageNum,limit);  //핑까 1페이지부터 5개 제한
+					
+					int maxpage = (int)((double)comment_cnt/limit + 0.95);		//전체 페이지 수
+					int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 + 1;	//시작페이지 1,11,21...
+					int endpage = startpage + 9;								//마지막 페이지
+					if(endpage > maxpage) endpage = maxpage;
+					
+					mav.addObject("pageNum", pageNum);	//코멘트페이지
+					mav.addObject("maxpage",maxpage);
+					mav.addObject("startpage",startpage);
+					mav.addObject("endpage",endpage);
+					mav.addObject("comment",commentList);
+					//////////////////////한줄평 페이지 조회 끝					
+				}
+				
+				Station info_one = service.stationOne(number);		//대여소 정보
+				Date call_time = new Date();	// 조회시간
+				Double station_score = service.station_score(number); //평점
 				int count = service.bookmark_count(number); //즐찾 숫자 가져옴
 				
 				mav.addObject("info",info_one);
 				mav.addObject("info_time",call_time);
-				mav.addObject("score_cnt",score_cnt);
 				mav.addObject("station_score",station_score);
-				mav.addObject("comment",commentList);
-				mav.addObject("count",count);
+				mav.addObject("count",count); //즐겨찾기 숫자
+				mav.addObject("comment_cnt",comment_cnt); // 코멘트(평가) 수
+				
 				mav.addObject("info_open",1);
 			}
 			catch(Exception e) {
