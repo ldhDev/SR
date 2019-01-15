@@ -6,6 +6,7 @@
 	</decorator>
 	<excludes>
 		<pattern>*/bookmark_*</pattern>
+		<pattern>*/comment_move*</pattern>
 		<pattern>*Ajax.action*</pattern>
 	</excludes>
 </decorators>

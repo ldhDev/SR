@@ -366,9 +366,6 @@ body{
 	border-bottom: 1px dashed #99bf93;
 	margin-bottom: 20px;
 }
-.list_panel:last-child{
-	border-bottom: 0px;
-}
 
 .user_star{
 	width: 960px;
@@ -406,12 +403,45 @@ body{
 }
 
 .page{
-	background-color:gray;
 	width:960px;
 	height: 50px;
 	line-height: 50px;
+	margin-top: 25px;
 	margin-bottom: 50px;
 	text-align: center;
+	color: #107307;
+	font-weight: bold;
+}
+.page a{
+	color: #107307;
+	font-weight: bold;
+}
+.page_sel{
+	width: 28px;
+	height: 28px;
+	line-height:28px;
+	display:inline-block;
+	border-radius: 25%;
+	margin:0px 2px;
+	background-color: #107307;
+	color:white;
+}
+.page_Nosel{
+	width: 28px;
+	height: 28px;
+	line-height:28px;
+	display:inline-block;
+	margin:0px 2px;
+}
+.page_Nosel:hover{
+	width: 28px;
+	height: 28px;
+	line-height:28px;
+	display:inline-block;
+	border-radius: 25%;
+	background-color: #107307;
+	margin:0px 2px;
+	color:white;
 }
 
 #not_exist{
@@ -634,6 +664,25 @@ function comment_submit(){
 	
 	document.comment_form.submit();
 	
+}
+
+///// 한줄평 이동됨
+function list(pageNum){
+	$.ajax({ 
+		url : "comment_move.bike",
+		type : "POST",
+		data : {			
+			number:'${info.number}',
+			pageNum:pageNum
+			},		 
+		success : function(data){
+			$("#comment_pannel").html(data);
+		},
+		error : function(error) {
+			alert("오류가 발생했습니다.");
+	    }
+
+	})
 }
 
 
@@ -1088,6 +1137,8 @@ marker.setMap(map);
 <div id="comment_line"></div>
 
 <c:if test="${!empty comment }">
+<div id="comment_pannel">
+
 <div id="comment_list">
 
 <c:forEach var="c_list" items="${comment }">
@@ -1107,15 +1158,17 @@ marker.setMap(map);
 </div><!-- comment_list 끝 -->
 
 <div class="page">
-			<c:if test="${pageNum > 1}"><a href="javascript:list(${pageNum -1 })">[이전]</a></c:if>
-			<c:if test="${pageNum <= 1 }">[이전]</c:if>
-			<c:forEach var="a" begin="${startpage }" end="${endpage }">
-				<c:if test="${a==pageNum }">[${a }]</c:if>
-				<c:if test="${a!=pageNum }"><a href="javascript:list(${a })">[${a }]</a></c:if>
-			</c:forEach>
-			<c:if test="${pageNum < maxpage}"><a href="javascript:list(${pageNum +1 })">[다음]</a></c:if>
-			<c:if test="${pageNum >= maxpage }">[다음]</c:if>
+	<c:if test="${pageNum > 1}"><a href="javascript:list(${pageNum -1 })"><span style="font-size: 20px;">◀</span>&nbsp;&nbsp;</a></c:if>
+	<c:if test="${pageNum <= 1 }"><span style="font-size: 20px;">◀</span>&nbsp;&nbsp;</c:if>
+	<c:forEach var="a" begin="${startpage }" end="${endpage }">
+		<c:if test="${a==pageNum }"><div class="page_sel">${a }</div></c:if>
+		<c:if test="${a!=pageNum }"><a href="javascript:list(${a })"><div class="page_Nosel">${a }</div></a></c:if>
+	</c:forEach>
+	<c:if test="${pageNum < maxpage}"><a href="javascript:list(${pageNum +1 })">&nbsp;&nbsp;<span style="font-size: 20px;">▶</span></a></c:if>
+	<c:if test="${pageNum >= maxpage }">&nbsp;&nbsp;<span style="font-size: 20px;">▶</span></c:if>
 </div>
+
+</div><!-- 코멘트 판넬 끝 -->
 
 </c:if><!-- ${!empty comment } 의 끝 -->
 

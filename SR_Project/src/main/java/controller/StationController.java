@@ -156,6 +156,32 @@ public class StationController {
 		}
 	
 	
+	//코멘트 페이지 이동
+		@RequestMapping("info/comment_move*")
+		public ModelAndView cm_move(int number,int pageNum,HttpSession session) {
+
+			ModelAndView mav = new ModelAndView(); 
+			
+			int limit = 5;			
+			int comment_cnt = service.score_cnt(number);	//평가(== 한줄평) 수
+			
+			List<Comment> commentList = service.commList(number,pageNum,limit);  //핑까 1페이지부터 5개 제한
+				
+			int maxpage = (int)((double)comment_cnt/limit + 0.95);		//전체 페이지 수
+			int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 + 1;	//시작페이지 1,11,21...
+			int endpage = startpage + 9;								//마지막 페이지
+			if(endpage > maxpage) endpage = maxpage;
+				
+			mav.addObject("pageNum", pageNum);	//코멘트페이지
+			mav.addObject("maxpage",maxpage);
+			mav.addObject("startpage",startpage);
+			mav.addObject("endpage",endpage);
+			mav.addObject("comment",commentList);
+			mav.addObject("comment_cnt",comment_cnt); // 코멘트(평가) 수
+			//////////////////////한줄평 페이지 조회 끝	
+
+			return mav;
+		}
 	
 
 
