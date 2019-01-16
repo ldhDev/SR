@@ -42,4 +42,30 @@ public class CommentDao {
 		return sqlSession.getMapper(CommentMapper.class).comment_list(param);
 	}
 
+
+	public int comment_maxNo() {
+		return sqlSession.getMapper(CommentMapper.class).comment_maxNo();
+	}
+
+
+	public void comment_insert(Comment cmmt) {
+		sqlSession.getMapper(CommentMapper.class).comment_insert(cmmt);
+	}
+
+
+	public Comment comment_one(Integer number, String user_id) {
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("number", number);
+		param.put("user_id",user_id);
+		return sqlSession.getMapper(CommentMapper.class).comment_one(param); 
+	}
+
+
+	public void comment_delete(int number, String user_id) {
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("number", number);
+		param.put("user_id",user_id);
+		sqlSession.getMapper(CommentMapper.class).comment_delete(param);
+	}
+
 }

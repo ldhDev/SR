@@ -50,6 +50,23 @@ public class BikeService {
 		return commentDao.comment_List(number,pageNum,limit);
 	}
 	
+	//한줄평 작성
+	public void comment_insert(Comment cmmt) {
+		int max_no = commentDao.comment_maxNo();
+		cmmt.setComment_no(++max_no);
+		commentDao.comment_insert(cmmt);
+	}
+	
+	//한줄평 삭제
+	public void comment_delete(int number, String user_id) {
+		commentDao.comment_delete(number,user_id);
+	}
+	
+	//회원 한줄평 조회
+	public Comment comment_one(Integer number, String user_id) {
+		return commentDao.comment_one(number,user_id);
+	}
+	
 	//대여소 즐겨찾기 등록
 	public void bookmark_in(int number, String user_id, String order) {
 		stationDao.bookmark_in(number,user_id,order);
@@ -132,6 +149,8 @@ public class BikeService {
 	public void memberinsert(Member member) {
 		memberDao.meminsert(member);
 	}
+
+
 
 
 

@@ -662,8 +662,49 @@ function comment_submit(){
 		return false;
 	}
 	
-	document.comment_form.submit();
-	
+	$.ajax({ 
+		url : "comment_insert.bike",
+		type : "POST",
+		data : {
+			number:'${info.number}',
+			choice_star:$('#choice_star').val(),
+			user_id:$('#user_id').val(),
+			user_name:$('#user_name').val(),
+			content:$('#content').val()
+		},		  
+		success : function(data){
+			alert("등록이 완료되었습니다.");
+			$('#comment_update').html(data);
+		},
+		error : function(error) {
+			alert("오류가 발생했습니다.");
+	    }
+
+	})
+
+}
+
+
+//////한줄평 삭제
+function comment_delete(){
+	if(confirm("대여소 한마디를 삭제하시겠습니까?")){
+		$.ajax({ 
+			url : "comment_delete.bike",
+			type : "POST",
+			data : {
+				number:'${info.number}',
+				user_id:$('#user_id').val(),
+			},		  
+			success : function(data){
+				alert("한줄평 삭제가 완료되었습니다.");
+				$('#comment_update').html(data);
+			},
+			error : function(error) {
+				alert("오류가 발생했습니다.");
+		    }
+
+		})
+	}
 }
 
 ///// 한줄평 이동됨
@@ -712,7 +753,7 @@ function need_login(){
 //즐겨찾기 등록
 function bookmark_in(s_num){
 	
-	if(${bookmark_limit}==1){
+	if(${bookmark_limit}==1){ 
 		alert("즐겨찾기는 최대 3개까지 가능합니다.");
 	} 
 	else{
@@ -1099,6 +1140,9 @@ marker.setMap(map);
 	대여소 한마디 및 평가 
 </div>
 
+<div id="comment_update"><!-- 코멘트 입력,삭제시 사용될 div -->
+
+<c:if test="${empty user_comment }">
 <div id="comment">
 <!-- 비로그인 사용자가 클릭 시 -->
 <c:if test="${sessionScope.member==null}">
@@ -1116,11 +1160,11 @@ marker.setMap(map);
 		<span id="sel_star">0</span> / 5&nbsp;&nbsp;&nbsp;<span style="font-size: 12px;font-family: '돋움';color:gray;font-weight:normal;">- 이 대여소는 어떤가요?</span>
 	</div><!-- comment_star 라인  -->
 	
-<form action="" name="comment_form">
+<form action="" name="comment_form" id="comment_form">
 
 	<input type="hidden" name="choice_star" id="choice_star" value="0">
-	<input type="hidden" name="number" value="${info.number }">
-	<input type="hidden" name="user_id" value="${sessionScope.member.user_id }">
+	<input type="hidden" name="user_id" id="user_id" value="${sessionScope.member.user_id }">
+	<input type="hidden" name="user_name" id="user_name" value="${sessionScope.member.name }">
 	
 		<div id="write">
 			<textarea name="content" id="content" placeholder="내용을 입력해주세요" onkeyup="byte_ck(this)"></textarea>
@@ -1133,8 +1177,50 @@ marker.setMap(map);
 </form><!-- form 끝  -->
 
 </div><!-- comment 라인  -->
+</c:if><!-- 비사용자 클릭 끝 -->
+
+
+
+<c:if test="${!empty user_comment }"> <!-- 사용자가 등록한 코멘트가 있음 -->
+<div id="comment" style="border:2px solid green;height: 202px;width: 962px; ">
+
+	<div id="comment_star" style="border-color: #85d179;">
+		<span class="stars">
+			<span id="star1">★</span>
+			<span id="star2">★</span>
+			<span id="star3">★</span>
+			<span id="star4">★</span>
+			<span id="star5">★</span>
+		</span> 
+		<span id="sel_star">${user_comment.score}</span> / 5&nbsp;&nbsp;&nbsp;<span style="font-size: 12px;font-family: '돋움';color:green;font-weight:normal;">- 내가 쓴 한마디</span>
+	</div><!-- comment_star 라인  -->
+	
+<form action="" name="comment_form" id="comment_form">
+
+	<input type="hidden" name="choice_star" id="choice_star" value="${user_comment.score}">
+	<input type="hidden" name="user_id" id="user_id" value="${sessionScope.member.user_id }">
+	<input type="hidden" name="user_name" id="user_name" value="${sessionScope.member.name }">
+	
+		<div id="write">
+			<textarea name="content" id="content" readonly="readonly" style="outline: none;">${user_comment.comment}</textarea>
+		</div><!-- write 라인  -->
+		<div id="submit_line">
+			<div id="sub_btn" onclick="comment_delete()">삭제</div>
+		</div><!-- submit_line 라인  -->
+	
+</form><!-- form 끝  -->
+
+</div>
+
+<script type="text/javascript">
+out_star();
+</script>
+
+</c:if> <!-- 등록한 코멘트가 있을 때 if 끝 -->
+
 
 <div id="comment_line"></div>
+
 
 <c:if test="${!empty comment }">
 <div id="comment_pannel">
@@ -1178,6 +1264,7 @@ marker.setMap(map);
 	</div>
 </c:if><!-- ${empty comment } 의 끝 -->
 
+</div><!-- comment_update 닫음 -->
 
 
 </c:if> <!-- c:if info_open == 1 의 끝  -->

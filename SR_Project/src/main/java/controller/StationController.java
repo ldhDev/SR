@@ -34,6 +34,9 @@ public class StationController {
 
 		if(session_member != null) {
 			Member member = service.imformation(session_member);
+	
+			Comment user_comment = service.comment_one(number,session_member.getUser_id());
+			mav.addObject("user_comment",user_comment);//유저 등록 코멘트
 			
 			Integer bk1 = member.getBookmark1();
 			Integer bk2 = member.getBookmark2();
@@ -82,6 +85,7 @@ public class StationController {
 				Date call_time = new Date();	// 조회시간
 				Double station_score = service.station_score(number); //평점
 				int count = service.bookmark_count(number); //즐찾 숫자 가져옴
+				
 				
 				mav.addObject("info",info_one);
 				mav.addObject("info_time",call_time);
@@ -156,33 +160,133 @@ public class StationController {
 		}
 	
 	
-	//코멘트 페이지 이동
-		@RequestMapping("info/comment_move*")
-		public ModelAndView cm_move(int number,int pageNum,HttpSession session) {
+		//코멘트 페이지 이동
+				@RequestMapping("info/comment_move*")
+				public ModelAndView cm_move(int number,int pageNum,HttpSession session) {
+
+					ModelAndView mav = new ModelAndView(); 
+					
+					int limit = 5;			
+					int comment_cnt = service.score_cnt(number);	//평가(== 한줄평) 수
+					
+					List<Comment> commentList = service.commList(number,pageNum,limit);  //핑까 1페이지부터 5개 제한
+						
+					int maxpage = (int)((double)comment_cnt/limit + 0.95);		//전체 페이지 수
+					int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 + 1;	//시작페이지 1,11,21...
+					int endpage = startpage + 9;								//마지막 페이지
+					if(endpage > maxpage) endpage = maxpage;
+						
+					mav.addObject("pageNum", pageNum);	//코멘트페이지
+					mav.addObject("maxpage",maxpage);
+					mav.addObject("startpage",startpage);
+					mav.addObject("endpage",endpage);
+					mav.addObject("comment",commentList);
+					mav.addObject("comment_cnt",comment_cnt); // 코멘트(평가) 수
+					//////////////////////한줄평 페이지 조회 끝	
+
+					return mav;
+				}	
+		
+		
+		
+	//코멘트 작성
+		@RequestMapping("info/comment_insert*")
+		public ModelAndView cm_insert(int number,int choice_star,String user_id,String user_name,String content,HttpSession session) {
 
 			ModelAndView mav = new ModelAndView(); 
 			
+			Comment cmmt = new Comment();
+			cmmt.setComment(content);
+			cmmt.setNumber(number);
+			cmmt.setScore(choice_star);
+			cmmt.setUser_id(user_id);
+			cmmt.setUser_name(user_name);
+			
+			try {
+				service.comment_insert(cmmt);
+			}
+			catch(Exception e) {
+				
+			}
+			
+			
+			//ajax 사용을 위한 한줄평 페이지 필요코드
+			Comment user_comment = service.comment_one(number,user_id);
+			mav.addObject("user_comment",user_comment);//유저 등록 코멘트
+			
+			//한줄평 페이지 조회
+			int pageNum = 1;
 			int limit = 5;			
+			
 			int comment_cnt = service.score_cnt(number);	//평가(== 한줄평) 수
 			
-			List<Comment> commentList = service.commList(number,pageNum,limit);  //핑까 1페이지부터 5개 제한
+			if(comment_cnt != 0) {
+				List<Comment> commentList = service.commList(number,pageNum,limit);  //핑까 1페이지부터 5개 제한
 				
-			int maxpage = (int)((double)comment_cnt/limit + 0.95);		//전체 페이지 수
-			int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 + 1;	//시작페이지 1,11,21...
-			int endpage = startpage + 9;								//마지막 페이지
-			if(endpage > maxpage) endpage = maxpage;
+				int maxpage = (int)((double)comment_cnt/limit + 0.95);		//전체 페이지 수
+				int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 + 1;	//시작페이지 1,11,21...
+				int endpage = startpage + 9;								//마지막 페이지
+				if(endpage > maxpage) endpage = maxpage;
 				
-			mav.addObject("pageNum", pageNum);	//코멘트페이지
-			mav.addObject("maxpage",maxpage);
-			mav.addObject("startpage",startpage);
-			mav.addObject("endpage",endpage);
-			mav.addObject("comment",commentList);
-			mav.addObject("comment_cnt",comment_cnt); // 코멘트(평가) 수
-			//////////////////////한줄평 페이지 조회 끝	
-
+				mav.addObject("pageNum", pageNum);	//코멘트페이지
+				mav.addObject("maxpage",maxpage);
+				mav.addObject("startpage",startpage);
+				mav.addObject("endpage",endpage);
+				mav.addObject("comment",commentList);
+				//////////////////////한줄평 페이지 조회 끝					
+			}
+			
+			
+			
 			return mav;
 		}
 	
+		
+		//코멘트 삭제
+				@RequestMapping("info/comment_delete*")
+				public ModelAndView cm_delete(int number,String user_id,HttpSession session) {
+
+					ModelAndView mav = new ModelAndView(); 
+					
+					
+					try {
+						service.comment_delete(number,user_id);
+					}
+					catch(Exception e) {
+						
+					}
+					
+					
+					//ajax 사용을 위한 한줄평 페이지 필요코드
+					Comment user_comment = service.comment_one(number,user_id);
+					mav.addObject("user_comment",user_comment);//유저 등록 코멘트
+					
+					//한줄평 페이지 조회
+					int pageNum = 1;
+					int limit = 5;			
+					
+					int comment_cnt = service.score_cnt(number);	//평가(== 한줄평) 수
+					
+					if(comment_cnt != 0) {
+						List<Comment> commentList = service.commList(number,pageNum,limit);  //핑까 1페이지부터 5개 제한
+						
+						int maxpage = (int)((double)comment_cnt/limit + 0.95);		//전체 페이지 수
+						int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 + 1;	//시작페이지 1,11,21...
+						int endpage = startpage + 9;								//마지막 페이지
+						if(endpage > maxpage) endpage = maxpage;
+						
+						mav.addObject("pageNum", pageNum);	//코멘트페이지
+						mav.addObject("maxpage",maxpage);
+						mav.addObject("startpage",startpage);
+						mav.addObject("endpage",endpage);
+						mav.addObject("comment",commentList);
+						//////////////////////한줄평 페이지 조회 끝					
+					}
+					
+					
+					
+					return mav;
+				}
 
 
 }
