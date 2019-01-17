@@ -27,6 +27,7 @@
   border: none;
   width: 950px;
   text-align: center;
+  margin: 0 auto;
 }
 .caption {
   display: table-caption;
@@ -55,7 +56,7 @@
   font-weight : bold;
   display: table-cell;
   vertical-align :middle;
-  border-bottom: 3px solid #A9F5BC;
+  border-bottom: 3px solid #107307;
 }
 .td {
   height : 40px;
@@ -64,19 +65,52 @@
   vertical-align: middle;
 }
 .page{
-	width:500px;
-	margin-top : 5px;
-	margin-right: 10px;
-	margin-left: 200px;
+	width:960px;
+	height: 50px;
+	line-height: 50px;
+	margin-top: 25px;
+	margin-bottom: 50px;
 	text-align: center;
-	float: left;	
+	color: #107307;
+	font-weight: bold;
+}
+.page a{
+	color: #107307;
+	font-weight: bold;
+}
+.page_sel{
+	width: 28px;
+	height: 28px;
+	line-height:28px;
+	display:inline-block;
+	border-radius: 25%;
+	margin:0px 2px;
+	background-color: #107307;
+	color:white;
+}
+.page_Nosel{
+	width: 28px;
+	height: 28px;
+	line-height:28px;
+	display:inline-block;
+	margin:0px 2px;
+}
+.page_Nosel:hover{
+	width: 28px;
+	height: 28px;
+	line-height:28px;
+	display:inline-block;
+	border-radius: 25%;
+	background-color: #107307;
+	margin:0px 2px;
+	color:white;
 }
 
 .button {
   border-radius: 3px;
-  background-color: #A9F5BC;
+  background-color: #107307;
   border: none;
-  color: #FFFFFF;
+  color: white;
   text-align: center;
   font-size: 16px;
   padding: 4px;
@@ -84,6 +118,7 @@
   transition: all 0.5s;
   cursor: pointer;
   height: 28px;
+  line-height:28px;
   margin: 7px 87%;
 }
 
@@ -164,7 +199,7 @@
 				      			<c:if test="${board.type == 2}">정보</c:if>
 				      			<c:if test="${board.type == 3}">질문</c:if>
 				      		</div>
-				      		<div class="td"><a href="detail.bike?num=${board.board_no }&number=${param.num }">${board.title }</a></div>
+				      		<div class="td" style="text-align: left; box-sizing: border-box; padding-left: 20px;"><a href="detail.bike?num=${board.board_no }&number=${param.num }">${board.title }</a></div>
 				      		<div class="td">${board.user_name }</div>
 				      		<div class="td"><fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"/></div>
 				      		<div class="td">${board.readcnt }</div>
@@ -195,20 +230,20 @@
 	
 	<div>
 		<div class="page">
-			<c:if test="${pageNum > 1}"><a href="javascript:list(${pageNum -1 })">[이전]</a></c:if>
-			<c:if test="${pageNum <= 1 }">[이전]</c:if>
+			<c:if test="${pageNum > 1}"><a href="javascript:list(${pageNum -1 })"><span style="font-size: 20px;">◀</span>&nbsp;&nbsp;</a></c:if>
+			<c:if test="${pageNum <= 1 }"><span style="font-size: 20px;">◀</span>&nbsp;&nbsp;</c:if>
 			<c:forEach var="a" begin="${startpage }" end="${endpage }">
-				<c:if test="${a==pageNum }">[${a }]</c:if>
-				<c:if test="${a!=pageNum }"><a href="javascript:list(${a })">[${a }]</a></c:if>
+				<c:if test="${a==pageNum }"><div class="page_sel">${a }</div></c:if>
+				<c:if test="${a!=pageNum }"><a href="javascript:list(${a })"><div class="page_Nosel">${a }</div></a></c:if>
 			</c:forEach>
-			<c:if test="${pageNum < maxpage}"><a href="javascript:list(${pageNum +1 })">[다음]</a></c:if>
-			<c:if test="${pageNum >= maxpage }">[다음]</c:if>
+			<c:if test="${pageNum < maxpage}"><a href="javascript:list(${pageNum +1 })">&nbsp;&nbsp;<span style="font-size: 20px;">▶</span></a></c:if>
+			<c:if test="${pageNum >= maxpage }">&nbsp;&nbsp;<span style="font-size: 20px;">▶</span></c:if>
 		</div>
 		<c:if test="${member.name != null}">
 			<div class="button">
 				<form:form modelAttribute="station" action="writeForm.bike" name="f">
 					<form:hidden path="number"/>
-					<span style="font-weight: bold;"><a href="javascript:document.f.submit()">글쓰기</a></span>
+					<span style="font-weight: bold;"><a href="javascript:document.f.submit()" style="color: white;">글쓰기</a></span>
 				</form:form>
 			</div>
 		</c:if>

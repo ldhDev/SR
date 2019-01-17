@@ -27,7 +27,7 @@ public class UserController {
 		if(member != null){
 			mav.addObject("member", member);
 		}else {
-			throw new LoginException("로그인 후 거래하세요.","../main.bike");
+			throw new LoginException("로그인이 필요한 페이지입니다.","../main.bike");
 		}
 		member = service.imformation(member);
 		session.setAttribute("member", member);

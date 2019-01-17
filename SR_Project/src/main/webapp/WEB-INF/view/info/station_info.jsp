@@ -620,6 +620,9 @@ $(document).ready(function(){
 	//////////////////////////////////////////////////////////AJAX
 	
 	//초기화면에서 통계정보 출력
+
+if(${info_open} == 1){	
+	
 	$.ajax({ 
 		url : "chart.bike",
 		type : "POST",
@@ -636,6 +639,8 @@ $(document).ready(function(){
 	    }
 
 	})
+} 
+
 
 });
 

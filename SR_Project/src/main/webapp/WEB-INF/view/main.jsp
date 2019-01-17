@@ -246,7 +246,7 @@
 	float: left;
 }
 #notice_title{
-	margin-bottom:25px;
+	/*margin-bottom:25px;*/margin-bottom:0px !important;
 	width: 580px;
 	height: 50px;
 	line-height: 50px;
@@ -264,6 +264,39 @@
 	line-height: 200px;
 	text-align: center;
 	border-bottom: 2px dashed #d4f8e2;
+}
+.notice_line{
+	width: 580px;
+	height: 39px;
+	line-height: 39px;
+	border-bottom: 1px solid #d8d8d8;
+}
+
+.notice_line:last-child{
+	width: 580px;
+	height: 40px;
+	line-height: 40px;
+	text-align:left;
+	border-bottom: 0px;
+}
+.notice_title{
+	width: 480px;
+	height: 39px;
+	float: left;
+	text-align:left;
+	font-size: 16px;
+}
+.notice_title :hover{
+	text-decoration: underline;
+}
+
+.notice_date{
+	width: 100px;
+	height: 39px;
+	text-align:center;
+	float: left;
+	font-size: 12px;
+	font-weight: bold;
 }
 
 #weather{
@@ -855,7 +888,12 @@ marker.setMap(map);
 	</div>
 	<!-- SQL이랑 JSTL 이용해서 만들것 -->
 	<div id="notices">
-		공지사항을 등록해주세요
+		<c:forEach items="${noticelist }" var ="notice">
+			<div class="notice_line">
+				<div class="notice_title">&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<a href="board/notice_detail.bike?num=${notice.board_no }">${notice.title }</a></div>
+				<div class="notice_date"><fmt:formatDate value="${notice.regdate }" pattern="yyyy-MM-dd"/></div>
+			</div>
+    	</c:forEach>
 	</div>
 </div>
 

@@ -55,7 +55,7 @@
   font-weight : bold;
   display: table-cell;
   vertical-align :middle;
-  border-bottom: 3px solid #A9F5BC;
+  border-bottom: 3px solid #107307;
 }
 .td {
   height : 40px;
@@ -74,8 +74,11 @@
 }
 
 .button {
+  margin-top:15px;
+  
+
   border-radius: 3px;
-  background-color: #A9F5BC;
+  background-color: #107307;
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -85,13 +88,14 @@
   transition: all 0.5s;
   cursor: pointer;
   height: 28px;
+  line-height:28px;
   margin: 7px 87%;
 }
 
 .button span {
   cursor: pointer;
   display: inline-block;
-  position: relative;
+  position: relative; 
   transition: 0.5s;
 }
 
@@ -155,11 +159,14 @@
 	    	</c:forEach>
 		</div>
 	</div>
-	
+<!-- 
+/.///////////////////////////////////////////////////
+ -->
+ <br><br>
 	<div>
-		<c:if test="${member.user_id == 109393762 || member.user_id == 33226414}">
+		<c:if test="${member.user_id == 109393762 || member.user_id == 33226414 || member.user_id == 171187454}">
 			<div class="button">
-				<span style="font-weight: bold;"><a href="noticewriteForm.bike">글쓰기</a></span>
+				<span style="font-weight: bold;"><a href="noticewriteForm.bike"  style="color: white;">글쓰기</a></span>
 			</div>
 		</c:if>
 	</div>
