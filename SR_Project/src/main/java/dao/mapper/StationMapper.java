@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Select;
 
 import logic.Station;
+import logic.Station_Info;
 
 public interface StationMapper {
 
@@ -18,8 +19,12 @@ public interface StationMapper {
 	@Select("Select * from station where number in ${bookmarks}")
 	List<Station> bookmark_List(Map<String, String> param);
 
-	//대여소 통계 월정보
+	//대여소 통계 월 목록
 	@Select("Select distinct month from station_info where number = #{number}")
 	List<String> info_years(Map<String, Integer> param);
+
+	//해당 대여소 통계 정보
+	@Select("Select * from station_info where number = #{number} and month = #{years}")
+	Station_Info chart_data(Map<String, Object> param);
 
 }

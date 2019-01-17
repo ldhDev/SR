@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import dao.mapper.MemberMapper;
 import dao.mapper.StationMapper;
 import logic.Station;
+import logic.Station_Info;
 
 
 @Repository
@@ -69,6 +70,14 @@ public class StationDao {
 		Map<String,Integer> param = new HashMap<String, Integer>();
 		param.put("number", number);
 		return sqlSession.getMapper(StationMapper.class).info_years(param);
+	}
+
+	//해당 대여소 통계정도
+	public Station_Info chart_data(int number, String years) {
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("number", number);
+		param.put("years", years);
+		return sqlSession.getMapper(StationMapper.class).chart_data(param);
 	}
 	
 

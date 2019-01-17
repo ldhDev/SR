@@ -259,6 +259,29 @@ body{
 	box-sizing: border-box;
 	padding-left: 15px;
 }
+#kind{
+	position: absolute;
+    left: 280px;
+    top: 25px;
+    width: 105px;
+    height: 24px;
+    font-size: 12px;
+    font-family: Nanum Gothic;
+    font-weight: 700;
+    border: 3px solid #189d0e;
+}
+#years{
+	position: absolute;
+	left: 400px;
+	top: 25px;
+	width: 75px;
+	height: 24px;
+	font-size: 12px;
+    font-family: Nanum Gothic;
+    font-weight: 700;
+	border:3px solid #189d0e;
+}
+
 #chart_line{
 	position:absolute;
 	top:65px;
@@ -557,9 +580,10 @@ body{
 
 
 
-
+ 
 </style>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 <script type="text/javascript">
 $(document).ready(function(){ 
@@ -594,6 +618,24 @@ $(document).ready(function(){
 				}
 			})
 	//////////////////////////////////////////////////////////AJAX
+	
+	//초기화면에서 통계정보 출력
+	$.ajax({ 
+		url : "chart.bike",
+		type : "POST",
+		data : {			
+			type:$("#kind option:selected").val(),
+			years:$("#years option:selected").val(),
+			number:'${info.number}'
+			},		
+		success : function(data){
+			$("#charts").html(data);
+		},
+		error : function(error) {
+			alert("오류가 발생했습니다.");
+	    }
+
+	})
 
 });
 
@@ -767,7 +809,7 @@ function need_login(){
 //즐겨찾기 등록
 function bookmark_in(s_num){
 	
-	if(${bookmark_limit}==1){ 
+	if(${bookmark_limit}==1){  
 		alert("즐겨찾기는 최대 3개까지 가능합니다.");
 	} 
 	else{
@@ -811,6 +853,27 @@ function bookmark_out(s_num){
 
 }
 
+//통계정보 관련
+function info_chg(){
+
+	$.ajax({ 
+		url : "chart.bike",
+		type : "POST",
+		data : {			
+			type:$("#kind option:selected").val(),
+			years:$("#years option:selected").val(),
+			number:'${info.number}'
+			},		
+		success : function(data){
+			$("#charts").html(data);
+		},
+		error : function(error) {
+			alert("오류가 발생했습니다.");
+	    }
+
+	})
+	
+}
 
 
 </script>
@@ -1146,13 +1209,13 @@ marker.setMap(map);
 	<div id="info_R">
 		<div id="chart_title"><div id="chart_line"></div>
 			대여소 이용 통계정보
-			<select id="kind">
+			<select id="kind" onchange="info_chg()">
 				<option selected="selected" value="gender">성별 비율</option>
 				<option value="age">나이대 분포</option>
-				<option value="usetime">평균 이용시간</option>
+				<!-- <option value="usetime">평균 이용시간</option> -->
 			</select>
-			<select id="years">
-				<c:forEach var="year_list" items="${years }">
+			<select id="years" onchange="info_chg()">
+				<c:forEach var="year_list" items="${years }" varStatus="num">
 					<option value="${year_list }">${year_list }</option>
 				</c:forEach>
 			</select>

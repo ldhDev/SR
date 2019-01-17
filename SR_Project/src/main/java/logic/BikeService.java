@@ -92,6 +92,11 @@ public class BikeService {
 		return stationDao.info_years(number);
 	}
 	
+	//대여소 통계 데이터 가져옴
+	public Station_Info chart_data(int number, String years) {
+		return stationDao.chart_data(number,years);
+	}
+	
 	
 	////////////////////////////////////////////
 	
@@ -154,6 +159,8 @@ public class BikeService {
 	public void memberinsert(Member member) {
 		memberDao.meminsert(member);
 	}
+
+	
 
 
 

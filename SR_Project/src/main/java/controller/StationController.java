@@ -14,6 +14,7 @@ import logic.BikeService;
 import logic.Comment;
 import logic.Member;
 import logic.Station;
+import logic.Station_Info;
 
 @Controller
 public class StationController {
@@ -21,7 +22,7 @@ public class StationController {
 	BikeService service;
 	
 	
-	@RequestMapping("info/*") /* 정보입력 미작성 , 대여소 정보 받아올것? */
+	@RequestMapping("info/*")
 	public ModelAndView info(Integer number,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<Station> stationList = service.stationList();
@@ -292,5 +293,28 @@ public class StationController {
 					return mav;
 				}
 
+
+				
+	 @RequestMapping("info/chart*")
+     public ModelAndView chart(String type,String years,int number,HttpSession session) {
+		 ModelAndView mav = new ModelAndView(); 
+		 Station_Info chart = new Station_Info();
+		 chart = service.chart_data(number,years);
+		 
+		 mav.addObject("chart",chart);
+		 mav.addObject("type",type);
+		 
+		 /*
+		 if(type.equals("gender")) {
+		 }
+		 else if(type.equals("age")) {
+		 }
+		 else {//나이통계
+		 }
+		 */
+		 
+		 return mav;
+     }
+				
 
 }
