@@ -18,4 +18,8 @@ public interface StationMapper {
 	@Select("Select * from station where number in ${bookmarks}")
 	List<Station> bookmark_List(Map<String, String> param);
 
+	//대여소 통계 월정보
+	@Select("Select distinct month from station_info where number = #{number}")
+	List<String> info_years(Map<String, Integer> param);
+
 }

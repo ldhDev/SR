@@ -87,6 +87,11 @@ public class BikeService {
 		return stationDao.bookmark_List(bookmarks);
 	}
 	
+	//대여소 통계 년도 확인
+	public List<String> info_years(Integer number) {
+		return stationDao.info_years(number);
+	}
+	
 	
 	////////////////////////////////////////////
 	
@@ -149,6 +154,8 @@ public class BikeService {
 	public void memberinsert(Member member) {
 		memberDao.meminsert(member);
 	}
+
+
 
 
 

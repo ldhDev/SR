@@ -9,6 +9,7 @@
 		<typeAlias type="logic.Board" alias="Board" />
 		<typeAlias type="logic.Comment" alias="Comment" />
 		<typeAlias type="logic.Reply" alias="Reply" />
+		<typeAlias type="logic.Station_Info" alias="Station_Info" />
 		
 	</typeAliases>
 	<mappers>

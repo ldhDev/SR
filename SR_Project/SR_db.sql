@@ -83,14 +83,15 @@ CREATE TABLE station
 	PRIMARY KEY (number)
 );
 
-
 CREATE TABLE station_info
 (
 	info_no int NOT NULL,
+	month char(20) NOT NULL,
 	number int NOT NULL,
 	m_use int,
 	f_use int,
-	avg_usetime int,
+	nomember_use int,
+	total_usetime int,
 	age_10 int,
 	age_20 int,
 	age_30 int,

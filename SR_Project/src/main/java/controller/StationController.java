@@ -59,6 +59,10 @@ public class StationController {
 		else {
 			try {
 				
+				//통계정보 년도 조회
+				List<String> years = service.info_years(number);
+				mav.addObject("years",years);
+				
 				//한줄평 페이지 조회
 				int pageNum = 1;
 				int limit = 5;			

@@ -62,6 +62,14 @@ public class StationDao {
 		param.put("bookmarks", bookmarks);
 		return sqlSession.getMapper(StationMapper.class).bookmark_List(param);
 	}
+
+	
+	//통계년도
+	public List<String> info_years(Integer number) {
+		Map<String,Integer> param = new HashMap<String, Integer>();
+		param.put("number", number);
+		return sqlSession.getMapper(StationMapper.class).info_years(param);
+	}
 	
 
 	

@@ -249,16 +249,30 @@ body{
 	float: left;
 }
 #chart_title{
-	height: 70px;
-	line-height:70px;
+	position:relative;
+	height: 50px;
+	line-height:75px;
 	width: 508px;
 	font-size:24px;
 	font-weight:800;
 	font-family: "Nanum Gothic";
 	box-sizing: border-box;
 	padding-left: 15px;
-
 }
+#chart_line{
+	position:absolute;
+	top:65px;
+	left:34px;
+	width: 400px;
+	height: 1px;
+	background-color:#d6d6d6;
+}
+#charts{
+	position:relative;
+	height: 211px;
+	width: 508px;
+}
+
 
 #comment_title{
 	height: 50px;
@@ -1130,8 +1144,20 @@ marker.setMap(map);
 	<div style="height:190px; width:1px; background-color:#d6d6d6; float: left; margin-top: 35px;"></div>
 	
 	<div id="info_R">
-		<div id="chart_title">
+		<div id="chart_title"><div id="chart_line"></div>
 			대여소 이용 통계정보
+			<select id="kind">
+				<option selected="selected" value="gender">성별 비율</option>
+				<option value="age">나이대 분포</option>
+				<option value="usetime">평균 이용시간</option>
+			</select>
+			<select id="years">
+				<c:forEach var="year_list" items="${years }">
+					<option value="${year_list }">${year_list }</option>
+				</c:forEach>
+			</select>
+		</div>
+		<div id="charts">
 		</div>
 	</div><!-- info_R 닫음 -->
 </div>
@@ -1213,7 +1239,7 @@ marker.setMap(map);
 </div>
 
 <script type="text/javascript">
-out_star();
+out_star(); 
 </script>
 
 </c:if> <!-- 등록한 코멘트가 있을 때 if 끝 -->
