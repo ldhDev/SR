@@ -32,4 +32,11 @@ public class ReplyDao {
 		sqlSession.getMapper(ReplyMapper.class).insert(reply);
 	}
 
+	///0116Ãß°¡
+	public void delete(Integer replynum) {
+		Map<String,Integer> param = new HashMap<String,Integer>();
+		param.put("reply_no", replynum);
+		sqlSession.getMapper(ReplyMapper.class).delete(param);
+	}
+
 }

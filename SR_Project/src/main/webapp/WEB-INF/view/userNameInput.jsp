@@ -80,7 +80,11 @@ a
 </head>
 
 <body>
-
+<c:if test="${nameCheck!=null}">
+<script type="text/javascript">
+alert("이미 사용중인 아이디 입니다.");
+</script>
+</c:if>
 <form:form modelAttribute="member" action="main3.bike" name="f">
 
 <input type="hidden" name="user_id" value="${my_member.user_id}">
@@ -89,7 +93,7 @@ a
 <input type="hidden" name="age" value="${my_member.age}">
 <table>
 <tr>
-<td colspan="2">
+<td colspan="2">	
 <p id="notice1">※처음 방문하신 이용자 입니다.</p>
 <p id="notice2">※사용할 닉네임을 입력해주세요</p>
 </td>

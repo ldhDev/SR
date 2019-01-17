@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import logic.BikeService;
+import logic.Board;
 import logic.Member;
 import logic.Station;
 
@@ -46,6 +47,11 @@ public class TempController {
 			List<Station> bookmark = service.bookmark_List(bookmarks);
 			mav.addObject("bookmark",bookmark);
 		}
+		
+		//0117 상원 추가 ( 공지사항)
+			List<Board> noticelist = service.boardnoticelist(1, 5);
+			mav.addObject("noticelist", noticelist);
+		///
 			
 		mav.addObject("stationList",stationList);
 		return mav;

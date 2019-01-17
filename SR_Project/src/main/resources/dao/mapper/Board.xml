@@ -3,13 +3,39 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.mapper.BoardMapper">
 	<select id="list" resultType="Board" parameterType="map">
-		select * from board 
+		
+		select * from board
+ 
 		<if test="board_no != null">
 			where board_no=#{board_no}
+			<if test="number != null">
+				and number=#{number}
+			</if>
 		</if>
+		
+		<!-- 0117상원추가 -->
+		<if test = "type != null">
+			where type=#{type}
+		</if>
+		
+		<if test="board_no == null">
+			<if test = "type == null">
+				where type in(1,2,3)
+			</if>
+		</if>
+		
 		order by board_no desc limit #{startrow}, #{limit}
 	</select>
 	<select id="count" resultType="Integer" parameterType="map">
 		select count(*) from board
+		<if test = "number != null">
+			where number=#{number}
+		</if>
+		
+		<!-- 0117상원추가 -->
+		<if test = "type != null">
+			where type=#{type}
+		</if>
+		
 	</select>
 </mapper>

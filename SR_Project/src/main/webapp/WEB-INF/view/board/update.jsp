@@ -59,6 +59,7 @@
 <div id="board1">
 	<form:form modelAttribute="board" action="update.bike" name="f">
 		<form:hidden path="board_no"/>
+		<form:hidden path="number"/>
 		<div class="line">
 			<div class="tag">제목</div><div><form:input path="title" size="100px;"/></div>
 		</div>
@@ -66,7 +67,6 @@
 			<div class="tag">타입</div>
 			<div style="display: inline;">
 				<form:select path="type">
-					<option value="1">선택하세요</option>
 					<option value="1">잡담</option>
 					<option value="2">정보</option>
 					<option value="3">질문</option>

@@ -8,5 +8,8 @@
 	<select id="imformation" resultType="Member" parameterType="map">
 		select * from member where user_id=#{id}
 	</select>
-
+	
+	<select id="namecheck" resultType="Member" parameterType="map">
+		select name from member where name = #{name}
+	</select>
 </mapper>

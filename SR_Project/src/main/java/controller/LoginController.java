@@ -158,12 +158,21 @@ public class LoginController {
 	@RequestMapping("main3")
 	public ModelAndView main3(HttpServletRequest req,Member member) {
 		List<Station> stationList = service.stationList();
-		req.getSession().setAttribute("member", member);
-		service.memberinsert(member);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main2");
-		mav.addObject("stationList",stationList);
+		if(service.nameCheck(req.getParameter("name"))==1) {
+			mav.setViewName("userNameInput");
+			mav.addObject("nameCheck","check");//req.set어트리뷰트("nameCheck","ss")
+			mav.addObject("my_member",member);
+			return mav;
+		}else {
+			service.memberinsert(member);
+			mav.addObject("stationList",stationList);
+			req.getSession().setAttribute("member", member);
+			mav.setViewName("alert");
+			mav.addObject("message","회원가입 되었습니다.");
+			mav.addObject("url","main2.bike");
 		return mav;
+		}
 	}
 	
 	

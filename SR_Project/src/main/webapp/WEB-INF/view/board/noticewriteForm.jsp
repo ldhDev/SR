@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>게시글 작성</title>
+<title>공지사항 작성</title>
 <style type="text/css">
 #main_img_bar{
 	width: :100%;
@@ -54,22 +54,13 @@
 </div>
 
 <div id="writeFrom">
-<form:form modelAttribute="board" action="write.bike" name="f">
+<form:form modelAttribute="board" action="noticewrite.bike" name="f">
 	<form:hidden path="number"/>
 	<form:hidden path="user_id"/>
 	<form:hidden path="user_name"/>
+	<form:hidden path="type"/>
 	<div class="line">
 		<div class="tag">제목</div><div><form:input path="title" size="100px;"/></div>
-	</div>
-	<div class="line">
-		<div class="tag">타입</div>
-		<div style="display: inline;">
-			<form:select path="type">
-				<option value="1">잡담</option>
-				<option value="2">정보</option>
-				<option value="3">질문</option>
-			</form:select>
-		</div>
 	</div>
 	<div class="line">
 		<div class="tag">내용입력</div>

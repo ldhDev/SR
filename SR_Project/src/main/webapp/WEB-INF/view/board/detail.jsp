@@ -30,7 +30,7 @@
 #content{
 	color: #585858;
 	padding-bottom: 30px;
-	width: 900px;
+	width: 800px;
 }
 #list{
 	margin: 0 auto;
@@ -68,13 +68,21 @@
 </style>
 <script type="text/javascript">
 	function reply_disp(id){
-	var disp = document.getElementById(id);
-	if(disp.style.display == 'block'){
-		disp.style.display = "none";
-	}else{
-		disp.style.display = "block"
+		var disp = document.getElementById(id);
+		if(disp.style.display == 'block'){
+			disp.style.display = "none";
+		}else{
+			disp.style.display = "block"
+		}
 	}
-}
+	function re(replynum){
+		if(${param.number == null}){
+			location.href="replydelete.bike?replynum="+replynum+"&num="+${param.num};
+		}else{
+			str = "&number=${param.number}";
+			location.href="replydelete.bike?replynum="+replynum+str+"&num="+${param.num};
+		}
+	}
 </script>
 </head>
 <body>
@@ -97,9 +105,9 @@
 				<p>${station.address }</p>
 			</c:if>
 		</div>
-		<c:if test="${member.name == b.user_name}">
+		<c:if test="${member.user_id == b.user_id}">
 			<div class="btn-group">
-			 	 <button class="button" onclick="location.href='delete.bike?num=${b.board_no}'">삭제</button>
+			 	 <button class="button" onclick="location.href='delete.bike?num=${b.board_no}&number=${b.number }'">삭제</button>
 			 	 <button class="button" onclick="location.href='update.bike?num=${b.board_no}'">수정</button>
 			</div>
 		</c:if>
@@ -114,30 +122,37 @@
 	</div>
 	<br>
 	
-	<div id="content">${b.content }</div>
+	<div id="content" style="width: 1000px;">${b.content }</div>
 	
 	<div id="list">
 		<c:if test="${empty param.number }">
 			<a href="list.bike" style="color: white;">목록</a>
 		</c:if>
 		<c:if test="${!empty param.number }">
-			<a href="list.bike?num='${param.number }'" style="color: white;">목록</a>
+			<a href="list.bike?num=${param.number }" style="color: white;">목록</a>
 		</c:if>
 	</div>
 	<br><br><br>
 	
-	<div style="background-color: #FAFAFA">
+	<div style="background-color: #FAFAFA; padding: 20px;">
 		<div>
 			<div>
 				<form:form modelAttribute="reply" action="addreply.bike" name="ref">
 					<form:hidden path="board_no"/>
 					<c:forEach items="${replylist }" var="list" varStatus="stat">
-						<div style="float: left; padding-right: 10px; font-weight: bold;">${list.user_name }</div><div style="float: left; color: #A4A4A4; font-size: small; padding-right: 10px;"><fmt:formatDate value="${list.regdate }" pattern="yyyy-MM-dd"/></div><div><a href="javascript:reply_disp('replylist${stat.index }')">답글</a></div>
+						<div style="float: left; padding-right: 10px; font-weight: bold;">${list.user_name }</div><div style="float: left; color: #A4A4A4; font-size: small; padding-right: 10px;"><fmt:formatDate value="${list.regdate }" pattern="yyyy-MM-dd"/></div>
+						<c:if test="${member.user_id == list.user_id}">
+							<div style="float: left;"><a id="reply${stat.index }">답글 </a>|&nbsp;</div>
+							<div><a href="javascript:re(${list.reply_no})">삭제</a></div>
+						</c:if>
 						<div style="border-bottom: 1px dotted #D8D8D8; padding-bottom: 20px;">${list.content }</div>
-						<div id="replylist${stat.index }" style="display:none; height: 60px; padding-bottom: 20px; padding-top: 20px" >
+						<%-- <div id="replylist${stat.index }" style="display:none; height: 60px; padding-bottom: 20px; padding-top: 20px" >
 							<div style="float: left;">&nbsp;└<form:input path="content"/></div>
 							<div style="padding-top: 18px; "><a href="javascript:document.ref.submit()" style="margin-left:20px; padding:13px; border: 1px solid #BDBDBD; background-color: white;">등록</a></div>
-						</div>
+						</div> --%>
+						<%-- <div id="reply${stat.index }" style="height: 60px; padding-bottom: 20px; padding-top: 20px" >
+							<!-- 여기에 답글이 달린다. -->
+						</div> --%>
 					</c:forEach>
 				</form:form>
 			</div>
@@ -146,8 +161,10 @@
 			<br>
 			<form:form modelAttribute="reply" action="addreply.bike" name="f">
 			<form:hidden path="board_no"/>
-				<div style="float: left;"><form:input path="content"/></div>
-				<div style="height: 50px; padding: 10px; padding-top: 15px;"><a href="javascript:document.f.submit()" style="margin-left:20px; padding:13px; border: 1px solid #BDBDBD; background-color: white;">등록</a></div>
+				<c:if test="${!empty member.user_id }">
+					<div style="float: left;"><form:input path="content"/></div>
+					<div style="height: 50px; padding: 10px; padding-top: 15px;"><a href="javascript:document.f.submit()" style="margin-left:20px; padding:13px; border: 1px solid #BDBDBD; background-color: white;">등록</a></div>
+				</c:if>
 			</form:form>
 		</div>
 	</div>

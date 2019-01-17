@@ -35,4 +35,24 @@ public class MemberDao {
 		map.put("member", member);
 		sqlSession.getMapper(MemberMapper.class).insert(member);
 	}
+	//0116 삭제 상원추가
+	public void memdelete(String user_id) {
+		Map<String,String> param = new HashMap<String,String>();
+		param.put("user_id", user_id);
+		sqlSession.getMapper(MemberMapper.class).delete(param);
+	}
+	
+	//0116 수정/ 상원 추가
+	public void memupdate(Member member) {
+		sqlSession.getMapper(MemberMapper.class).update(member);
+	}	
+	
+	public int memSelect(String name)
+	{
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("name",name);
+		return sqlSession.getMapper(MemberMapper.class).select(map);
+	}
+
+
 }

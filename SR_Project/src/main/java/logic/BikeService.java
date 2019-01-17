@@ -109,8 +109,9 @@ public class BikeService {
 		boardDao.insert(board);
 	}
 
-	public List<Board> boardlist(Integer pageNum, Integer limit) {
-		return boardDao.list(pageNum,limit);
+	//0115 상원 변경
+	public List<Board> boardlist(Integer pageNum, Integer limit, int number) {
+		return boardDao.list(pageNum,limit,number);
 	}
 
 	public Board getBoard(Integer num, HttpServletRequest request) {
@@ -119,9 +120,10 @@ public class BikeService {
 		}
 		return boardDao.select(num);
 	}
-
-	public int boardcount() {
-		return boardDao.count();
+	
+	//0115 상원변경
+	public int boardcount(int number, int type) {
+		return boardDao.count(number, type);
 	}
 	//0109
 	public void boardupdate(Board board) {
@@ -132,6 +134,10 @@ public class BikeService {
 	}
 	public Station getStation(int num) {
 		return boardDao.selectStation(num);
+	}
+	//공지사항리스트 상원 추가
+	public List<Board> boardnoticelist(Integer pageNum, int limit) {
+		return boardDao.noticelist(pageNum,limit);
 	}
 	
 	///////게시물 덧글관련
@@ -145,7 +151,12 @@ public class BikeService {
 		reply.setRef(++max);
 		replyDao.insert(reply);
 	}
-
+	
+	/////0116츄가
+	public void replydelete(Integer replynum) {
+		replyDao.delete(replynum);
+		
+	}
 	
 	
 ///////////////////////////회원관련
@@ -159,7 +170,23 @@ public class BikeService {
 	public void memberinsert(Member member) {
 		memberDao.meminsert(member);
 	}
+	
+	//0116 삭제//상원
+	public void userdelete(String user_id) {
+		memberDao.memdelete(user_id);
+	}
+	
+	//0116 수정/상원
+	public void userupdate(Member member) {
+		memberDao.memupdate(member);
+	}
 
+	public int nameCheck(String name)
+	{	
+		return memberDao.memSelect(name);
+	}
+
+	
 	
 
 
