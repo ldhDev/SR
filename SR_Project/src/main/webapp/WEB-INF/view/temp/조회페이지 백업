@@ -1368,7 +1368,7 @@ out_star();
 <!-- 대여소 지정 없이 페이지 입장 -->
 <c:if test="${info_open == 0 }">
 	<div id="not_exist">
-	확인하실 대여소를 선택해주세요 
+	확인하실 대여소를 선택해주세요
 	</div>
 </c:if><!-- c:if info_open == 1 의 끝  -->
 

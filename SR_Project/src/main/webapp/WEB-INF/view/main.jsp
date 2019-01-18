@@ -564,7 +564,8 @@ $(document).ready(function(){
 	
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 	var map = new daum.maps.Map(mapContainer, mapOption); 
-	
+	map.setMinLevel(3);
+	map.setMaxLevel(5);
 
 	
 	//수정 0114 (2)

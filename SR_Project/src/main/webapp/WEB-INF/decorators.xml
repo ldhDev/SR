@@ -8,6 +8,7 @@
 		<pattern>*/bookmark_*</pattern>
 		<pattern>*/comment_*</pattern>
 		<pattern>*/chart*</pattern>
+		<pattern>*/map*</pattern>
 		<pattern>*Ajax.action*</pattern>
 	</excludes>
 </decorators>

@@ -316,5 +316,34 @@ public class StationController {
 		 return mav;
      }
 				
+	 
+	 
+	 @RequestMapping("info/map*")
+		public ModelAndView map_loading(Integer number,HttpSession session) {
+			ModelAndView mav = new ModelAndView();
+			List<Station> stationList = service.stationList();
+			mav.addObject("stationList",stationList);
+			
+			System.out.println("메소드 왔다감");
+			System.out.println(number);
+			
+			if(number != null) {
+				Station info_one = service.stationOne(number);		//대여소 정보
+				mav.addObject("info",info_one);
+				System.out.println("번호 있으니 대여소 정보도 넣음");
+			}
+				
+			return mav;
+		}
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 
 }
