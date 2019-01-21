@@ -66,6 +66,7 @@
   background-color: #0E7518;
 }
 </style>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 <script type="text/javascript">
 	function reply_disp(id){
 		var disp = document.getElementById(id);
@@ -83,6 +84,7 @@
 			location.href="replydelete.bike?replynum="+replynum+str+"&num="+${param.num};
 		}
 	}
+	var on_off=new Array();
 </script>
 </head>
 <body>
@@ -134,31 +136,43 @@
 	</div>
 	<br><br><br>
 	
-	<div style="background-color: #FAFAFA; padding: 20px;">
-		<div>
-			<div>
+	<div style="background-color: #FAFAFA; padding: 20p; margin-bottom:100px; ">
+			<div style="padding: 30px;">
 				<form:form modelAttribute="reply" action="addreply.bike" name="ref">
 					<form:hidden path="board_no"/>
 					<c:forEach items="${replylist }" var="list" varStatus="stat">
 						<div style="float: left; padding-right: 10px; font-weight: bold;">${list.user_name }</div><div style="float: left; color: #A4A4A4; font-size: small; padding-right: 10px;"><fmt:formatDate value="${list.regdate }" pattern="yyyy-MM-dd"/></div>
 						<c:if test="${member.user_id == list.user_id}">
-							<div style="float: left;"><a id="reply${stat.index }">답글 </a>|&nbsp;</div>
+							<div style="float: left;"><a id="test${stat.index }">답글 </a>|&nbsp;</div>
 							<div><a href="javascript:re(${list.reply_no})">삭제</a></div>
 						</c:if>
+						<c:if test="${member.user_id != list.user_id}">
+							<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+						</c:if>
 						<div style="border-bottom: 1px dotted #D8D8D8; padding-bottom: 20px;">${list.content }</div>
-						<%-- <div id="replylist${stat.index }" style="display:none; height: 60px; padding-bottom: 20px; padding-top: 20px" >
-							<div style="float: left;">&nbsp;└<form:input path="content"/></div>
-							<div style="padding-top: 18px; "><a href="javascript:document.ref.submit()" style="margin-left:20px; padding:13px; border: 1px solid #BDBDBD; background-color: white;">등록</a></div>
-						</div> --%>
-						<%-- <div id="reply${stat.index }" style="height: 60px; padding-bottom: 20px; padding-top: 20px" >
-							<!-- 여기에 답글이 달린다. -->
-						</div> --%>
+						<div id="content_answer${stat.index }"></div>
+						
+						<script type="text/javascript">
+						on_off.push(true);
+							$(document).ready(function(){
+								$("#test"+${stat.index}).click(function(){
+									if(on_off[${stat.index}]){
+										var html_text='<div style="padding: 30px; padding-top: 0px;"><form:form modelAttribute="reply" action="addreply.bike" name="replyf"><form:hidden path="board_no"/><input type="hidden" name="reply_no" value="${list.reply_no}"><c:if test="${!empty member.user_id }"> <div style="float: left;"><form:input path="content"/></div> <div style="height: 50px; padding: 10px; padding-top: 15px;"><a href="javascript:document.replyf.submit()" style="margin-left:20px; padding:13px; border: 1px solid #BDBDBD; background-color: white;">등록</a></div> </c:if> </form:form> </div>'
+										on_off[${stat.index}]=false;
+									}else if(!on_off[${stat.index}]){
+										var html_text='';
+										on_off[${stat.index}]=true;
+									}
+									$("#content_answer"+${stat.index}).html(html_text);
+								})
+							})
+						</script>
+						
 					</c:forEach>
 				</form:form>
 			</div>
-		</div>
-		<div style="padding-bottom: 25px; margin-bottom: 50px;">
-			<br>
+			
+		<div style="padding: 30px; padding-top: 0px;">
 			<form:form modelAttribute="reply" action="addreply.bike" name="f">
 			<form:hidden path="board_no"/>
 				<c:if test="${!empty member.user_id }">

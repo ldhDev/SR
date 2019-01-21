@@ -199,7 +199,7 @@
 				      			<c:if test="${board.type == 2}">정보</c:if>
 				      			<c:if test="${board.type == 3}">질문</c:if>
 				      		</div>
-				      		<div class="td" style="text-align: left; box-sizing: border-box; padding-left: 20px;"><a href="detail.bike?num=${board.board_no }&number=${param.num }">${board.title }</a></div>
+				      		<div class="td"><a href="detail.bike?num=${board.board_no }&number=${param.num }">${board.title }</a></div>
 				      		<div class="td">${board.user_name }</div>
 				      		<div class="td"><fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"/></div>
 				      		<div class="td">${board.readcnt }</div>
@@ -224,7 +224,7 @@
 	
 	<div>
 		<c:if test="${listcount == 0 }">
-			등록된 게시물이 없습니다.
+			<div style="width: 200px; line-height: 100px;">등록된 게시물이 없습니다.</div>
 		</c:if>
 	</div>
 	

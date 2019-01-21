@@ -73,7 +73,7 @@ input[type=text]{
 	</div>
 </div>
 <div id="board">
-	<div style="width: 400px; float: left; padding-bottom: 100px; margin-left: 25px;">
+	<div style="width: 400px; float: left; padding-bottom: 100px; margin-left: 25px; padding-left: 70px;">
 		<div class="info">
 			<h3>내정보</h3>
 			<p>닉네임</p> 
@@ -84,8 +84,13 @@ input[type=text]{
 		</div>
 		<div class="info">	
 		
-			<p>성별</p>  
-			<p class="value">${member.gender }</p>
+			<p>성별</p>
+			<c:if test="${member.gender == 'M'}">
+				<p class="value">남자</p>
+			</c:if>
+			<c:if test="${member.gender != 'M'}">
+				<p class="value">여자</p>
+			</c:if>    
 		</div>
 		<div class="info">	
 			<p>나이</p>  
@@ -99,39 +104,39 @@ input[type=text]{
 		<div style="padding-left: 150px; padding-top: 15px;"><a id="up" href="delete.bike" style="color: white;">탈퇴</a></div>
 		
 	</div>
-	<div class="bookmark" style="width: 800px; margin-left: 400px; padding-top: 10px;">
+	<div class="bookmark" style="width: 500px; margin-left:480px; padding-top: 10px;">
 		<h3>즐겨찾기</h3>
-		<div style="margin-top: 15px; height: 50px;" >
-			<div style="float: left;">
+		<div style="margin-top: 15px; height: 50px; padding-bottom: 30px;" >
+			<div style="float: left; width: 110px;">
 				<p>즐겨찾기1.</p>
 			</div>
 			<c:if test="${member.bookmark1 == 0}">
-				<div style="padding-top: 12px;">없음</div>
+				<div style="line-height: 34px;"><p>없음</p></div>
 			</c:if>
 			<c:if test="${member.bookmark1 != 0}">
-				<div style="float: left;"><p>${station1.name}</p></div><div style="padding-top: 12px;"><a id="up" href="bookmark_delete.bike?number=${station1.number }" style="color: white;">제거</a></div>
+				<div style="float: left; width:270px; white-space:normal;"><p>${station1.name}</p></div><div style="width:70px; line-height:44px; float: right;"><a id="up" href="bookmark_delete.bike?number=${station1.number }" style="color: white;">제거</a></div>
 			</c:if>
 		</div>
-		<div style="height: 50px;" >
-			<div style="float: left;">
+		<div style="height: 50px; padding-bottom: 30px;" >
+			<div style="float: left; width: 110px;">
 				<p>즐겨찾기2.</p>
 			</div>
 			<c:if test="${member.bookmark2 == 0}">
-				<div style="padding-top: 12px;">없음</div>
+				<div style="line-height: 34px;"><p>없음</p></div>
 			</c:if>
 			<c:if test="${member.bookmark2 != 0}">
-				<div style="float: left;"><p>${station2.name}</p></div><div style="padding-top: 12px;"><a id="up" href="bookmark_delete.bike?number=${station2.number }" style="color: white;">제거</a></div>
+				<div style="float: left; width:270px; white-space:normal;"><p>${station2.name}</p></div><div style="width:70px; line-height:44px; float: right;"><a id="up" href="bookmark_delete.bike?number=${station2.number }" style="color: white;">제거</a></div>
 			</c:if>
 		</div>
-		<div style="height: 50px;" >
-			<div style="float: left;">
+		<div style="height: 50px; padding-bottom: 30px;" >
+			<div style="float: left; width: 110px;">
 				<p>즐겨찾기3.</p>
 			</div>
 			<c:if test="${member.bookmark3 == 0}">
-				<div style="padding-top: 12px;">없음</div>
+				<div style="line-height: 34px;"><p>없음</p></div>
 			</c:if>
 			<c:if test="${member.bookmark3 != 0}">
-				<div style="float: left;"><p style="">${station3.name}</p></div><div style="padding-top: 12px;"><a id="up" href="bookmark_delete.bike?number=${station3.number }" style="color: white;">제거</a></div>
+				<div style="float: left; width:270px; white-space:normal;"><p>${station3.name}</p></div><div style="width:70px; line-height:44px; float: right;"><a id="up" href="bookmark_delete.bike?number=${station3.number }" style="color: white;">제거</a></div>
 			</c:if>
 		</div>
 	</div>

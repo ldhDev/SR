@@ -19,6 +19,7 @@
 }
 #board{
 	width: 1020px;
+	padding-bottom: 100px;
 }
 #get_board{
 	border-bottom: 3px solid #A9F5BC;
@@ -66,24 +67,7 @@
   background-color: #0E7518;
 }
 </style>
-<script type="text/javascript">
-	function reply_disp(id){
-		var disp = document.getElementById(id);
-		if(disp.style.display == 'block'){
-			disp.style.display = "none";
-		}else{
-			disp.style.display = "block"
-		}
-	}
-	function re(replynum){
-		if(${param.number == null}){
-			location.href="replydelete.bike?replynum="+replynum+"&num="+${param.num};
-		}else{
-			str = "&number=${param.number}";
-			location.href="replydelete.bike?replynum="+replynum+str+"&num="+${param.num};
-		}
-	}
-</script>
+
 </head>
 <body>
 <div id="main_img_bar">

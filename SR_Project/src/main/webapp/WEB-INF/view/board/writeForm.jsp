@@ -73,10 +73,10 @@
 	</div>
 	<div class="line">
 		<div class="tag">내용입력</div>
-		<div style="display: inline;"><form:textarea path="content" rows="15" cols="100"/></div>
+		<div style="display: inline;"><form:textarea path="content" rows="15" cols="101"/></div>
 	</div>
 	<div class="btn-group">
-	 	<button class="button" style="margin-left: 50%" onclick="javascript:document.f.submit()">작성</button>
+	 	<button class="button" style="margin-left: 43%" onclick="javascript:document.f.submit()">작성</button>
 	</div>
 </form:form>
 	<div class="btn-group">
