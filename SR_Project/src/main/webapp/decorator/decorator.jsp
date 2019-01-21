@@ -75,7 +75,7 @@ li{
 	line-height: 80px;
 	width: 150px;
 	float:left;
-	text-align: center;
+	text-align: right;
 	font-weight:800;
 	font-family: "Nanum Gothic";
 }
@@ -138,9 +138,9 @@ li{
 	</div>
 	<div id="deco_gnb">
 		<ul>
-			<li><a href="${path }/board/intro.bike">소개</a></li>
+			<li><a href="${path }/board/intro.bike">이용안내</a></li>
 			<li><a href="${path }/info/station_info.bike">대여소 정보</a></li>
-			<li><a href="${path }/board/list.bike">커뮤니티 게시판</a></li>
+			<li><a href="${path }/board/list.bike">자유게시판</a></li>
 			<li><a href="${path }/user/mypage.bike">마이 페이지</a></li>
 			<li><a href="${path }/board/notice.bike">공지사항</a></li>
 		</ul>

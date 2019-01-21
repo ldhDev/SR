@@ -68,14 +68,6 @@
 </style>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 <script type="text/javascript">
-	function reply_disp(id){
-		var disp = document.getElementById(id);
-		if(disp.style.display == 'block'){
-			disp.style.display = "none";
-		}else{
-			disp.style.display = "block"
-		}
-	}
 	function re(replynum){
 		if(${param.number == null}){
 			location.href="replydelete.bike?replynum="+replynum+"&num="+${param.num};
@@ -157,7 +149,7 @@
 							$(document).ready(function(){
 								$("#test"+${stat.index}).click(function(){
 									if(on_off[${stat.index}]){
-										var html_text='<div style="padding: 30px; padding-top: 0px;"><form:form modelAttribute="reply" action="addreply.bike" name="replyf"><form:hidden path="board_no"/><input type="hidden" name="reply_no" value="${list.reply_no}"><c:if test="${!empty member.user_id }"> <div style="float: left;"><form:input path="content"/></div> <div style="height: 50px; padding: 10px; padding-top: 15px;"><a href="javascript:document.replyf.submit()" style="margin-left:20px; padding:13px; border: 1px solid #BDBDBD; background-color: white;">등록</a></div> </c:if> </form:form> </div>'
+										var html_text='<div style="padding: 30px; padding-top: 0px;"><form:form modelAttribute="reply" action="addreply.bike" name="rf"><form:hidden path="board_no"/><c:if test="${!empty member.user_id }"> <div style="float: left;"><form:input path="content"/></div> <div style="height: 50px; padding: 10px; padding-top: 15px;"><a href="javascript:document.rf.submit()" style="margin-left:20px; padding:13px; border: 1px solid #BDBDBD; background-color: white;">등록</a></div> </c:if> </form:form> </div>'
 										on_off[${stat.index}]=false;
 									}else if(!on_off[${stat.index}]){
 										var html_text='';

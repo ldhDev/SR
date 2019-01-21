@@ -52,19 +52,24 @@
 	box-sizing:border-box;
 	float: left;
 }
+
+#map{
+	width: 600px;
+	height: 505px;
+	margin-top: 10px;
+}
+
 #map_search{
 	width: 600px;
 	height: 45px;
 	font-family: "Roboto", sans-serif;
 	background-color: #f6f6f3;
 }
-#map{
-	width: 600px;
-	height: 505px;
-}
+
 #map_search select{
 	border-right-width:0px;
 }
+
 
 #login_div{
 	padding-top:30px;
@@ -573,12 +578,12 @@ $(document).ready(function(){
 
 <div id="map_div">
 	<div id="map_search">
-		<select id="menu_such" style="height: 45px; width: 180px; box-sizing: border-box; float: left;">
+		<select id="menu_such" style="height: 45px; width: 180px; box-sizing: border-box; float: left; font-size: 15px; padding-left: 35px;">
 			<option>대여소 이름</option>
 			<option>대여소 주소</option>
 		</select>
-		<input type="text" id="find" name="find" style="background-color:white;height: 45px;width: 375px; box-sizing: border-box;float: left; background-color:#f6f6f3 ">
-		<t id="btn1"><i class="fas fa-search"></i></t>
+		<input type="text" id="find" name="find"  placeholder="대여소명을 입력해주세요">
+		<input type="button" id="btn1" value="검색"/>
 	</div>
 
 <div id="map"></div>
@@ -586,12 +591,14 @@ $(document).ready(function(){
 	<script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = { 
-	        center: new daum.maps.LatLng(37.477885, 126.878985), // 지도의 중심좌표 (학원)
-	        level: 4 // 지도의 확대 레벨
+			center: new daum.maps.LatLng(37.477885, 126.878985), // 지도의 중심좌표 (학원)
+			level: 4 // 지도의 확대 레벨
 	    };
 	
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 	var map = new daum.maps.Map(mapContainer, mapOption); 
+	map.setMinLevel(3);
+	map.setMaxLevel(5);
 	
 
 	

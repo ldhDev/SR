@@ -912,12 +912,14 @@ function info_chg(){
 	<script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = { 
-	        center: new daum.maps.LatLng(37.477885, 126.878985), // 지도의 중심좌표 (학원)
+		center: new daum.maps.LatLng(${!empty info.latitude?info.latitude:37.477885}, ${!empty info.longitude?info.longitude:126.878985}),  // 지도의 중심좌표 (학원)
 	        level: 4 // 지도의 확대 레벨
 	    };
 	
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 	var map = new daum.maps.Map(mapContainer, mapOption); 
+	map.setMinLevel(3);
+	map.setMaxLevel(5);
 	
 
 	

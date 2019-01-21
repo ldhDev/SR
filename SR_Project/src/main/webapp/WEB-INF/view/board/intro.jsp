@@ -8,17 +8,18 @@
 <style type="text/css">
 #main_img_bar{
 	width: :100%;
-	height: 500px;
+	height: 300px;
 	background-color: rgba(0,0,0,0.25);
 }
 #main_img{
 	width: 1020px;
-	height: 170px;
+	height: 300px;
+	background-image:url("../img/intro/asdfss.jpg");
 	margin: 0 auto;
 }
 #intro{
 	width: 1020px;
-	padding-bottom: 100px;
+	padding-bottom: 500px;
 }
 .left{
 	float: left; 
@@ -28,97 +29,144 @@
 	padding-right: 60px;
 	width: 400px;
 }
-.right{
-	
+.text{
+	float: left; 
+	white-space: normal; 
+	width: 280px;
+	height: 50px;
 }
 .img{
-	width: 500px;
-	height: 371px;
+	width: 300px;
+	height: 200px;
 }
 .img2{
-	width: 400px;
-	height: 371px;
+	width: 300px;
+	height: 271px;
+}
+.img3{
+	width: 240px;
+	height: 200px;
+	border-radius: 25px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-bottom: 2px solid #31B404;
+}
+#title{
+	background-color: #424242;
+	color: white;
+	font-size: x-large;
+	font-weight: bold;
+	margin-left: 20px;
+	text-align: center;
+	background-color: rgba( 102, 102, 102, 0.7 );
+	
+}
+p{
+	white-space: normal;
+	width: 220px;
+}
+.annae{
+	float: left;
+	padding-bottom: 10px;
+	border-style: solid;
+	border-width : 2px;
+	border-color: #31B404;
+	height: 314px;
+	margin-right: 5px;
+	border-radius: 25px;
+
 }
 </style>
 </head>
 <body>
 <div id="main_img_bar">
 	<div id="main_img">
-		<img src="../img/intro/intro.jpg" style="height: 500px;width: 1020px;">
+		<div style="padding-top: 50px; padding-bottom: 5px;">
+			<h3 id ="title" style="width: 160px;">SEOUL RIDER</h3>
+		</div>
+		<div style="padding-bottom: 5px;">
+			<h3 id ="title" style="width: 350px;">서울시 자전거를 보다 편리하게</h3>
+		</div>
+		
+		<div style="margin-top: 140px;">
+			<h4 id ="title" style="width: 900px; font-size:large; font-weight: normal; text-align: left;">※ 서울 라이더는 무인 자전거 대여시스템을 이용하기에 보다 편리하도록 환경을 제공하는 웹 사이트입니다.</h4>
+		</div>
 	</div>
 </div>
 
 <div id ="intro" >
-	<div style="padding-top: 20px; padding-bottom: 20px;">
-		<h3>※서울 라이더는 서울에있는 무인 자전거 대여시스템을 이용하기에 보다 편리하도록 환경을 제공하는 웹 사이트입니다.</h3>
-	</div>
-	<div class="left">
-		1.원하는 대여소의 대여 현황을 바로바로 체크하고
-	</div>
-	<div><img class="img" src="../img/intro/realtime.PNG"></div>
 	
- 	<div class="left">
-		2.각각의 대여소의 상세정보와 평가를 남길수 있습니다.
-	</div>
-	<div><img class="img" src="../img/intro/detail.PNG"></div>
-	
-	<div class="left" style="padding-bottom: 179px;">
-		3.커뮤니티 기능으로 정보를 제공하거나 받고, 질문,<br>&nbsp;소통이 가능합니다.
-	</div>
-	<div><img class="img" src="../img/intro/board1.PNG" width="550px;"></div>
-	
-	<div class="left" style="padding-bottom: 179px;">
-		4.만약 자주 이용하는 대여소가 있다면, 즐겨찾기 기능으로 바로바로 확인 가능합니다.
-	</div>
-	<div><img class="img" src="../img/intro/bookmark.PNG" width="800px;"></div>
-	
-	<div style="padding-top: 50px; padding-bottom: 20px;"><h3>대여소 안내</h3></div>
-	<div style="float: left;"><img class="img" style="padding-right: 20px;" src="../img/intro/anna.jpg"></div>
-	<div style="padding-bottom: 180px; padding-top: 100px;">
-		대여소는 지하철 출입구,버스정류장, 주택단지, 관공서,학교, 은행 등 생활내 통행장소를 중심으로 설치되어 운영중에 있습니다.
-		서울자전거의 대여와 반납이 무인으로 이루어지는 정류장 형태의 공간을 대여소라고 합니다.
-		대여소는 주변 생활시설에 접근 및 시민들의 이용이 편리한 장소를 중심으로 설치되어 운영 중에 있습니다.
-		서울자전거 이용자는 장소에 구애받지 않고 대여소가 설치된 곳이면 어디에서나 자전거를 대여하고 반납할 수 있습니다.
+	<div style="border-bottom: 3px solid #A9F5BC; padding-bottom: 10px; margin-top: 50px;">
+		<h3>이용 방법</h3>
 	</div>
 	
-	<div style="padding-bottom: 30px;">
+	<div style="height: 580px; padding-bottom: 25px; margin-bottom:50px;">
+	
+		<div style="height: 270px; padding-top: 30px; padding-bottom: 10px;">
+			<div style="float: left; margin-left: 12%;"><img class="img" src="../img/intro/realtime.PNG"></div>
+				<div style="float: right: 10px; margin-left: 100px;"><img class="img" style="margin-left: 20%;" src="../img/intro/detail.PNG"></div>
+					<div class="text" style="margin-left: 12%;">1.원하는 대여소의 대여 현황을 바로<br>&nbsp;&nbsp;바로 체크할 수 있습니다.</div>
+						<div class="text" style="float: right: 50px; margin-left: 20%;">2.각각의 대여소의 상세정보와 평가를 &nbsp;&nbsp;남길수 있습니다.</div>
+		</div>
+		
+		<div>
+			<div style="float: left; margin-left: 12%;"><img class="img" src="../img/intro/board1.PNG"></div>
+				<div style="float: right: 50px; margin-left: 100px;"><img class="img" style="margin-left: 20%" src="../img/intro/bookmark.PNG"></div>
+					<div class="text" style="margin-left: 12%;">3.커뮤니티 기능으로 정보를 주고 <br>&nbsp;&nbsp;받으면서 소통이 가능합니다.</div>
+						<div class="text" style="float: right: 50px; margin-left: 20%;">4.만약 자주 이용하는 대여소가 있다면, &nbsp;&nbsp;즐겨찾기 기능으로 바로바로 확인 &nbsp;&nbsp;가능합니다.</div>
+		</div>
+		
+	</div>
+
+	<div style="padding-bottom: 10px; margin-bottom:50px; border-bottom: 3px solid #A9F5BC;"><h3>대여소 안내</h3></div>
+	<div style="height: 400px; padding-left: 5px;">
+		<div class="annae"><img class="img3" src="../img/intro/anna.jpg"><br><p>대여소는 지하철 출입구,버스정류장, 주택단지, 관공서,학교, 은행 등 생활내 통행장소를 중심으로 설치되어 운영중에 있습니다.</p></div>
+		<div class="annae"><img class="img3" src="../img/intro/a.jpg"><br><p>서울자전거의 대여와 반납이 무인으로 이루어지는 정류장 형태의 공간을 대여소라고 합니다.</p></div>
+		<div class="annae"><img class="img3" src="../img/intro/b.jpg"><br><p>대여소는 주변 생활시설에 접근 및 시민들의 이용이 편리한 장소를 중심으로 설치되어 운영 중에 있습니다.</p></div>
+		<div  class="annae" style="float: right:10px;"><img class="img3" src="../img/intro/c.jpg"><br><p>서울자전거 이용자는 장소에 구애받지 않고 대여소가 설치된 곳이면 어디에서나 자전거를 대여하고 반납할 수 있습니다.</p></div>
+	</div>
+	
+	<div style="border-bottom: 3px solid #A9F5BC; padding-bottom: 10px;">
 		<h3>구성요소</h3>
 	</div>
 		
-	<div style="padding-left: 10%;">
+	<div style="padding-left: 20%; padding-top: 50px;">
 		<div style="float: left;"><img class="img2" src="../img/intro/bike.png"></div>
 		<div><img class="img2" src="../img/intro/geochidea.png"></div>
 	</div>
 	
 	<div>
-		<div style="float: left; padding-left: 27%;">자전거</div><div style="padding-left: 67%;">거치대</div>
+		<div style="float: left; padding-left: 32%;">자전거</div><div style="padding-left: 62%;">거치대</div>
 	</div>
 	
-	<div style="margin-top: 20px;">
+	<div style="margin-top: 50px; padding-bottom: 10px; margin-bottom:50px; border-bottom: 3px solid #A9F5BC;">
 		<h3>대여방법</h3>
-		1.이용권 구매
 	</div>
-	<div><img src="../img/intro/iyonggwon.png"></div>
+	<div>1.이용권 구매</div>
+	<div style="padding-bottom: 50px; padding-left: 30px;"><img src="../img/intro/iyonggwon.png"></div>
 	
-	<div>
+	<div style="width: 300px; float: left;">
 		2.자전거 선택 후 대여번호 입력
 	</div>
-	<div><img src="../img/intro/deayeonumber.jpg"></div>
-	<div>
+	
+	<div style="width: 300px; float: right: 10px; margin-left: 560px;">
 		3.대여 - 단말기 잠금장치 분리
 	</div>
-	<div><img src="../img/intro/lock.jpg"></div>
 	
-	<div>
+	<div style="width: 520px; height: 130px; float: left; padding-top: 25px;"><img style="width: 520px; height: 130px;" src="../img/intro/deayeonumber.jpg"></div>
+	
+	<div style="width: 500px; height: 130px; float: right; padding-top: 25px;"><img  style="width: 500px; height: 130px;" src="../img/intro/lock.jpg"></div>
+	
+	<div style="padding-top: 100px; margin-top: 150px; height: 30px;">
 		<h3>반납방법</h3>
 	</div>
-	<div><img src="../img/intro/deayeosolution.png"></div>
+	<div><img style="width: 1020px;" src="../img/intro/deayeosolution.png"></div>
 	
-	<div>
+	<div style="padding-top: 20px;">
 		<h4>*거치대가 부족할 경우</h4>
 	</div>
-	<div><img src="../img/intro/chain.png"></div>
-	<div>채인을 연결하여 반납 할 수 있습니다</div>
+	<div style="margin-top: 20px; width: 400px; height:300px; padding-bottom:100px; padding-right: 50px; float: left;"><img style="width: 400px; height: 180px; border-radius: 30px;border-style: solid; border-width : 2px; border-color: #31B404;" src="../img/intro/chain.png"></div>
+	<div style="margin-top: 170px;">▶ 채인을 연결하여 반납 할 수 있습니다</div>
 </div>
 </body>
 </html>
