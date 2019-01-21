@@ -575,11 +575,29 @@ body{
 	font-size:18px;
 }
 
+.fa-search
+{
+	font-size:45px;
+	color:green;
+	background-color: #f6f6f3;
+}
 
+.iw
+{
+	color:blue;
+	width:25px;
+	height:20px;
+}
 
-
-
-
+.iif 
+{
+	color:black;
+	width:450px;
+	height: 70px;
+	font-size:15px;
+	background-color: #e9fdec;
+	align-content: center;
+}
  
 </style>
 
@@ -891,18 +909,16 @@ function info_chg(){
 <div id="map_div">
 <div id="map"></div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8f692a5cbdd7deb058db63ec9f3045a3"></script>
-	<script> 
-
+	<script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = { 
-			center: new daum.maps.LatLng(${!empty info.latitude?info.latitude:37.477885}, ${!empty info.longitude?info.longitude:126.878985}),  // 지도의 중심좌표 (학원)
-	        level: 4 // 지도의 확대 레벨 
+	        center: new daum.maps.LatLng(37.477885, 126.878985), // 지도의 중심좌표 (학원)
+	        level: 4 // 지도의 확대 레벨
 	    };
 	
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-		var map = new daum.maps.Map(mapContainer, mapOption); 
-		map.setMinLevel(3);
-		map.setMaxLevel(5);
+	var map = new daum.maps.Map(mapContainer, mapOption); 
+	
 
 	
 	//수정 0114 (2)
@@ -919,7 +935,7 @@ function info_chg(){
 				//수정 01/14
 	
 	
-	var imageSrc = 'https://cdn.icon-icons.com/icons2/677/PNG/512/bicycle_icon-icons.com_60878.png', // 마커이미지의 주소입니다    
+	var imageSrc = 'https://cdn.icon-icons.com/icons2/1465/PNG/512/615bicycle_100568.png', // 마커이미지의 주소입니다    
     imageSize = new daum.maps.Size(45, 45), // 마커이미지의 크기입니다
     imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
       
@@ -932,8 +948,13 @@ var marker = new daum.maps.Marker({
     position: markerPosition, 
     image: markerImage // 마커이미지 설정 
 });
+
+
+//수정 0118_커피
+var iif = '<div class="iif"><b>'+positions[i].content+'</b><br> 주소명 : '+positions[i].address+'</div>';
 var infowindow = new daum.maps.InfoWindow({
-	content : positions[i].content
+	//content : positions[i].content
+	content : iif
 // 인포윈도우에 표시할 내용
 });
 var id = positions[i].id
@@ -941,8 +962,12 @@ var name = positions[i].name
 var number = positions[i].number
 var my_name=positions[i].content_split
 
+//0118_pm_커피
+var iw = '<div class="iw"><b>Loading...</b></div>';
+
 var infowindow2 = new daum.maps.InfoWindow({
-	content : "조회중입니다.", // 인포윈도우에 표시할 내용
+	//content : "조회중입니다.", // 인포윈도우에 표시할 내용
+	content : iw,
 	removable : true
 });
 
@@ -1129,26 +1154,11 @@ marker.setMap(map);
 			var content = {
 					content: '<div>${station.name}</div>',
 					content_split: "${station.name}",
-			        //latlng: new daum.maps.LatLng("${station.latitude}", "${station.longitude}"),
 					id: "${station.station_id}",
 					number: "${station.number}",
 					latitude: "${station.latitude}",
 					longitude: "${station.longitude}",
 					address:"${station.address}"
-			}
-			positions.push(content);
-		</script>
-</c:forEach>
-
-</div><!-- map_div 닫음 -->
-
-<c:forEach items="${stationList }" var="station">
-		<script type="text/javascript">
-			var content = {
-					content: '<div>${station.name}</div>', 
-			        latlng: new daum.maps.LatLng("${station.latitude}", "${station.longitude}"),
-					id: "${station.station_id}",
-					number: "${station.number}"
 			}
 			positions.push(content);
 		</script>

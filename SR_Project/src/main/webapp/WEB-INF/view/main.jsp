@@ -271,6 +271,16 @@
 	line-height: 39px;
 	border-bottom: 1px solid #d8d8d8;
 }
+#notice_click{
+	margin-top:26px;
+	margin-right:20px;
+	line-height: 15px;
+	font-size:14px;
+	font-weight:800;
+	font-family: "Nanum Gothic";
+	float: right;
+	color:#8C8C8C;
+}
 
 .notice_line:last-child{
 	width: 580px;
@@ -396,6 +406,8 @@
 	font-family: "Nanum Gothic";
 }
 
+
+
 .fa-bicycle
 {
 	color:#2aa034;
@@ -465,7 +477,23 @@
 	font-size:45px;
 	color:green;
 	background-color: #f6f6f3;
-	
+}
+
+.iw
+{
+	color:blue;
+	width:25px;
+	height:20px;
+}
+
+.iif 
+{
+	color:black;
+	width:450px;
+	height: 70px;
+	font-size:15px;
+	background-color: #e9fdec;
+	align-content: center;
 }
 </style>
 
@@ -564,8 +592,7 @@ $(document).ready(function(){
 	
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 	var map = new daum.maps.Map(mapContainer, mapOption); 
-	map.setMinLevel(3);
-	map.setMaxLevel(5);
+	
 
 	
 	//수정 0114 (2)
@@ -582,7 +609,7 @@ $(document).ready(function(){
 				//수정 01/14
 	
 	
-	var imageSrc = 'https://cdn.icon-icons.com/icons2/677/PNG/512/bicycle_icon-icons.com_60878.png', // 마커이미지의 주소입니다    
+	var imageSrc = 'https://cdn.icon-icons.com/icons2/1465/PNG/512/615bicycle_100568.png', // 마커이미지의 주소입니다    
     imageSize = new daum.maps.Size(45, 45), // 마커이미지의 크기입니다
     imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
       
@@ -595,8 +622,13 @@ var marker = new daum.maps.Marker({
     position: markerPosition, 
     image: markerImage // 마커이미지 설정 
 });
+
+
+//수정 0118_커피
+var iif = '<div class="iif"><b>'+positions[i].content+'</b><br> 주소명 : '+positions[i].address+'</div>';
 var infowindow = new daum.maps.InfoWindow({
-	content : positions[i].content
+	//content : positions[i].content
+	content : iif
 // 인포윈도우에 표시할 내용
 });
 var id = positions[i].id
@@ -604,8 +636,12 @@ var name = positions[i].name
 var number = positions[i].number
 var my_name=positions[i].content_split
 
+//0118_pm_커피
+var iw = '<div class="iw"><b>Loading...</b></div>';
+
 var infowindow2 = new daum.maps.InfoWindow({
-	content : "조회중입니다.", // 인포윈도우에 표시할 내용
+	//content : "조회중입니다.", // 인포윈도우에 표시할 내용
+	content : iw,
 	removable : true
 });
 
@@ -792,7 +828,6 @@ marker.setMap(map);
 			var content = {
 					content: '<div>${station.name}</div>',
 					content_split: "${station.name}",
-			        //latlng: new daum.maps.LatLng("${station.latitude}", "${station.longitude}"),
 					id: "${station.station_id}",
 					number: "${station.number}",
 					latitude: "${station.latitude}",
@@ -886,6 +921,7 @@ marker.setMap(map);
 <div id="notice_list">
 	<div id="notice_title">
 		Notice <span style="color:gray; font-size: 12px;font-weight: 600;">- 공지사항</span>
+		<a href="${path}/board/notice.bike" id="notice_click">more</a>
 	</div>
 	<!-- SQL이랑 JSTL 이용해서 만들것 -->
 	<div id="notices">
@@ -920,7 +956,6 @@ marker.setMap(map);
 	
 	<div id="weather_etc">
 		※ 위치정보 제공 거부시 가산디지털단지 지역의 날씨가 제공됩니다.
-		<span style="color: black;">정보제공자 https://openweathermap.org</span>
 	</div>
 </div>
 <div id="asd"></div>
