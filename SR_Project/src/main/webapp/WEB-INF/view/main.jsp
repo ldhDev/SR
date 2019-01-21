@@ -134,12 +134,13 @@
 
 #bm_hello{
 	margin-top: 25px;
-	margin-bottom: 15px;
+	margin-bottom: 25px;
 	width: 420px;
 	height: 30px;
 	line-height: 30px;
-	font-weight:700;
-	font-size:14px;
+	font-weight:800;
+	font-size:18px;
+	text-align:center;
 	box-sizing:border-box;
 	padding-left:10px;
 	font-family: "Roboto", sans-serif;
@@ -160,7 +161,7 @@
     height: 75px;
     padding-left: 10px;
     padding-top: 5px;
-    border: 1px dotted #bccfc3;
+    border: 1px dashed #8fb49c;
     cursor: pointer;
 }
 
@@ -169,7 +170,7 @@
     height: 75px;
     line-height: 75px;
     text-align: center;
-    color: rgba(49,117,43,0.35);
+    color: rgba(49,117,43,0.8);
     font-weight: 600;
     font-size: 16px;
     font-family: "Roboto", sans-serif;
@@ -881,7 +882,7 @@ marker.setMap(map);
 	<c:choose>
 		<c:when test="${!empty bookmark[num]}">
 			<div class="bm_list" onmouseover="this.style.borderColor='#0E7518';this.style.borderStyle = 'solid';" 
-									onmouseout="this.style.borderColor='#bccfc3';this.style.borderStyle = 'dotted';"
+									onmouseout="this.style.borderColor='#8fb49c';this.style.borderStyle = 'dashed';"
 									onclick="location.href='${path}/info/station_info.bike?number=${bookmark[num].number}'">
 		 		<div class="bm_L">
 		 			<div class="bm_number">${bookmark[num].number}.</div>
@@ -914,7 +915,7 @@ marker.setMap(map);
 		</c:when>
 		<c:otherwise>
 			<div class="bm_list" style="padding: 0px;cursor: default;">
-				<div class="bm_none">등 록&nbsp;&nbsp;가 능</div>
+				<div class="bm_none">대여소 즐겨찾기 등록 가능</div>
 			</div>
 		</c:otherwise>
 	</c:choose>

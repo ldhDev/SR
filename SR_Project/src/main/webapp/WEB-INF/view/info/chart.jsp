@@ -2,6 +2,9 @@
     pageEncoding="EUC-KR"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 
+
+<c:if test="${!empty chart }">
+
 <c:if test="${type == 'gender' }"><!-- 성비차트 -->
 
     <script type="text/javascript">
@@ -114,4 +117,17 @@
   };
     </script>
 
+</c:if>
+
+</c:if> <!-- 차트 있음 -->
+
+
+
+
+<c:if test="${empty chart }">
+	<div id="no_chart"
+		style="height: 210px;width: 508px; line-height: 210px; font-size: 16px; font-weight: bold; font-family: 'Nanum Gothic'; text-align: center;color: gray;"
+	>
+		등록된 통계정보가 없습니다.
+	</div>
 </c:if>
