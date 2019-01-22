@@ -34,6 +34,7 @@
 	width: :100%;
 	height: 170px;
 	background-color: rgba(0,0,0,0.25);
+	margin-bottom: 10px;
 }
 #main_img{
 	width: 1020px;
@@ -500,6 +501,20 @@
 	font-size:15px;
 	background-color: #e9fdec;
 	align-content: center;
+}
+
+/* °Ë»ö ¹Ù*/
+#btn1
+{
+	height: 45px;
+	width: 65px;
+	margin-left: 5px;
+	cursor: pointer;
+}
+
+#find
+{
+	background-color:white;height: 45px;width: 345px; box-sizing: border-box;float: left; background-color:#f6f6f3;  padding-left: 20px; font-size: 15px;
 }
 </style>
 
