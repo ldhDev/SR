@@ -148,12 +148,20 @@ public class BikeService {
 	public void replyadd(Reply reply) {
 		int max = replyDao.maxNum();
 		reply.setReply_no(++max);
+		reply.setRef(max);
 		replyDao.insert(reply);
 	}
 	
 	//´ë´ñ±Û ¼ø¼­ ÆÄ¾Ç
 	public int Max_ref_level(int reply_no) {
 		return replyDao.max_ref_level(reply_no);
+	}
+	
+	//´ë´ñ±Û ÀÛ¼º
+	public void re_replyadd(Reply reply) {
+		int max = replyDao.maxNum();
+		reply.setReply_no(++max);
+		replyDao.insert(reply);
 	}
 	
 	/////0116Ãò°¡
@@ -189,6 +197,8 @@ public class BikeService {
 	{	
 		return memberDao.memSelect(name);
 	}
+
+	
 
 	
 

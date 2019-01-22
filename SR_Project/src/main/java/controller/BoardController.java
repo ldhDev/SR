@@ -181,7 +181,6 @@ public class BoardController {
 		Member member = (Member)session.getAttribute("member");
 		reply.setUser_id(member.getUser_id());
 		reply.setUser_name(member.getName());
-		reply.setRef(0);
 		reply.setReflevel(0);
 
 		try{
@@ -197,7 +196,6 @@ public class BoardController {
 	public ModelAndView add_re_reply(String content,int reply_no,int board_no, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		Reply reply = new Reply();
-		System.out.println(content);
 		
 		Member member = (Member)session.getAttribute("member");
 		reply.setUser_id(member.getUser_id());
@@ -206,13 +204,11 @@ public class BoardController {
 		reply.setContent(content);
 		reply.setRef(reply_no);
 		
-		System.out.println(reply.getContent());
-		
 		int ref_level= service.Max_ref_level(reply_no);
 		reply.setReflevel(++ref_level);
 
 		try{
-			service.replyadd(reply);
+			service.re_replyadd(reply);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

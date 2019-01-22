@@ -28,7 +28,7 @@
 
 #board{
 	width: 1020px;
-	padding-bottom:30px;
+	padding-bottom:5px;
 	border-bottom: 2px solid #107307;
 }
 
@@ -71,7 +71,7 @@
 	margin-top: 15px; 
 	margin-bottom: 35px;
 	box-sizing: border-box;
-	padding: 0px 10px;
+	padding: 0px 25px;
 }
 .btns{
 	margin: 0 auto;
@@ -116,11 +116,51 @@
 	margin-bottom: 3px;
 }
 
+.re_re{
+	width: 1020px;
+	min-height: 80px;
+	background-color: #f6f9f5;
+}
+
+.re_re_arrow{
+	width: 75px;
+	height:80px;
+	box-sizing: border-box;
+	padding-top: 20px;
+	float: left;
+	
+}
+
+.re_re_list{
+	width: 945px;
+	min-height: 80px;
+	float: right;
+}
+
+.re_re_writer{
+	width: 945px;
+	height: 40px;
+	line-height: 40px;
+	margin-bottom: 3px;
+	float: left;
+}
+
 .re_input{
 	width: 1020px;
 	height: 60px;
 	margin-bottom: 30px;
 	margin-top: 30px;
+}
+
+#no_login{
+	width: 1020px;
+	height: 60px;
+	line-height: 60px;
+	text-align:center;
+	font-weight:700;
+	font-size:16px;
+	color:gray;
+	font-family: "Nanum Gothic";
 }
 
 .re_input textarea{
@@ -142,6 +182,7 @@
     width: 100px;
     height: 60px;
     line-height: 60px;
+    cursor: pointer;
 }
 
 
@@ -235,45 +276,76 @@
 	<div style="clear: both;"></div>
 	<br><br><br>
 
-<div class="top" style="height:40px; line-height:40px; border-bottom: 2px dotted #cfd6ce;"><h3>덧글</h3></div>
+
+<!-- ///////////////////덧글라인///////////////////// -->
+
+<div class="top" style="font-size:18px; height:50px; line-height:50px; border-bottom: 2px solid #107307;"><h3>댓글</h3></div>
 
 	<div id="reply_panel">
 	
-			<form:form modelAttribute="reply" action="addreply.bike" name="ref">
-					<form:hidden path="board_no"/>
-					<c:forEach items="${replylist }" var="list" varStatus="stat">
-					<div class="re_list">
-						<div class="re_writer">
-							<b>${list.user_name }</b>&nbsp;
-							<span style="color: #A4A4A4; font-size: small;"><fmt:formatDate value="${list.regdate }" pattern="yyyy-MM-dd"/></span>
-							&nbsp;
-							<c:if test="${member.user_id == list.user_id}">
-								<span style="font-size: small; cursor: pointer;">
-									<span onclick="re_reply(${list.reply_no},${stat.index })" >답글 </span>&nbsp;|&nbsp;
-									<a href="javascript:re(${list.reply_no})">삭제</a>
-								</span>
+		<c:forEach items="${replylist }" var="list" varStatus="stat">
+			<c:if test="${list.reflevel <1 }"><!-- 대댓글이 아닌것들 -->
+				<div class="re_list">
+					<div class="re_writer">
+						<b>${list.user_name }</b>&nbsp;
+						<span style="color: #A4A4A4; font-size: small;"><fmt:formatDate value="${list.regdate }" pattern="yyyy-MM-dd"/></span>
+						&nbsp;
+						<c:if test="${member.user_id == list.user_id}">
+							<span style="font-size: small; cursor: pointer;">
+								<span onclick="re_reply(${list.reply_no},${stat.index })" >답글 </span>&nbsp;|&nbsp;
+								<a href="javascript:re(${list.reply_no})">삭제</a>
+							</span>
+						</c:if>
+						<c:if test="${member.user_id != list.user_id}">
+							<c:if test="${!empty member.user_id}">
+								<span style="font-size: small; cursor: pointer;"> 
+								<span onclick="re_reply(${list.reply_no},${stat.index })" >답글 </span>
+							</span>
 							</c:if>
-							<c:if test="${member.user_id != list.user_id}">
-								<c:if test="${!empty member.user_id}">
-									<span style="font-size: small; cursor: pointer;">
-									<span onclick="re_reply(${list.reply_no},${stat.index })" >답글 </span>
-								</span>
-								</c:if>
-							</c:if>
-						</div><!-- re_writer 끝 -->
-						
-						<div style="border-bottom: 1px dotted #107307; padding-bottom: 20px;">${list.content }</div>
-						<form action="re_reply.bike" name="re_re${stat.index }" method="post">
-						<div id="content_answer${stat.index }"></div>
-						</form>
-					</div><!-- re_list 끝 -->
+						</c:if>
+					</div><!-- re_writer 끝 -->
 					
-					<script type="text/javascript">
-						on_off.push(true);
-					</script>
-						
-					</c:forEach>
-				</form:form>
+					<div style="border-bottom: 1px dotted #107307; padding-bottom: 20px;">${list.content }</div>
+					<form action="re_reply.bike" name="re_re${stat.index }" method="post">
+					<div id="content_answer${stat.index }"></div>
+					</form>
+				</div><!-- re_list 끝 -->
+				
+				<script type="text/javascript">
+					on_off.push(true);
+				</script>
+			</c:if>
+			
+			
+			<c:if test="${list.reflevel >0 }"><!-- 대댓글 -->
+			<div class="re_re" style="border-bottom: 1px dotted #107307; ">
+				<div class="re_re_arrow">
+					<img src="/SR_Project/img/board/reply_arrow.png">
+				</div>
+				<div class="re_re_list">
+					<div class="re_re_writer">
+						<b>${list.user_name }</b>&nbsp;
+						<span style="color: #A4A4A4; font-size: small;"><fmt:formatDate value="${list.regdate }" pattern="yyyy-MM-dd"/></span>
+						&nbsp;
+						<c:if test="${member.user_id == list.user_id}">
+							<span style="font-size: small; cursor: pointer;">
+								<a href="javascript:re(${list.reply_no})">삭제</a>
+							</span>
+						</c:if>
+					</div><!-- re_writer 끝 -->
+					
+					<div>${list.content }</div>
+				<!--	<form action="re_reply.bike" name="re_re${stat.index }" method="post">
+					<div id="content_answer${stat.index }"></div>
+					</form> -->
+				</div><!-- re_list 끝 -->
+				<script type="text/javascript">
+					on_off.push(true);
+				</script>
+				</div>
+				<div style="clear: both;"></div>
+			</c:if>
+		</c:forEach>
 			
 		<div class="re_input">
 			<form:form modelAttribute="reply" action="addreply.bike" name="f">
@@ -283,6 +355,9 @@
 						<div class="re_btn" onclick="javascript:document.f.submit()">
 							등록
 						</div>
+				</c:if>
+				<c:if test="${empty member.user_id }">
+						<div id="no_login">댓글 작성은 로그인이 필요합니다</div>
 				</c:if>
 			</form:form>
 		</div>
