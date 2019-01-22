@@ -44,6 +44,15 @@
   background-color: #0E7518;
 }
 </style>
+
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:500,700" rel="stylesheet">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<script src="/SR_Project/nicedit/nicEdit.js" type="text/javascript"></script>
+<script type="text/javascript"> 
+bkLib.onDomLoaded(function() { nicEditors.allTextAreas() }); 
+</script> 
+
 </head>
 <body>
 
@@ -54,7 +63,7 @@
 </div>
 
 <div id="writeFrom">
-<form:form modelAttribute="board" action="write.bike" name="f">
+<form:form modelAttribute="board" action="write.bike" name="f" id="frm">
 	<form:hidden path="number"/>
 	<form:hidden path="user_id"/>
 	<form:hidden path="user_name"/>
@@ -74,9 +83,11 @@
 	<div class="line">
 		<div class="tag">내용입력</div>
 		<div style="display: inline;"><form:textarea path="content" rows="15" cols="101"/></div>
+
+		
 	</div>
 	<div class="btn-group">
-	 	<button class="button" style="margin-left: 43%" onclick="javascript:document.f.submit()">작성</button>
+	 	<button class="button" id="savebutton">작성</button>
 	</div>
 </form:form>
 	<div class="btn-group">
@@ -84,5 +95,9 @@
 	</div>
 </div>
 
+
+
 </body>
 </html>
+
+
