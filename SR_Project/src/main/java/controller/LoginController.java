@@ -39,6 +39,7 @@ public class LoginController {
 			return mav;
 		}
 		
+		
 		String atkey = "";
 		String clientId = "SXBfAVH8cGbb5AJWQWbQ";//애플리케이션 클라이언트 아이디값";
 	    String clientSecret = "QCQ5GpERJz";//애플리케이션 클라이언트 시크릿값";
@@ -53,9 +54,6 @@ public class LoginController {
 	    apiURL += "&redirect_uri=" + redirectURI;
 	    apiURL += "&code=" + code;
 	    apiURL += "&state=" + state;
-	    String access_token = "";
-	    String refresh_token = "";
-
 	    try {
 	      URL url = new URL(apiURL);
 	      HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -82,9 +80,7 @@ public class LoginController {
 	    } catch (Exception e) {
 	      e.printStackTrace();
 	    }
-	        String token = atkey;
-			String res = request.getParameter("res");
-			System.out.println("설마 이거 되나? = " + res);
+	        String token = atkey;// 네이버 로그인 접근 토큰; 여기에 복사한 토큰값을 넣어줍니다.
 			
 	        String header = "Bearer " + token; // Bearer 다음에 공백 추가
 	        try {
@@ -120,11 +116,12 @@ public class LoginController {
 	            	mav.addObject("my_member",member);
 	            	System.out.println("정보 있음");
 	            	mav.setViewName("main2");
-	    			return mav;
+	    			return mav;// 데이터베이스에서 회원정보가 있다면 가져와서 main2.bike뿌려준다.
 	            }else {
 	            	System.out.println("정보 없음");
 	            	mav.addObject("my_member",member);
 	            	mav.setViewName("userNameInput");
+	            	// 데이터 베이스에 회원정보가 없다면 닉네임을 설정(회원가입)을 하는 페이지(결정하지 않았지만 닉네임을 설정한다는 의미로 이름은 nick_decision.jsp)로 이동
 	            }
 	        } catch (Exception e) {
 	            System.out.println(e);
@@ -134,25 +131,93 @@ public class LoginController {
 			return mav;
 	}
 	
+//	@RequestMapping("main3")
+//	public ModelAndView main3(HttpServletRequest req,Member member) {
+//		List<Station> stationList = service.stationList();
+//		ModelAndView mav = new ModelAndView();
+//		if(service.nameCheck(req.getParameter("name"))==1) {
+//			mav.setViewName("userNameInput");
+//			mav.addObject("nameCheck","check");//req.set어트리뷰트("nameCheck","ss")
+//			mav.addObject("my_member",member);
+//			return mav;
+//		}else {
+//			service.memberinsert(member);
+//			mav.addObject("stationList",stationList);
+//			req.getSession().setAttribute("member", member);
+//			mav.setViewName("alert");
+//			mav.addObject("message","회원가입 되었습니다.");
+//			mav.addObject("url","main2.bike");
+//		return mav;
+//		}
+//	}
+	
+	
+	
 	@RequestMapping("main3")
 	public ModelAndView main3(HttpServletRequest req,Member member) {
 		List<Station> stationList = service.stationList();
 		ModelAndView mav = new ModelAndView();
-		if(service.nameCheck(req.getParameter("name"))==1) {
+		if(service.nameCheck(req.getParameter("name"))!=1)
+		{
+			char checkChar =' ';
+			for(int i=0; i<req.getParameter("name").length(); i++)
+			{
+				System.out.print(req.getParameter("name").charAt(i));
+				checkChar = req.getParameter("name").charAt(i);
+				if(checkChar == ' ')
+				{
+					mav.setViewName("userNameInput");
+					mav.addObject("nameCheck","blank");
+					mav.addObject("my_member",member);
+					return mav;
+				}
+			}
+			if(req.getParameter("name").trim().length() == 0 )
+			{
+				mav.setViewName("userNameInput");
+				mav.addObject("nameCheck","blank");
+				mav.addObject("my_member",member);
+				return mav;
+			}
+			
+			if(req.getParameter("name").length() < 3 || req.getParameter("name").length() > 10 )
+			{
+				mav.setViewName("userNameInput");
+				mav.addObject("nameCheck","threeten");
+				mav.addObject("my_member",member);
+				return mav;
+			}
+			
+			else if(service.nameCheck(req.getParameter("name"))==1)
+			{
+				mav.setViewName("userNameInput");
+				mav.addObject("nameCheck","aly");
+				mav.addObject("my_member",member);
+				return mav;
+			}
+			else
+			{
+				service.memberinsert(member);
+				mav.addObject("stationList",stationList);
+				req.getSession().setAttribute("member", member);
+				mav.setViewName("alert");
+				mav.addObject("message","회원가입 되었습니다.");
+				mav.addObject("url","main2.bike");
+				return mav;
+			}
+		}
+		else
+		{
 			mav.setViewName("userNameInput");
-			mav.addObject("nameCheck","check");
+			mav.addObject("nameCheck","error");
 			mav.addObject("my_member",member);
 			return mav;
-		}else {
-			service.memberinsert(member);
-			mav.addObject("stationList",stationList);
-			req.getSession().setAttribute("member", member);
-			mav.setViewName("alert");
-			mav.addObject("message","회원가입 되었습니다.");
-			mav.addObject("url","main2.bike");
-		return mav;
 		}
+		
 	}
+	
+	
+	
 	
 	@RequestMapping("/logout*")
 	public ModelAndView logout(HttpServletRequest request) {

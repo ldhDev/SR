@@ -80,11 +80,31 @@ a
 </head>
 
 <body>
-<c:if test="${nameCheck!=null}">
+
+<c:if test="${nameCheck==\"aly\"}">
 <script type="text/javascript">
 alert("이미 사용중인 아이디 입니다.");
 </script>
 </c:if>
+
+<c:if test="${nameCheck==\"blank\"}">
+<script type="text/javascript">
+alert("공백을 사용할 수 없습니다.");
+</script>
+</c:if>
+
+<c:if test="${nameCheck==\"threeten\"}">
+<script type="text/javascript">
+alert("3글자이상 10미만의 닉네임을 사용해야 합니다.");
+</script>
+</c:if>
+
+<c:if test="${nameCheck==\"error\"}">
+<script type="text/javascript">
+alert("회원가입에 실패했습니다.");
+</script>
+</c:if>
+
 <form:form modelAttribute="member" action="main3.bike" name="f">
 
 <input type="hidden" name="user_id" value="${my_member.user_id}">

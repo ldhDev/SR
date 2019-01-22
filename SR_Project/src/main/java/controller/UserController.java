@@ -62,20 +62,67 @@ public class UserController {
 	}
 	
 	@RequestMapping("user/update")
-	public ModelAndView update(HttpSession session, Member mem) {
+	public ModelAndView update(HttpSession session, Member mem,HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		Member member = (Member)session.getAttribute("member");
-		member.setName(mem.getName());
-		try {
-			service.userupdate(member);
-			mav.setViewName("redirect:mypage.bike");
-		}catch(Exception e) {
-			throw new LoginException("이미있는 아이디 입니다.","../user/mypage.bike");
+		System.out.println(req.getParameter("name").length());
+		System.out.println(req.getParameter("name"));
+		System.out.println(req.getParameter("name").trim().length()+"공백에대한 값");
+		if(service.nameCheck(req.getParameter("name"))!=1)
+		{
+			char checkChar =' ';
+			for(int i=0; i<req.getParameter("name").length(); i++)
+			{
+				System.out.print(req.getParameter("name").charAt(i));
+				checkChar = req.getParameter("name").charAt(i);
+				if(checkChar == ' ')
+				{
+					mav.setViewName("alert");
+					mav.addObject("message","공백을 사용할 수 없습니다.");
+					mav.addObject("url","mypage.bike");
+					return mav;
+				}
+			}
+			if(req.getParameter("name").trim().length() == 0 )
+			{
+				mav.setViewName("alert");
+				mav.addObject("message","공백을 사용할 수 없습니다.");
+				mav.addObject("url","mypage.bike");
+				return mav;
+			}
+			
+			if(req.getParameter("name").length() < 3 || req.getParameter("name").length() > 10 )
+			{
+				mav.setViewName("alert");
+				mav.addObject("message","3글자이상 10미만의 닉네임을 사용해야 합니다.");
+				mav.addObject("url","mypage.bike");
+				return mav;
+			}
+			Member member = (Member)session.getAttribute("member");
+			member.setName(mem.getName());
+				service.userupdate(member);
+				mav.setViewName("alert");
+				mav.addObject("message","변경되었습니다.");
+				mav.addObject("url","mypage.bike");
+			return mav;
 		}
-		return mav;
+		else if(service.nameCheck(req.getParameter("name"))==1)
+		{
+			mav.setViewName("alert");
+			mav.addObject("message","이미 사용중인 아이디 입니다.");
+			mav.addObject("url","mypage.bike");
+			return mav;
+		}
+		else
+		{
+			mav.setViewName("alert");
+			mav.addObject("message","변경에 실패하였습니다.");
+			mav.addObject("url","mypage.bike");
+			return mav;
+		}
+		
 	}
 	
-	//0117상원 삭제 추가
+
 	@RequestMapping(value="user/bookmark_delete", method = RequestMethod.GET)
 	public ModelAndView bk_delete(int number,HttpSession session) {
 		ModelAndView mav = new ModelAndView(); 
@@ -84,20 +131,27 @@ public class UserController {
 		if(member.getBookmark1() == number) {
 			service.bookmark_out(member.getUser_id(),1);
 			System.out.println("1 들어옴");
+			mav.setViewName("alert");
+			mav.addObject("message","제거 되었습니다.");
 		}
 		else if(member.getBookmark2() == number) {
 			service.bookmark_out(member.getUser_id(),2);
 			System.out.println("2 들어옴");
+			mav.setViewName("alert");
+			mav.addObject("message","제거 되었습니다.");
 		}
 		else if(member.getBookmark3() == number) {
 			service.bookmark_out(member.getUser_id(),3);
 			System.out.println("3 들어옴");
+			mav.setViewName("alert");
+			mav.addObject("message","제거 되었습니다.");
 		}
 		
 		member = service.imformation(member);
 		session.setAttribute("member", member);
 		mav.addObject("member",member);
-		mav.setViewName("redirect:../user/mypage.bike");
+		mav.addObject("url","../user/mypage.bike");
+		//mav.setViewName("redirect:../user/mypage.bike");
 
 		return mav;
 	}
