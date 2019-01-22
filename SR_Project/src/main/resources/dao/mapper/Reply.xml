@@ -7,7 +7,7 @@
 		<if test="board_no != null">
 			where board_no=#{board_no}
 		</if>
-		order by ref, reflevel
+		order by reflevel , reply_no
 	</select>
 	<select id="count" resultType="Integer" parameterType="map">
 		select count(*) from reply

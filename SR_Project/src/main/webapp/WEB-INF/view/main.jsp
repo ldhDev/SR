@@ -131,12 +131,13 @@
 
 #bm_hello{
 	margin-top: 25px;
-	margin-bottom: 15px;
+	margin-bottom: 25px;
 	width: 420px;
 	height: 30px;
 	line-height: 30px;
-	font-weight:700;
-	font-size:14px;
+	font-weight:800;
+	font-size:18px;
+	text-align:center;
 	box-sizing:border-box;
 	padding-left:10px;
 	font-family: "Roboto", sans-serif;
@@ -273,6 +274,16 @@
 	line-height: 39px;
 	border-bottom: 1px solid #d8d8d8;
 }
+#notice_click{
+	margin-top:26px;
+	margin-right:20px;
+	line-height: 15px;
+	font-size:14px;
+	font-weight:800;
+	font-family: "Nanum Gothic";
+	float: right;
+	color:#8C8C8C;
+}
 
 .notice_line:last-child{
 	width: 580px;
@@ -398,6 +409,8 @@
 	font-family: "Nanum Gothic";
 }
 
+
+
 .fa-bicycle
 {
 	color:#2aa034;
@@ -469,14 +482,6 @@
 	background-color: #f6f6f3;
 }
 
-.fa-search:hover
-{
-	cursor: pointer;
-	color:#31ea40;
-}
-
-
-
 .iw
 {
 	color:blue;
@@ -494,6 +499,7 @@
 	align-content: center;
 }
 
+/* °Ë»ö ¹Ù*/
 #btn1
 {
 	height: 45px;

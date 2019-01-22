@@ -39,4 +39,18 @@ public class ReplyDao {
 		sqlSession.getMapper(ReplyMapper.class).delete(param);
 	}
 
+	//´ë´ñ±Û
+	public int max_ref_level(int reply_no) {
+		Map<String,Integer> param = new HashMap<String,Integer>();
+		param.put("reply_no", reply_no);
+		try {
+			return sqlSession.getMapper(ReplyMapper.class).max_level(param);
+		}
+		catch(Exception e){
+			System.out.println(e);
+			return 0;
+		}
+		
+	}
+
 }

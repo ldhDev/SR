@@ -14,9 +14,12 @@ public interface ReplyMapper {
 	Integer maxNum();
 	
 	@Insert("insert into reply(reply_no ,board_no, user_id, user_name, content, regdate, ref, reflevel) "
-			+ "values (#{reply_no},#{board_no},#{user_id},#{user_name},#{content},now(),#{ref},0)")
+			+ "values (#{reply_no},#{board_no},#{user_id},#{user_name},#{content},now(),#{ref},#{reflevel})")
 	void insert(Reply reply);
 
 	@Delete("delete from reply where reply_no =#{reply_no}")
 	void delete(Map<String, Integer> param);
+
+	@Select("Select max(reflevel) from reply where ref = ${reply_no}")
+	int max_level(Map<String, Integer> param);
 }

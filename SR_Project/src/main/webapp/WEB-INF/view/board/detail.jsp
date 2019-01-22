@@ -17,13 +17,15 @@
 #main_img_bar{
 	width: :100%;
 	height: 170px;
-	background-color: rgba(0,0,0,0.25);
+	background-color: rgba(0,0,0,0.25); 
 }
+
 #main_img{
 	width: 1020px;
 	height: 170px;
-	margin: 0 auto;
+	margin: 0 auto; 
 }
+
 #board{
 	width: 1020px;
 	padding-bottom:30px;
@@ -161,7 +163,7 @@
 	function re_reply(no,re_order){
 		
 		if(on_off[re_order]){
-			var html_text='<div class="re_input"><form:form modelAttribute="reply" action="addreply2.bike" name="f2"><input type="hidden" name="reply_no" value="'+no+'"><input type="hidden" name="board_no" value="${param.num}"><textarea class="re_content" name="content"></textarea><div class="re_btn" onclick="javascript:document.f2.submit()">등록</div></form:form></div>'
+			var html_text='<div class="re_input" style="margin-top:10px;margin-bottom:10px;"><input type="hidden" name="reply_no" value="'+no+'"><input type="hidden" name="board_no" value="${param.num}"><textarea style="width:850px; margin-left:50px;" class="re_content" name="content"></textarea><div class="re_btn" onclick="javascript:document.re_re'+re_order+'.submit()">등록</div></form></div>'
 			on_off[re_order]=false;
 		}else if(!on_off[re_order]){
 			var html_text='';
@@ -191,8 +193,7 @@
 				<h2>전체 게시글</h2>
 			</c:if>
 			<c:if test="${station.name != null }">
-				<h2>${b.number }.${station.name }</h2>
-				<p>${station.address }</p>
+				<h2>${b.number }.${station.name }</h2>${station.address }
 			</c:if>
 		</div>
 		
@@ -220,10 +221,11 @@
 </div><!-- content_line 끝 -->
 	<div class="btn-group">
 		<c:if test="${empty param.number }">
-			<a href="list.bike" style="color: white;"><div class="btns">목록</div></a>
+		
+			<a href="list.bike" style="color: white;"><div class="btns" <c:if test="${member.user_id != b.user_id}">style="float:right;"</c:if> >목록</div></a>
 		</c:if>
 		<c:if test="${!empty param.number }">
-			<a href="list.bike?num=${param.number }" style="color: white;"><div class="btns">목록</div></a>
+			<a href="list.bike?num=${param.number }" style="color: white;"><div class="btns" <c:if test="${member.user_id != b.user_id}">style="float:right;"</c:if>>목록</div></a>
 		</c:if>
 		<c:if test="${member.user_id == b.user_id}">
 			<div class="btns" onclick="location.href='update.bike?num=${b.board_no}'" style="margin-left: 5px; margin-right: 5px;">수정</div>
@@ -261,8 +263,14 @@
 						</div><!-- re_writer 끝 -->
 						
 						<div style="border-bottom: 1px dotted #107307; padding-bottom: 20px;">${list.content }</div>
+						<form action="re_reply.bike" name="re_re${stat.index }" method="post">
 						<div id="content_answer${stat.index }"></div>
+						</form>
 					</div><!-- re_list 끝 -->
+					
+					<script type="text/javascript">
+						on_off.push(true);
+					</script>
 						
 					</c:forEach>
 				</form:form>

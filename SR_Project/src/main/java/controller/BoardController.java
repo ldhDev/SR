@@ -181,9 +181,9 @@ public class BoardController {
 		Member member = (Member)session.getAttribute("member");
 		reply.setUser_id(member.getUser_id());
 		reply.setUser_name(member.getName());
-		reply.setContent(reply.getContent().replace(",",""));
-//		if(reply.getRef() ==)
-//		reply.setRef(reply.getRef() +1);
+		reply.setRef(0);
+		reply.setReflevel(0);
+
 		try{
 			service.replyadd(reply);
 		}catch(Exception e) {
@@ -192,6 +192,33 @@ public class BoardController {
 		mav.setViewName("redirect:detail.bike?num="+reply.getBoard_no());
 		return mav;
 	}
+	
+	@RequestMapping("board/re_reply")
+	public ModelAndView add_re_reply(String content,int reply_no,int board_no, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Reply reply = new Reply();
+		System.out.println(content);
+		
+		Member member = (Member)session.getAttribute("member");
+		reply.setUser_id(member.getUser_id());
+		reply.setUser_name(member.getName());
+		reply.setBoard_no(board_no);
+		reply.setContent(content);
+		reply.setRef(reply_no);
+		
+		System.out.println(reply.getContent());
+		
+		int ref_level= service.Max_ref_level(reply_no);
+		reply.setReflevel(++ref_level);
+
+		try{
+			service.replyadd(reply);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		mav.setViewName("redirect:detail.bike?num="+reply.getBoard_no());
+		return mav;
+	}	
 	
 	@RequestMapping(value="board/replydelete", method=RequestMethod.GET)
 	public ModelAndView replydelete(Integer num, HttpServletRequest request, String number, Integer replynum) {
