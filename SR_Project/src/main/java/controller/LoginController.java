@@ -217,8 +217,6 @@ public class LoginController {
 	}
 	
 	
-	
-	
 	@RequestMapping("/logout*")
 	public ModelAndView logout(HttpServletRequest request) {
 		request.getSession().invalidate();
