@@ -702,7 +702,7 @@ marker.setMap(map);
 					if(find_value==null||find_value==""){break;}
 					var marker_such=marker_on_off[i].marker_target;
 					var address_such=marker_on_off[i].name;
-					if(address_such.includes(find_value)){// 본격 비교 문자열이 포함된다면 true
+					if(address_such.includes(find_value.trim())){// 본격 비교 문자열이 포함된다면 true
 						marker_such.setMap(map); // 지도에 올린다.
 						if(such_zero){
 							map.setCenter(marker_such.getPosition());
