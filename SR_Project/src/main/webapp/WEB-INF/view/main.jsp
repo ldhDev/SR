@@ -244,15 +244,15 @@
 #notice_list{
 	margin-top: 35px;
 	width: 600px;
-	height: 310px;
+	height: 323px;
 	box-sizing:border-box;
 	float: left;
 }
 #notice_title{
 	/*margin-bottom:25px;*/margin-bottom:0px !important;
 	width: 580px;
-	height: 50px;
-	line-height: 50px;
+	height: 62px;
+	line-height: 62px;
 	font-size:28px;
 	font-weight:800;
 	font-family: "Nanum Gothic";
@@ -263,15 +263,15 @@
 	clear:both;
 	width: 580px;
 	float:left;
-	height: 200px;
-	line-height: 200px;
+	height: 213px;
+	line-height: 213px;
 	text-align: center;
 	border-bottom: 2px dashed #d4f8e2;
 }
 .notice_line{
 	width: 580px;
-	height: 39px;
-	line-height: 39px;
+	height: 41px;
+	line-height: 41px;
 	border-bottom: 1px solid #d8d8d8;
 }
 #notice_click{
@@ -287,8 +287,8 @@
 
 .notice_line:last-child{
 	width: 580px;
-	height: 40px;
-	line-height: 40px;
+	height: 43px;
+	line-height: 43px;
 	text-align:left;
 	border-bottom: 0px;
 }

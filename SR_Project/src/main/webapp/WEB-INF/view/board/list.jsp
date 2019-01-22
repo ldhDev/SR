@@ -189,11 +189,11 @@
 	  		</div>
 	  	</div>
 		<div class="tbody">
-			<c:forEach items="${boardlist }" var="board">
+			<c:forEach items="${boardlist }" var="board" varStatus="stat">
 		    	<div class="tr">
 		    		<c:if test="${station.number != 0}">
 			    		<c:if test="${station.number == board.number }">
-				      		<div class="td">${board.board_no }</div>
+				      		<div class="td">${boardcnt - stat.index}</div>
 				      		<div class="td">
 				      			<c:if test="${board.type == 1}">잡담</c:if>
 				      			<c:if test="${board.type == 2}">정보</c:if>
@@ -206,7 +206,7 @@
 			      		</c:if>
 		      		</c:if>
 		      		<c:if test="${station.number == 0}">
-		      			<div class="td">${board.board_no }</div>
+		      			<div class="td">${boardcnt - stat.index}</div>
 				      	<div class="td">
 				      		<c:if test="${board.type == 1}">잡담</c:if>
 				      		<c:if test="${board.type == 2}">정보</c:if>

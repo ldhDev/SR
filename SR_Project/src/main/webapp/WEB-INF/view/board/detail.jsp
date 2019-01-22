@@ -234,7 +234,7 @@
 				<h2>전체 게시글</h2>
 			</c:if>
 			<c:if test="${station.name != null }">
-				<h2>${b.number }.${station.name }</h2>${station.address }
+				<h2>${b.number }.${station.name } 게시판</h2><!-- ${station.address } -->
 			</c:if>
 		</div>
 		

@@ -26,16 +26,25 @@
 		
 		order by board_no desc limit #{startrow}, #{limit}
 	</select>
+	
 	<select id="count" resultType="Integer" parameterType="map">
 		select count(*) from board
 		<if test = "number != null">
 			where number=#{number}
+			<if test = "type == null">
+				and type in(1,2,3)
+			</if>
+		</if>
+		
+		<if test = "number == null">
+			<if test = "type == null">
+				where type in(1,2,3)
+			</if>
 		</if>
 		
 		<!-- 0117상원추가 -->
 		<if test = "type != null">
 			where type=#{type}
 		</if>
-		
 	</select>
 </mapper>

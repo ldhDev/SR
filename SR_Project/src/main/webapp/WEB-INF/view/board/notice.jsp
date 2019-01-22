@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>게시판 목록</title>
+<title>공지사항</title>
 <style type="text/css">
 #main_img_bar{
 	width: :100%;
@@ -145,9 +145,9 @@
 	  		</div>
 	  	</div>
 		<div class="tbody">
-			<c:forEach items="${boardlist }" var="board">
+			<c:forEach items="${boardlist }" var="board" varStatus="stat">
 		    	<div class="tr">
-		      			<div class="td">${board.board_no }</div>
+		      			<div class="td">${boardcnt - stat.index}</div>
 				      	<div class="td">
 				      		공지사항
 				      	</div>

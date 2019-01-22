@@ -139,13 +139,9 @@ function frm(write_form){
 		return false;
 	}
 	
-	
 	document.f.content.value = conCk; 
 	write_form.submit();
-	
-	
-	
-	
+
 }
 </script> 
 
@@ -192,7 +188,7 @@ function frm(write_form){
 		 	<button type="button" class="button" id="savebutton" style="margin-right: 10px;" onclick="frm(this.form);">작성</button>
 		</div>
 		<div class="btn-group">
-			<button class="button" onclick="javascript:history.go(-1)">취소</button>
+			<button  type="button" class="button" onclick="javascript:history.go(-1)">취소</button>
 		</div>
 	</div>
 </div>
