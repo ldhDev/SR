@@ -21,6 +21,9 @@
 		<if test="board_no == null">
 			<if test = "type == null">
 				where type in(1,2,3)
+				<if test="number != null">
+					and number=#{number}
+				</if>
 			</if>
 		</if>
 		

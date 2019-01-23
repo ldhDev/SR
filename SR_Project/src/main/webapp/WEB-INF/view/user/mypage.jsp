@@ -57,12 +57,53 @@ input[type=text]{
 #up:hover{
 	background-color: #0E7518;
 }
+.bookmark{
+	width: 485px; 
+	height:500px; 
+	margin-left:500px;
+	border-style: outset; 
+	padding-top: 25px;
+	padding-left: 20px;
+	padding-bottom: 30px;
+}
+
 .bookmark p{
 	padding: 5px;
 }
 .bookmark .up{
 	margin-top: 50px;
 	padding: 5px;
+}
+.address{
+	padding-top:70px; 
+	padding-left: 35px; 
+	width: 290px; 
+	height: 50px;
+}
+#my{
+	width: 410px; 
+	height:500px; 
+	float: left; 
+	padding-bottom: 40px; 
+	margin-left: 25px; 
+	padding-left: 20px;
+	padding-top: 15px;
+	border-style: outset; 
+	
+}
+.btns{
+	margin: 0 auto;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    width: 70px;
+    height: 45px;
+    line-height: 45px;
+    color: white;
+    border-radius: 5px;
+    background-color: #107307;
+    float: left;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -73,7 +114,7 @@ input[type=text]{
 	</div>
 </div>
 <div id="board">
-	<div style="width: 400px; float: left; padding-bottom: 100px; margin-left: 25px; padding-left: 70px;">
+	<div id="my">
 		<div class="info">
 			<h3>³»Á¤º¸</h3>
 			<p>´Ð³×ÀÓ</p> 
@@ -101,11 +142,11 @@ input[type=text]{
 			<p class="value">${member.email }</p> 
 		</div>
 		
-		<div style="padding-left: 150px; padding-top: 15px;"><a id="up" href="delete.bike" style="color: white;">Å»Åð</a></div>
+		<div style="padding-left: 300px; padding-top: 50px;"><a class="btns" href="delete.bike" style="color: white;">Å»Åð</a></div>
 		
 	</div>
-	<div class="bookmark" style="width: 500px; margin-left:480px; padding-top: 10px;">
-		<h3>Áñ°ÜÃ£±â</h3>
+	<div class="bookmark" style="">
+		<h3 style="padding-top:10px;">Áñ°ÜÃ£±â</h3>
 		<div style="margin-top: 15px; height: 50px; padding-bottom: 30px;" >
 			<div style="float: left; width: 110px;">
 				<p>Áñ°ÜÃ£±â1.</p>
@@ -115,9 +156,10 @@ input[type=text]{
 			</c:if>
 			<c:if test="${member.bookmark1 != 0}">
 				<div style="float: left; width:270px; white-space:normal;"><p>${station1.name}</p></div><div style="width:70px; line-height:44px; float: right;"><a id="up" href="bookmark_delete.bike?number=${station1.number }" style="color: white;">Á¦°Å</a></div>
+				<div class ="address">${station1.address }</div>
 			</c:if>
 		</div>
-		<div style="height: 50px; padding-bottom: 30px;" >
+		<div style="height: 50px; padding-bottom: 30px; margin-top: 70px;" >
 			<div style="float: left; width: 110px;">
 				<p>Áñ°ÜÃ£±â2.</p>
 			</div>
@@ -126,9 +168,10 @@ input[type=text]{
 			</c:if>
 			<c:if test="${member.bookmark2 != 0}">
 				<div style="float: left; width:270px; white-space:normal;"><p>${station2.name}</p></div><div style="width:70px; line-height:44px; float: right;"><a id="up" href="bookmark_delete.bike?number=${station2.number }" style="color: white;">Á¦°Å</a></div>
+				<div class ="address">${station2.address }</div>
 			</c:if>
 		</div>
-		<div style="height: 50px; padding-bottom: 30px;" >
+		<div style="height: 50px; padding-bottom: 30px; margin-top: 70px;" >
 			<div style="float: left; width: 110px;">
 				<p>Áñ°ÜÃ£±â3.</p>
 			</div>
@@ -137,6 +180,7 @@ input[type=text]{
 			</c:if>
 			<c:if test="${member.bookmark3 != 0}">
 				<div style="float: left; width:270px; white-space:normal;"><p>${station3.name}</p></div><div style="width:70px; line-height:44px; float: right;"><a id="up" href="bookmark_delete.bike?number=${station3.number }" style="color: white;">Á¦°Å</a></div>
+				<div class ="address">${station3.address }</div>
 			</c:if>
 		</div>
 	</div>

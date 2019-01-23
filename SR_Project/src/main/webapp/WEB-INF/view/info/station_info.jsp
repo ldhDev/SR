@@ -982,7 +982,7 @@ var marker_target_info= {
 marker_on_off.push(marker_target_info);
 // 마커가 지도 위에 표시되도록 설정합니다
 marker.setMap(map);  
-	
+
 	
 	//수정 완료 
 
@@ -1165,7 +1165,6 @@ marker.setMap(map);
 			positions.push(content);
 		</script>
 </c:forEach>
-
 
 <!-- 대여소 지정 있고 페이지 입장 -->
 <c:if test="${info_open == 1 }">

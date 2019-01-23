@@ -244,7 +244,7 @@
 #notice_list{
 	margin-top: 35px;
 	width: 600px;
-	height: 323px;
+	height: 280px;
 	box-sizing:border-box;
 	float: left;
 }
@@ -867,7 +867,7 @@ marker.setMap(map);
 <c:if test="${sessionScope.member==null}">	
   <%
     String clientId = "SXBfAVH8cGbb5AJWQWbQ";//애플리케이션 클라이언트 아이디값";
-    String redirectURI = URLEncoder.encode("http://localhost:8080/SR_Project/main2.bike", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://192.168.0.242:8080/SR_Project/main2.bike", "UTF-8");
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();
     String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";

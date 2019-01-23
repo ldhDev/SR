@@ -83,7 +83,7 @@ a
 
 <c:if test="${nameCheck==\"aly\"}">
 <script type="text/javascript">
-alert("이미 사용중인 아이디 입니다.");
+alert("이미 사용중인 닉네임 입니다.");
 </script>
 </c:if>
 
